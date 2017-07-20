@@ -1,0 +1,25 @@
+.home-wrapper .home-overflow {
+  overflow: hidden;
+  position: relative;
+}
+.home-wrapper .home-overflow #home-map {
+  height: 600px;
+}
+.home-wrapper .home-overflow .place-info {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: #eff1f2;
+  padding: 15px;
+  transform: translateX(100%);
+  border: 1px solid #c0c0c0;
+  border-right: 0;
+  transition: transform .5s ease;
+}
+.home-wrapper .home-overflow .place-info span:not(.no-block) {
+  display: block;
+}
+.home-wrapper .home-overflow .place-info.show {
+  transform: translateX(0);
+}

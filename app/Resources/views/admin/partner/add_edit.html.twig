@@ -1,0 +1,11 @@
+{% extends 'place/add_edit.html.twig' %}
+
+{% set layout = 'layout_admin.html.twig' %}
+{% set mapMarker = asset('assets/img/map/marker_partner.png') %}
+{% set isShop = false %}
+
+{% block title %}
+    {% set title = isNew ? 'New partner'|trans : 'Partner edition'|trans %}
+    {{ title }}
+{% endblock title %}
+

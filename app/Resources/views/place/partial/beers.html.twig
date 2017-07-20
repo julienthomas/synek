@@ -1,0 +1,29 @@
+<div id="place-beers" class="tab-pane fade active in" data-role="place-panel">
+    <div class="tab-pane fade active in">
+        <div class="col-lg-12">
+            <h3 class="page-header">{{ 'Beers'|trans }}</h3>
+        </div>
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        {{ form_label(form.beers) }}
+                        <span class="label-subtext">{{ 'Beer not found? You can add a new one by' }} <a href="#beer-add" data-toggle="tab" aria-expanded="false">{{ 'clicking here' }}</a></span>
+                        {{ form_widget(form.beers, {'attr': {'data-id': 'place-beers', 'class': 'beer-select'}}) }}
+                    </div>
+                </div>
+                <div class="col-lg-12 selected-beers" data-id="selected-beers">
+                    {% for beer in place.beers %}
+                        {% include 'place/partial/beers/template.html.twig' with {'template': 0, 'name': beer.name, 'id': beer.id} %}
+                    {% endfor %}
+                </div>
+                {% include 'place/partial/beers/template.html.twig' with {'template': 1, 'name': null, 'id': null} %}
+            </div>
+            {#<div class="tab-content">#}
+                {#<div id="beer-add" class="tab-pane fade">#}
+                    {#{% include 'beer/partial/form.html.twig' with {'form': beerForm, 'breweryForm': breweryForm, 'isEmbed': true} %}#}
+                {#</div>#}
+            {#</div>#}
+        </div>
+    </div>
+</div>

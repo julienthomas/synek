@@ -1,0 +1,91 @@
+{% extends layout %}
+
+{% block stylesheets %}
+    <link href="{{ asset('assets/css/place/add_edit.css') }}" rel="stylesheet">
+{% endblock stylesheets %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{% block title %}{% endblock title%}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row">
+                {{ form_start(form, {'attr': {'data-id': 'place-form', 'data-upload-url': path('admin_shop_image_upload')}}) }}
+                <div class="col-lg-3 form-nav">
+                    <div class="panel">
+                        <ul class="nav nav-tabs" data-id="place-panels-links">
+                            <li class="active">
+                                <a href="#place-information" data-toggle="tab" aria-expanded="true">
+                                    {{ 'Information'|trans }}
+                                    {% include 'place/partial/nav_errors.html.twig' with {'form': form, 'isParentForm': true} %}
+                                </a>
+                            </li>
+                            {% if isShop == true and addOwner is defined and addOwner == true %}
+                                <li>
+                                    <a href="#place-owner" data-toggle="tab" aria-expanded="false">
+                                        {{ 'Owner'|trans }}
+                                    </a>
+                                </li>
+                            {% endif %}
+                            <li>
+                                <a href="#place-address" data-toggle="tab" aria-expanded="false" data-id="place-address-link">
+                                    {{ 'Address'|trans }}
+                                    {% include 'place/partial/nav_errors.html.twig' with {'form': form.address, 'isParentForm': false} %}
+                                </a>
+                            </li>
+                            {% if isShop == true %}
+                                <li>
+                                    <a href="#place-pictures" data-toggle="tab" aria-expanded="false" data-id="place-pictures-link">
+                                        {{ 'Pictures'|trans }}
+                                        {% include 'place/partial/nav_errors.html.twig' with {'form': form.pictures, 'isParentForm': false} %}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#place-schedule" data-toggle="tab" aria-expanded="false">
+                                        {{ 'Schedules'|trans }}
+                                        {#{% include 'place/partial/nav-errors.html.twig' with {'form': form} %}#}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#place-beers" data-toggle="tab" aria-expanded="false">
+                                        {{ 'Beers'|trans }}
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="panel">
+                        <div class="panel-body tab-content">
+                            <div class="panel-action">
+                                <button type="button" class="btn btn-danger"><i class="fa fa-times"></i> {{ 'Cancel'|trans }}</button>
+                                <button type="submit" class="btn btn-success beer-submit"><i class="fa fa-check"></i> {{ 'Send'|trans }}</button>
+                            </div>
+                            {% include 'place/partial/information.html.twig' %}
+                            {% if isShop == true %}
+                                {% include 'place/partial/owner.html.twig' %}
+                            {% endif %}
+                            {% include 'place/partial/address.html.twig' with {'form': form.address} %}
+                            {% if isShop == true %}
+                                {% include 'place/partial/pictures.html.twig' with {'form': form.pictures} %}
+                                {% include 'place/partial/schedule.html.twig' %}
+                                {% include 'place/partial/beers.html.twig'  %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {{ form_row(form._token) }}
+                {{ form_end(form, {'render_rest': false}) }}
+            </div>
+        </div>
+    </div>
+{% endblock body %}
+
+{% block javascripts %}
+    <script src="https://maps.googleapis.com/maps/api/js?v=3&key={{ google_api_key }}"></script>
+    <script src="{{ asset('assets/js/place/add_edit.js') }}"></script>
+{% endblock javascripts %}

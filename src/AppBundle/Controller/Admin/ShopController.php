@@ -1,0 +1,112 @@
+<?php
+
+namespace AppBundle\Controller\Admin;
+
+use AppBundle\Entity\Beer;
+use AppBundle\Entity\Brewery;
+use AppBundle\Entity\Place;
+use AppBundle\Form\BeerType;
+use AppBundle\Form\BreweryType;
+use AppBundle\Form\PlaceType;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
+class ShopController extends Controller
+{
+    /**
+     * @Route("/admin/shop", name="admin_shop")
+     */
+    public function listAction()
+    {
+        return $this->render('admin/shop/list.html.twig');
+    }
+
+    /**
+     * @Route("/admin/shop/new-refresh", name="admin_shop_new_refresh")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function newListRefreshAction(Request $request)
+    {
+        $data = $this->get('synek.service.shop')->getNewList($request->request->all());
+        return new JsonResponse($data);
+    }
+
+    /**
+     * @Route("/admin/shop/refresh", name="admin_shop_refresh")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function listRefreshAction(Request $request)
+    {
+        $data = $this->get('synek.service.shop')->getList($request->request->all());
+        return new JsonResponse($data);
+    }
+
+    /**
+     * @Route("/admin/shop/add", name="admin_shop_add")
+     * @Route("/admin/shop/edit/{id}", name="admin_shop_edit")
+     * @param Request $request
+     * @param Place $place
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     */
+    public function editAction(Request $request, Place $place)
+    {
+        $shopService = $this->get('synek.service.shop');
+        $basePictures = $shopService->getCurrentPictures($place);
+        $formType = new PlaceType($this->getUser()->getLanguage(), $this->get('synek.service.shop'), true);
+        $form = $this->createForm($formType, $place);
+        $beerForm = $this->createForm(new BeerType($this->getUser()->getLanguage()), new Beer());
+        $breweryForm = $this->createForm(new BreweryType($this->getUser()->getLanguage()), new Brewery());
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $shopService->saveShop($place);
+                $shopService->deleteUnusedPictures($place, $basePictures);
+                $this->get('session')->getFlashBag()->add('success', _('Shop successfully edited.'));
+                return $this->redirectToRoute('admin_shop');
+            } else {
+                $this->get('session')->getFlashBag()->add('error', _('Some fields are invalids.'));
+            }
+        }
+
+        return $this->render('admin/shop/edit.html.twig', [
+            'place'       => $place,
+            'form'        => $form->createView(),
+            'beerForm'    => $beerForm->createView(),
+            'breweryForm' => $breweryForm->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/admin/shop/import", name="admin_shop_import")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Exception
+     */
+    public function prestashopImportAction()
+    {
+        $shopsNb = $this->get('synek.service.shop')->importPrestashopShops();
+        $this->get('session')->getFlashBag()
+            ->add('success', sprintf(_("%s shops were imported from Prestashop."), $shopsNb));
+        return $this->redirectToRoute('admin_shop');
+    }
+
+    /**
+     * @Route("/admin/shop/image-upload", name="admin_shop_image_upload")
+     * @param Request $request
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function imageUploadAction(Request $request)
+    {
+        $asset = $this->get('synek.service.shop')->uploadImage($request->files->get('image'));
+        if (!$asset) {
+            throw new \Exception('Invalid image');
+        }
+        return new JsonResponse(['file' => $asset]);
+    }
+}

@@ -1,0 +1,42 @@
+<div class="panel">
+    <div class="panel-body">
+        {{ form_start(form) }}
+        <div class="panel-action">
+            <button type="button" class="btn btn-danger"><i class="fa fa-times"></i> {{ 'Cancel'|trans }}</button>
+            {% set btnType =  isEmbed is not defined ? 'submit' : 'button' %}
+            <button type="{{ btnType }}" class="btn btn-success beer-submit"><i class="fa fa-check"></i> {{ 'Send'|trans }}</button>
+        </div>
+        <div class="col-lg-12">
+            <h3 class="page-header">{{ 'Beer information' }}</h3>
+        </div>
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-4">
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.alcoholDegree) }}
+                    <div class="form-group">
+                        {{ form_label(form.type) }}
+                        <span class="label-subtext">{{ 'Type not found? You can add a new one by' }} <a href="#beer-type" data-toggle="tab" aria-expanded="false">{{ 'clicking here' }}</a></span>
+                        {{ form_widget(form.type) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.brewery) }}
+                        <span class="label-subtext">{{ 'Brewery not found? You can add a new one by' }} <a href="#brewery" data-toggle="tab" aria-expanded="false">{{ 'clicking here' }}</a></span>
+                        {{ form_widget(form.brewery) }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 tab-content">
+                    <div id="beer-type" class="tab-pane fade">
+
+                    </div>
+                    <div id="brewery" class="tab-pane fade">
+                        {% include 'brewery/partial/form.html.twig' with {'form': breweryForm} %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+</div>

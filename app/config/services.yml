@@ -1,0 +1,57 @@
+services:
+    #form
+    synek.form.beer_type:
+        class: AppBundle\Form\BeerTypeType
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - '@validator'
+        tags:
+            - { name: form.type, alias: synek_beer_type_type }
+
+    #security
+    synek.security.authentication_redirect:
+        class: AppBundle\Security\AuthenticationRedirect
+        arguments:
+            - '@router'
+            - 'admin_home'
+            - 'user_home'
+
+    #services
+    synek.service.place:
+        class: AppBundle\Service\PlaceService
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - '@templating.helper.assets'
+            - '%place%'
+
+    synek.service.shop:
+        class: AppBundle\Service\ShopService
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - '@templating.helper.assets'
+            - '%place%'
+            - '@twig'
+            - '@doctrine'
+
+    synek.service.partner:
+        class: AppBundle\Service\PartnerService
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - '@templating.helper.assets'
+            - '%place%'
+            - '@twig'
+
+    synek.service.beer:
+        class: AppBundle\Service\BeerService
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - '@twig'
+
+    synek.service.beer_type:
+        class: AppBundle\Service\BeerTypeService
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - '@twig'
+            - '@translator.default'
+            - '@form.factory'
+            - '@synek.form.beer_type'

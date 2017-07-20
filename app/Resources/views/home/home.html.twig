@@ -1,0 +1,49 @@
+{% extends 'layout.html.twig' %}
+
+{% block stylesheets %}
+    <link href="{{ asset('assets/css/home.css') }}" rel="stylesheet">
+{% endblock stylesheets %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{ 'Shops list'|trans }}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 home-wrapper">
+            <div class="home-overflow">
+                <div id="home-map">
+                </div>
+                <div class="place-info col-lg-4" data-id="place-info">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <button type="button" class="btn btn-danger pull-left" data-id="place-info-close"><i class="fa fa-times"></i> {{ 'Close'|trans }}</button>
+                            <a href="#" class="btn btn-default pull-right" hidden><i class="fa fa-search"></i> {{ 'View place description'|trans }}</a>
+                        </div>
+                        <div class="col-lg-12">
+                            <h3 class="page-header" data-id="place-name"></h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <span data-id="place-address"></span>
+                            <span data-id="place-phone" hidden><i class="fa fa-phone"></i> <span class="no-block" data-id="place-phone-number"></span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock body %}
+
+{% block javascripts %}
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}"></script>
+    <script src="{{ asset('assets/lib/geolocation-marker/geolocation-marker.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/home.js') }}"></script>
+    <script type="text/javascript">
+        $(function() {
+            initMap({{ places|json_encode|raw }})
+        });
+    </script>
+{% endblock javascripts %}
