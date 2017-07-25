@@ -53,7 +53,7 @@ class PartnerService extends PlaceService
                 $place[self::DATATABLE_KEY_NAME],
                 $place[self::DATATABLE_KEY_EMAIL],
                 $place[self::DATATABLE_KEY_ADDRESS],
-                $template->renderBlock('btns', ['placeId' => $place[self::DATATABLE_KEY_ID]])
+                $template->renderBlock('btns', ['id' => $place[self::DATATABLE_KEY_ID]])
             ];
         }
 

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Language;
 use AppBundle\Service\BeerService;
 use AppBundle\Util\DatatableUtil;
 use Doctrine\ORM\EntityRepository;
@@ -13,9 +14,10 @@ class BeerRepository extends EntityRepository
      * @param $order
      * @param $limit
      * @param $offset
+     * @param Language $language
      * @return array
      */
-    public function getDatatableList($searchs, $order, $limit, $offset)
+    public function getDatatableList($searchs, $order, $limit, $offset, Language $language)
     {
         $qb = $this->_em->createQueryBuilder();
         $qb
@@ -33,7 +35,7 @@ class BeerRepository extends EntityRepository
             ->leftJoin('type_translation.language', 'type_translation_language')
             ->innerJoin('beer.brewery', 'brewery')
             ->where('type_translation_language.locale = :locale')
-            ->setParameter('locale', 'fr_FR');
+            ->setParameter('locale', $language->getLocale());
 
         if ($order !== null) {
             $qb->orderBy($order['col'], $order['dir']);

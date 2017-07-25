@@ -36,7 +36,7 @@ class BeerController extends Controller
      */
     public function listRefreshAction(Request $request)
     {
-        $data = $this->get('synek.service.beer')->getList($request->request->all());
+        $data = $this->get('synek.service.beer')->getList($request->request->all(), $this->getUser()->getLanguage());
         return new JsonResponse($data);
     }
 

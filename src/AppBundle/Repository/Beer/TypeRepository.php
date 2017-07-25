@@ -16,9 +16,10 @@ class TypeRepository extends EntityRepository
      * @param $order
      * @param $limit
      * @param $offset
+     * @param Language $language
      * @return array
      */
-    public function getDatatableList($searchs, $order, $limit, $offset)
+    public function getDatatableList($searchs, $order, $limit, $offset, Language $language)
     {
         $qb = $this->_em->createQueryBuilder();
         $qb
@@ -34,7 +35,7 @@ class TypeRepository extends EntityRepository
             ->leftJoin('AppBundle:Beer', 'beers', Join::WITH, 'beers.type = type')
             ->where('translation_language.locale = :locale')
             ->groupBy('type.id')
-            ->setParameter('locale', 'fr_FR');
+            ->setParameter('locale', $language->getLocale());
 
         if ($order !== null) {
             $qb->orderBy($order['col'], $order['dir']);

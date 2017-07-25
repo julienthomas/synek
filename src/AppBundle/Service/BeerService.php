@@ -3,6 +3,7 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Beer;
+use AppBundle\Entity\Language;
 use AppBundle\Util\DatatableUtil;
 use Doctrine\ORM\EntityManager;
 
@@ -31,9 +32,10 @@ class BeerService extends AbstractService
 
     /**
      * @param $requestData
+     * @param Language $language
      * @return array
      */
-    public function getList($requestData)
+    public function getList($requestData, Language $language)
     {
         $listParams = $this->getListParams($requestData);
 
@@ -41,7 +43,8 @@ class BeerService extends AbstractService
             $listParams['searchs'],
             $listParams['order'],
             $listParams['limit'],
-            $listParams['offset']
+            $listParams['offset'],
+            $language
         );
 
         $template = $this->twig->loadTemplate('admin/beer/partial/datatable_items.html.twig');
@@ -52,7 +55,7 @@ class BeerService extends AbstractService
                 $place[self::DATATABLE_KEY_TYPE],
                 $place[self::DATATABLE_KEY_ALCOHOL_DEGREE],
                 $place[self::DATATABLE_KEY_BREWERY],
-                $template->renderBlock('btns', ['beerId' => $place[self::DATATABLE_KEY_ID]])
+                $template->renderBlock('btns', ['id' => $place[self::DATATABLE_KEY_ID]])
             ];
         }
 

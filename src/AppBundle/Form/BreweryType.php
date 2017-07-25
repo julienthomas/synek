@@ -8,6 +8,7 @@ use AppBundle\Entity\Language;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class BreweryType extends AbstractType
 {
@@ -17,11 +18,11 @@ class BreweryType extends AbstractType
     private $language;
 
     /**
-     * @param Language $language
+     * @param TokenStorage $tokenStorage
      */
-    public function __construct(Language $language)
+    public function __construct(TokenStorage $tokenStorage)
     {
-        $this->language = $language;
+        $this->language = $tokenStorage->getToken()->getUser()->getLanguage();
     }
 
     /**

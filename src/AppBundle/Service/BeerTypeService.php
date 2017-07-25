@@ -2,6 +2,7 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Entity\Language;
 use AppBundle\Form\BeerTypeType;
 use AppBundle\Util\DatatableUtil;
 use Doctrine\ORM\EntityManager;
@@ -9,6 +10,7 @@ use AppBundle\Entity\Beer\Type;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class BeerTypeService extends AbstractService
 {
@@ -32,13 +34,14 @@ class BeerTypeService extends AbstractService
      */
     private $beerTypeForm;
 
-    const DATATABLE_KEY_ID             = 'id';
-    const DATATABLE_KEY_NAME           = 'name';
-    const DATATABLE_BEER_NUMBER        = 'beer_number';
+    const DATATABLE_KEY_ID      = 'id';
+    const DATATABLE_KEY_NAME    = 'name';
+    const DATATABLE_BEER_NUMBER = 'beer_number';
 
     /**
      * @param EntityManager $manager
      * @param \Twig_Environment $twig
+     * @param Translator $translator
      * @param FormFactoryInterface $formFactory
      * @param BeerTypeType $beerTypeForm
      */
@@ -58,9 +61,10 @@ class BeerTypeService extends AbstractService
 
     /**
      * @param $requestData
+     * @param Language $language
      * @return array
      */
-    public function getList($requestData)
+    public function getList($requestData, Language $language)
     {
         $listParams = $this->getListParams($requestData);
 
@@ -68,7 +72,8 @@ class BeerTypeService extends AbstractService
             $listParams['searchs'],
             $listParams['order'],
             $listParams['limit'],
-            $listParams['offset']
+            $listParams['offset'],
+            $language
         );
 
         $template = $this->twig->loadTemplate('admin/beer_type/partial/datatable_items.html.twig');
@@ -77,7 +82,7 @@ class BeerTypeService extends AbstractService
             $data[] = [
                 $place[self::DATATABLE_KEY_NAME],
                 $place[self::DATATABLE_BEER_NUMBER],
-                $template->renderBlock('btns', ['beerId' => $place[self::DATATABLE_KEY_ID]])
+                $template->renderBlock('btns', ['id' => $place[self::DATATABLE_KEY_ID]])
             ];
         }
 

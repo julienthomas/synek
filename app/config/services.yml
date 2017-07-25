@@ -1,10 +1,17 @@
 services:
-    #form
+        #form
     synek.form.beer_type:
         class: AppBundle\Form\BeerTypeType
         arguments:
             - '@doctrine.orm.default_entity_manager'
             - '@validator'
+        tags:
+            - { name: form.type, alias: synek_beer_type_type }
+
+    synek.form.brewery:
+        class: AppBundle\Form\BreweryType
+        arguments:
+            - '@security.token_storage'
         tags:
             - { name: form.type, alias: synek_beer_type_type }
 
@@ -55,3 +62,12 @@ services:
             - '@translator.default'
             - '@form.factory'
             - '@synek.form.beer_type'
+
+    synek.service.brewery:
+        class: AppBundle\Service\BreweryService
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - '@twig'
+            - '@translator.default'
+            - '@form.factory'
+            - '@synek.form.brewery'

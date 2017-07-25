@@ -28,7 +28,7 @@ class BeerTypeController extends Controller
      */
     public function listRefreshAction(Request $request)
     {
-        $data = $this->get('synek.service.beer_type')->getList($request->request->all());
+        $data = $this->get('synek.service.beer_type')->getList($request->request->all(), $this->getUser()->getLanguage());
         return new JsonResponse($data);
     }
 
@@ -47,7 +47,7 @@ class BeerTypeController extends Controller
             $isNew = true;
         }
 
-        $form = $this->createForm(new BeerTypeType($this->getDoctrine()->getManager(), $this->get('validator')), $type);
+        $form = $this->createForm($this->get('synek.form.beer_type'), $type);
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             $translator = $this->get('translator');
