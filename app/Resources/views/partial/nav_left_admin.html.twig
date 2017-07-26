@@ -64,10 +64,10 @@
     </a>
     <ul class="nav nav-second-level">
         <li>
-            <a href="#" {% if route matches '/^synek_admin_brewery$/' %}class="active"{% endif %}>{{ 'Breweries list'|trans }}</a>
+            <a href="{{ path('admin_brewery') }}" {% if route matches '/^admin_brewery$/' %}class="active"{% endif %}>{{ 'Breweries list'|trans }}</a>
         </li>
         <li>
-            <a href="#" {% if route matches '/^synek_admin_brewery$/' %}class="active"{% endif %}>{{ 'Add a brewery'|trans }}</a>
+            <a href="{{ path('admin_brewery_add') }}" {% if route matches '/^admin_brewery_add$/' %}class="active"{% endif %}>{{ 'Add a brewery'|trans }}</a>
         </li>
     </ul>
 </li>

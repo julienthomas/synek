@@ -4,12 +4,17 @@ namespace AppBundle\Entity;
 
 use AppBundle\Util\EntityUtil;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Brewery
  *
- * @ORM\Table(name="brewery", indexes={@ORM\Index(name="country_id", columns={"country_id"})})
- * @ORM\Entity
+ * @ORM\Table(name="brewery", indexes={@ORM\Index(name="country_id", columns={"country_id"})}, uniqueConstraints={@ORM\UniqueConstraint(name="name", columns={"name"})})
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\BreweryRepository")
+ * @UniqueEntity(
+ *  fields={"name"},
+ *  message="This brewery already exists."
+ * )
  */
 class Brewery
 {
@@ -40,11 +45,19 @@ class Brewery
     private $country;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Beer", mappedBy="brewery")
+     */
+    private $beers;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->createdDate = new \DateTime('now', new \DateTimeZone(EntityUtil::DEFAULT_TIMEZONE));
+        $this->beers       = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -103,5 +116,39 @@ class Brewery
     public function getCountry()
     {
         return $this->country;
+    }
+
+    /**
+     * Add beer
+     *
+     * @param \AppBundle\Entity\Beer $beer
+     *
+     * @return Brewery
+     */
+    public function addBeer(\AppBundle\Entity\Beer $beer)
+    {
+        $this->beers[] = $beer;
+
+        return $this;
+    }
+
+    /**
+     * Remove beer
+     *
+     * @param \AppBundle\Entity\Beer $beer
+     */
+    public function removeBeer(\AppBundle\Entity\Beer $beer)
+    {
+        $this->beers->removeElement($beer);
+    }
+
+    /**
+     * Get beers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBeers()
+    {
+        return $this->beers;
     }
 }

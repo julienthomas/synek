@@ -63,7 +63,7 @@ class Beer
     /**
      * @var \AppBundle\Entity\Brewery
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Brewery")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Brewery", inversedBy="beers")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="brewery_id", referencedColumnName="id", nullable=false)
      * })

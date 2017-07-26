@@ -3,7 +3,7 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Brewery;
-use AppBundle\Form\BreweryType;
+use AppBundle\Entity\Country;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,7 +18,14 @@ class BreweryController extends Controller
      */
     public function listAction()
     {
-        return $this->render('admin/brewery/list.html.twig');
+        $countries = $this->getDoctrine()->getManager()->getRepository(Country::class)
+            ->getCountriesWithTranslation($this->getUser()->getLanguage());
+        $countriesData = [];
+        /** @var Country $country */
+        foreach ($countries as $country) {
+            $countriesData[$country->getId()] = $country->getTranslations()->first()->getName();
+        }
+        return $this->render('admin/brewery/list.html.twig', ['countries' => $countriesData]);
     }
 
     /**
@@ -28,7 +35,7 @@ class BreweryController extends Controller
      */
     public function listRefreshAction(Request $request)
     {
-        $data = $this->get('synek.service.brewery')->getList($request->request->all());
+        $data = $this->get('synek.service.brewery')->getList($request->request->all(), $this->getUser()->getLanguage());
         return new JsonResponse($data);
     }
 
@@ -43,23 +50,23 @@ class BreweryController extends Controller
     {
         $isNew = false;
         if ($brewery === null) {
-            $type = new Brewery();
+            $brewery = new Brewery();
             $isNew = true;
         }
 
-        $form = $this->createForm(new BreweryType($this->getUser()->getLanguage()), $brewery);
-//        $form->handleRequest($request);
-//        if ($form->isSubmitted()) {
-//            $translator = $this->get('translator');
-//            if ($form->isValid()) {
-//                $this->get('synek.service.beer_type')->saveType($type);
-//                $msg = $isNew ? $translator->trans('Type successfully added.') : $translator->trans('Type successfully edited.');
-//                $this->get('session')->getFlashBag()->add('success', $msg);
-//                return $this->redirectToRoute('admin_beer_type');
-//            } else {
-//                $this->get('session')->getFlashBag()->add('error', $translator->trans('Some fields are invalids.'));
-//            }
-//        }
+        $form = $this->createForm($this->get('synek.form.brewery'), $brewery);
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            $translator = $this->get('translator');
+            if ($form->isValid()) {
+                $this->get('synek.service.brewery')->saveBrewery($brewery);
+                $msg = $isNew ? $translator->trans('Brewery successfully added.') : $translator->trans('Brewery successfully edited.');
+                $this->get('session')->getFlashBag()->add('success', $msg);
+                return $this->redirectToRoute('admin_brewery');
+            } else {
+                $this->get('session')->getFlashBag()->add('error', $translator->trans('Some fields are invalids.'));
+            }
+        }
         return $this->render('admin/brewery/add_edit.html.twig', [
             'form'  => $form->createView(),
             'isNew' => $isNew

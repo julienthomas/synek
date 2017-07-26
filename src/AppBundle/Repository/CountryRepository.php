@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Language;
 use Doctrine\ORM\EntityRepository;
 
 class CountryRepository extends EntityRepository
@@ -21,6 +22,21 @@ class CountryRepository extends EntityRepository
         $query = $qb->getQuery();
         $query->useQueryCache(true);
 
+        return $query->getResult();
+    }
+
+    public function getCountriesWithTranslation(Language $language)
+    {
+        $qb = $this->_em->createQueryBuilder()
+            ->select('country, translations')
+            ->from('AppBundle:Country', 'country')
+            ->innerJoin('country.translations', 'translations')
+            ->where('translations.language = :language')
+            ->orderBy('translations.name')
+            ->setParameter('language', $language);
+
+        $query = $qb->getQuery();
+        $query->useQueryCache(true);
         return $query->getResult();
     }
 }

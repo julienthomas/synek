@@ -3,6 +3,7 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Brewery;
+use AppBundle\Entity\Language;
 use AppBundle\Form\BreweryType;
 use AppBundle\Util\DatatableUtil;
 use Doctrine\ORM\EntityManager;
@@ -32,10 +33,11 @@ class BreweryService extends AbstractService
      */
     private $breweryForm;
 
-    const DATATABLE_KEY_ID      = 'id';
-    const DATATABLE_KEY_NAME    = 'name';
-    const DATATABLE_KEY_COUNTRY = 'country';
-    const DATATABLE_BEER_NUMBER = 'beer_number';
+    const DATATABLE_KEY_ID           = 'id';
+    const DATATABLE_KEY_NAME         = 'name';
+    const DATATABLE_KEY_COUNTRY_ID   = 'country_id';
+    const DATATABLE_KEY_COUNTRY_NAME = 'country_name';
+    const DATATABLE_KEY_BEER_NUMBER  = 'beer_number';
 
     /**
      * @param EntityManager $manager
@@ -60,9 +62,10 @@ class BreweryService extends AbstractService
 
     /**
      * @param $requestData
+     * @param Language $language
      * @return array
      */
-    public function getList($requestData)
+    public function getList($requestData, Language $language)
     {
         $listParams = $this->getListParams($requestData);
 
@@ -70,17 +73,18 @@ class BreweryService extends AbstractService
             $listParams['searchs'],
             $listParams['order'],
             $listParams['limit'],
-            $listParams['offset']
+            $listParams['offset'],
+            $language
         );
 
         $template = $this->twig->loadTemplate('admin/brewery/partial/datatable_items.html.twig');
         $data     = [];
-        foreach ($results['data'] as $place) {
+        foreach ($results['data'] as $brewery) {
             $data[] = [
-                $place[self::DATATABLE_KEY_NAME],
-                $place[self::DATATABLE_KEY_COUNTRY],
-                $place[self::DATATABLE_BEER_NUMBER],
-                $template->renderBlock('btns', ['id' => $place[self::DATATABLE_KEY_ID]])
+                $brewery[self::DATATABLE_KEY_NAME],
+                $brewery[self::DATATABLE_KEY_COUNTRY_NAME],
+                $brewery[self::DATATABLE_KEY_BEER_NUMBER],
+                $template->renderBlock('btns', ['id' => $brewery[self::DATATABLE_KEY_ID]])
             ];
         }
 
@@ -97,10 +101,11 @@ class BreweryService extends AbstractService
      */
     private function getListParams($requestData)
     {
-        $orderColumns  = [self::DATATABLE_KEY_NAME, self::DATATABLE_BEER_NUMBER];
+        $orderColumns  = [self::DATATABLE_KEY_NAME, self::DATATABLE_KEY_COUNTRY_NAME, self::DATATABLE_KEY_BEER_NUMBER];
         $searchColumns = [
             ['name' => self::DATATABLE_KEY_NAME, 'searchType' => DatatableUtil::SEARCH_LIKE],
-            ['name' => self::DATATABLE_BEER_NUMBER, 'searchType' => DatatableUtil::SEARCH_EQUAL]
+            ['name' => self::DATATABLE_KEY_COUNTRY_ID, 'searchType' => DatatableUtil::SEARCH_EQUAL],
+            ['name' => self::DATATABLE_KEY_BEER_NUMBER, 'searchType' => DatatableUtil::SEARCH_EQUAL]
         ];
 
         return [
@@ -111,37 +116,14 @@ class BreweryService extends AbstractService
         ];
     }
 
-//    public function saveType(Type $type)
-//    {
-//        $translations = $type->getTranslations();
-//        $type->clearTranslations();
-//        $this->persistAndFlush($type);
-//        /** @var Type\Translation $translation */
-//        foreach ($translations as $translation) {
-//            if (!$type->hasTranslation($translation)) {
-//                $translation->setType($type);
-//                $type->addTranslation($translation);
-//            }
-//        }
-//        $this->persistAndFlush($type->getTranslations()->toArray());
-//        $this->removeUnused($type);
-//    }
-//
-//    /**
-//     * @param Type $type
-//     */
-//    private function removeUnused(Type $type)
-//    {
-//        $translations = $this->manager->getRepository('AppBundle:Beer\Type\Translation')->findByType($type);
-//
-//        $remove = [];
-//        foreach ($translations as $translation) {
-//            if (!$type->hasTranslation($translation)) {
-//                $remove[] = $translation;
-//            }
-//        }
-//        $this->removeAndFlush($remove);
-//    }
+    /**
+     * @param Brewery $brewery
+     */
+    public function saveBrewery(Brewery $brewery)
+    {
+        $this->persistAndFlush($brewery);
+    }
+
 //
 //    /**
 //     * @param UploadedFile $file

@@ -1,45 +1,41 @@
 <?php
 
-namespace AppBundle\Repository\Beer;
+namespace AppBundle\Repository;
 
 use AppBundle\Entity\Language;
 use AppBundle\Service\BreweryService;
 use AppBundle\Util\DatatableUtil;
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Query\Expr\Join;
 
-class TypeRepository extends EntityRepository
+class BreweryRepository extends EntityRepository
 {
-
     /**
-     * @param Language $language
      * @param $searchs
      * @param $order
      * @param $limit
      * @param $offset
+     * @param Language $language
      * @return array
      */
-    public function getDatatableList(Language $language, $searchs, $order, $limit, $offset)
+    public function getDatatableList($searchs, $order, $limit, $offset, Language $language)
     {
         $qb = $this->_em->createQueryBuilder();
         $qb
             ->select(sprintf(
-                'brewery.id as %s, brewery.name, country_translation.name as %s, count(beers) as %s',
+                'brewery.id as %s, brewery.name as %s, country.id as %s, translations.name as %s, count(beers) as %s',
                 BreweryService::DATATABLE_KEY_ID,
                 BreweryService::DATATABLE_KEY_NAME,
-                BreweryService::DATATABLE_KEY_COUNTRY,
-                BreweryService::DATATABLE_BEER_NUMBER
+                BreweryService::DATATABLE_KEY_COUNTRY_ID,
+                BreweryService::DATATABLE_KEY_COUNTRY_NAME,
+                BreweryService::DATATABLE_KEY_BEER_NUMBER
             ))
             ->from('AppBundle:Brewery', 'brewery')
-
-
-
-            ->leftJoin('type.translations', 'translation')
-            ->leftJoin('translation.language', 'translation_language')
-            ->leftJoin('AppBundle:Beer', 'beers', Join::WITH, 'beers.type = type')
-            ->where('translation_language.locale = :locale')
-            ->groupBy('type.id')
-            ->setParameter('locale', 'fr_FR');
+            ->innerJoin('brewery.country', 'country')
+            ->innerJoin('country.translations', 'translations')
+            ->leftJoin('brewery.beers', 'beers')
+            ->where('translations.language = :language')
+            ->groupBy('brewery.id')
+            ->setParameter('language', $language);
 
         if ($order !== null) {
             $qb->orderBy($order['col'], $order['dir']);
@@ -63,7 +59,7 @@ class TypeRepository extends EntityRepository
             }
         }
 
-        return DatatableUtil::getQbData($this->_em, $qb, 'type.id', $searchs);
+        return DatatableUtil::getQbData($this->_em, $qb, 'brewery.id', $searchs);
     }
 
 //    /**

@@ -4,6 +4,7 @@ namespace AppBundle\Form;
 
 use AppBundle\Entity\Beer\Type;
 use AppBundle\Transformer\BeerTypeTranslationTransformer;
+use AppBundle\Util\FormUtil;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -47,6 +48,9 @@ class BeerTypeType extends AbstractType
         $builder
             ->get('translations')
             ->addModelTransformer(new BeerTypeTranslationTransformer($builder->getData(), $this->manager));
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function(FormEvent $event) {
+            FormUtil::removeWhiteSpaces($event, 'translations');
+        });
         $builder->addEventListener(FormEvents::POST_SUBMIT, [$this, 'verifTranslations']);
     }
 
@@ -70,8 +74,7 @@ class BeerTypeType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-//        $resolver->setDefault('data_class', Type::class);
-        $resolver->setDefaults(['data_class' => Type::class]);
+        $resolver->setDefault('data_class', Type::class);
     }
 
     public function getName()

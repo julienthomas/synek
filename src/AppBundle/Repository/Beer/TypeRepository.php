@@ -24,18 +24,17 @@ class TypeRepository extends EntityRepository
         $qb = $this->_em->createQueryBuilder();
         $qb
             ->select(sprintf(
-                'type.id as %s, translation.name as %s, count(beers) as %s',
+                'type.id as %s, translations.name as %s, count(beers) as %s',
                 BeerTypeService::DATATABLE_KEY_ID,
                 BeerTypeService::DATATABLE_KEY_NAME,
-                BeerTypeService::DATATABLE_BEER_NUMBER
+                BeerTypeService::DATATABLE_KEY_BEER_NUMBER
             ))
             ->from('AppBundle:Beer\Type', 'type')
-            ->leftJoin('type.translations', 'translation')
-            ->leftJoin('translation.language', 'translation_language')
+            ->leftJoin('type.translations', 'translations')
             ->leftJoin('AppBundle:Beer', 'beers', Join::WITH, 'beers.type = type')
-            ->where('translation_language.locale = :locale')
+            ->where('translations.language = :language')
             ->groupBy('type.id')
-            ->setParameter('locale', $language->getLocale());
+            ->setParameter('language', $language);
 
         if ($order !== null) {
             $qb->orderBy($order['col'], $order['dir']);

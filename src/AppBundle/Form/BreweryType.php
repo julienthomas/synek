@@ -3,10 +3,13 @@
 namespace AppBundle\Form;
 
 use AppBundle\Entity\Brewery;
+use AppBundle\Util\FormUtil;
 use Doctrine\ORM\EntityRepository;
 use AppBundle\Entity\Language;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
@@ -55,6 +58,9 @@ class BreweryType extends AbstractType
                     },
                 ]
             );
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function(FormEvent $event) {
+            FormUtil::removeWhiteSpaces($event, 'name');
+        });
     }
 
     /**

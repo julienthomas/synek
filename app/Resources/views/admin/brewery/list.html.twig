@@ -29,7 +29,7 @@
                                 </tr>
                                 <tr data-id="datatable-filters">
                                     <th data-type="text">{{ 'Search name'|trans }}</th>
-                                    <th data-type="text">{{ 'Search country'|trans }}</th>
+                                    <th data-type="choice" data-choices="{{ countries|json_encode }}">{{ 'Search country'|trans }}</th>
                                     <th data-type="text">{{ 'Search number'|trans }}</th>
                                     <th data-type="search"><i class="fa fa-search"></i> {{ 'Search'|trans }}</th>
                                 </tr>

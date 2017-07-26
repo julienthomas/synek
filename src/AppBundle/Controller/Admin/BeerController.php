@@ -20,13 +20,14 @@ class BeerController extends Controller
      */
     public function listAction()
     {
-        $types = $this->getDoctrine()->getRepository(Type::class)->getTypesWithTranslation($this->getUser()->getLanguage());
+        $types = $this->getDoctrine()->getRepository(Type::class)
+            ->getTypesWithTranslation($this->getUser()->getLanguage());
         $typesData = [];
         /** @var Type $type */
         foreach ($types as $type) {
             $typesData[$type->getId()] = $type->getTranslations()->first()->getName();
         }
-        return $this->render('admin/beer/list.html.twig', ['typesData' => $typesData]);
+        return $this->render('admin/beer/list.html.twig', ['types' => $typesData]);
     }
 
     /**

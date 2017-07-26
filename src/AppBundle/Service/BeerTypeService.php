@@ -34,9 +34,9 @@ class BeerTypeService extends AbstractService
      */
     private $beerTypeForm;
 
-    const DATATABLE_KEY_ID      = 'id';
-    const DATATABLE_KEY_NAME    = 'name';
-    const DATATABLE_BEER_NUMBER = 'beer_number';
+    const DATATABLE_KEY_ID          = 'id';
+    const DATATABLE_KEY_NAME        = 'name';
+    const DATATABLE_KEY_BEER_NUMBER = 'beer_number';
 
     /**
      * @param EntityManager $manager
@@ -78,11 +78,11 @@ class BeerTypeService extends AbstractService
 
         $template = $this->twig->loadTemplate('admin/beer_type/partial/datatable_items.html.twig');
         $data     = [];
-        foreach ($results['data'] as $place) {
+        foreach ($results['data'] as $type) {
             $data[] = [
-                $place[self::DATATABLE_KEY_NAME],
-                $place[self::DATATABLE_BEER_NUMBER],
-                $template->renderBlock('btns', ['id' => $place[self::DATATABLE_KEY_ID]])
+                $type[self::DATATABLE_KEY_NAME],
+                $type[self::DATATABLE_KEY_BEER_NUMBER],
+                $template->renderBlock('btns', ['id' => $type[self::DATATABLE_KEY_ID]])
             ];
         }
 
@@ -99,10 +99,10 @@ class BeerTypeService extends AbstractService
      */
     private function getListParams($requestData)
     {
-        $orderColumns  = [self::DATATABLE_KEY_NAME, self::DATATABLE_BEER_NUMBER];
+        $orderColumns  = [self::DATATABLE_KEY_NAME, self::DATATABLE_KEY_BEER_NUMBER];
         $searchColumns = [
             ['name' => self::DATATABLE_KEY_NAME, 'searchType' => DatatableUtil::SEARCH_LIKE],
-            ['name' => self::DATATABLE_BEER_NUMBER, 'searchType' => DatatableUtil::SEARCH_EQUAL]
+            ['name' => self::DATATABLE_KEY_BEER_NUMBER, 'searchType' => DatatableUtil::SEARCH_EQUAL]
         ];
 
         return [
@@ -113,6 +113,9 @@ class BeerTypeService extends AbstractService
         ];
     }
 
+    /**
+     * @param Type $type
+     */
     public function saveType(Type $type)
     {
         $translations = $type->getTranslations();

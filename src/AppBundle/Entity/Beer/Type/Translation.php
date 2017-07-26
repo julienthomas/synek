@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table(name="beer_type_translation", uniqueConstraints={@ORM\UniqueConstraint(columns={"language_id", "name"})})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Beer\Type\TranslationRepository")
  * @UniqueEntity(
- *  fields = {"name", "language"},
+ *  fields={"name", "language"},
  *  message="This type already exists."
  * )
  */
