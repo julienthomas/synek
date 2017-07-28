@@ -172,3 +172,6 @@ div.form-nav div.panel ul.nav li:not(:last-child) {
   display: block;
   white-space: nowrap;
 }
+.form-error-template {
+  display: none;
+}

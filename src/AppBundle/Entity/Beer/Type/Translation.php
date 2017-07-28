@@ -4,6 +4,7 @@ namespace AppBundle\Entity\Beer\Type;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints;
 
 /**
  * Translation
@@ -21,6 +22,9 @@ class Translation
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=64, nullable=false)
+     * @Constraints\NotBlank(
+     *  message="The name must be filled."
+     * )
      */
     private $name;
 

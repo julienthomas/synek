@@ -4,12 +4,17 @@ namespace AppBundle\Entity;
 
 use AppBundle\Util\EntityUtil;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Beer
  *
  * @ORM\Table(name="beer", uniqueConstraints={@ORM\UniqueConstraint(name="name", columns={"name"})}, indexes={@ORM\Index(name="beer_type_id", columns={"beer_type_id"}), @ORM\Index(name="brewery_id", columns={"brewery_id"})})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\BeerRepository")
+ * @UniqueEntity(
+ *  fields={"name"},
+ *  message="This beer already exists."
+ * )
  */
 class Beer
 {

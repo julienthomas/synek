@@ -46,7 +46,7 @@ class BeerTypeController extends Controller
             $isNew = true;
         }
 
-        $form = $this->createForm($this->get('synek.form.beer_type'), $type);
+        $form = $this->createForm($this->get('synek.form.beer_type'), $type, ['required' => false]);
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             $translator = $this->get('translator');

@@ -124,46 +124,14 @@ class BreweryService extends AbstractService
         $this->persistAndFlush($brewery);
     }
 
-//
-//    /**
-//     * @param UploadedFile $file
-//     * @return array|bool
-//     */
-//    public function parseFile(UploadedFile $file)
-//    {
-//        if ($file->getClientMimeType() !== 'text/csv') {
-//            return false;
-//        }
-//        $csv = array_map('str_getcsv', file($file));
-//        foreach ($csv as $index => $line) {
-//            $csv[$index] = explode(';', $line[0])[0];
-//        }
-//        if ($csv[0] !== 'name') {
-//            return false;
-//        }
-//        array_splice($csv, 0, 1);
-//        return $csv;
-//    }
-//
-//    /**
-//     * @param $types
-//     * @return array
-//     */
-//    public function importTypes($types)
-//    {
-//        $data = [];
-//        foreach ($types as $index => $typeName) {
-//            $data[$index] = ['name' => $typeName];
-//            $type = new Type();
-//            $form = $this->formFactory->create($this->beerTypeForm, $type, ['csrf_protection' => false]);
-//            $form->submit(['translations' => $typeName]);
-//            if (!$form->isValid()) {
-//                $errors = $form->getErrors(true, true);
-//                $data[$index]['error'] = $this->translator->trans($errors->offsetGet(0)->getMessage());
-//            } else {
-//                $this->saveType($type);
-//            }
-//        }
-//        return $data;
-//    }
+    /**
+     * @param $name
+     * @return Brewery|null
+     */
+    public function getBreweryByName($name)
+    {
+        $name    = preg_replace('/\s+/', ' ', $name);
+        $brewery = $this->manager->getRepository(Brewery::class)->findOneByName($name);
+        return $brewery;
+    }
 }

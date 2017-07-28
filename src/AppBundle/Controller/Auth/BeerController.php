@@ -1,11 +1,11 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Auth;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\BrowserKit\Request;
 
-class BeerTypeController extends Controller
+class BeerController extends Controller
 {
     public function createAction(Request $request)
     {

@@ -7,6 +7,7 @@ use AppBundle\Form\BeerTypeType;
 use AppBundle\Util\DatatableUtil;
 use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\Beer\Type;
+use AppBundle\Entity\Beer\Type\Translation;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -188,5 +189,21 @@ class BeerTypeService extends AbstractService
             }
         }
         return $data;
+    }
+
+    /**
+     * @param Language $language
+     * @param $name
+     * @return Type|null
+     */
+    public function getTypeByName(Language $language, $name)
+    {
+        $name        = preg_replace('/\s+/', ' ', $name);
+        $translation = $this->manager->getRepository(Type\Translation::class)
+            ->findOneBy(['name' => $name, 'language' => $language]);
+        if ($translation) {
+            return $translation->getType();
+        }
+        return null;
     }
 }

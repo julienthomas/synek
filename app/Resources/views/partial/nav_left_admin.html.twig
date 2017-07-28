@@ -29,17 +29,11 @@
     </a>
     <ul class="nav nav-second-level">
         <li>
-            <a href="#" {% if route matches '/^admin_beer$/' %}class="active"{% endif %}>{{ 'Beers list'|trans }}</a>
+            <a href="{{ path('admin_beer') }}" {% if route matches '/^admin_beer$/' %}class="active"{% endif %}>{{ 'Beers list'|trans }}</a>
         </li>
         <li>
-            <a href="#" {% if route matches '/^admin_beer_add$/' %}class="active"{% endif %}>{{ 'Add a beer'|trans }}</a>
+            <a href="{{ path('admin_beer_add') }}" {% if route matches '/^admin_beer_add$/' %}class="active"{% endif %}>{{ 'Add a beer'|trans }}</a>
         </li>
-        {#<li>#}
-            {#<a href="{{ path('admin_beer') }}" {% if route matches '/^admin_beer$/' %}class="active"{% endif %}>{{ 'Beers list'|trans }}</a>#}
-        {#</li>#}
-        {#<li>#}
-            {#<a href="{{ path('admin_beer_add') }}" {% if route matches '/^admin_beer_add$/' %}class="active"{% endif %}>{{ 'Add a beer'|trans }}</a>#}
-        {#</li>#}
     </ul>
 </li>
 <li>

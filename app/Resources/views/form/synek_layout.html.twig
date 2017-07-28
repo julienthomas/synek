@@ -7,7 +7,7 @@
     {%- endif -%}
     <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
         {%- if placeholder is not none -%}
-            <option value=""{% if required and value is empty %} selected="selected"{% endif %} disabled>{{ placeholder != '' ? placeholder|trans({}, translation_domain) }}</option>
+            <option value=""{% if value is empty %} selected="selected"{% endif %} disabled>{{ placeholder != '' ? placeholder|trans({}, translation_domain) }}</option>
         {%- endif -%}
         {%- if preferred_choices|length > 0 -%}
             {% set options = preferred_choices %}
@@ -20,3 +20,26 @@
         {{- block('choice_widget_options') -}}
     </select>
 {%- endblock %}
+
+{%- block form_label -%}
+    {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' control-label')|trim}) -%}
+    {% if label is not same as(false) -%}
+        {% if not compound -%}
+            {% set label_attr = label_attr|merge({'for': id}) %}
+        {%- endif -%}
+        {% if required -%}
+            {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+        {%- endif -%}
+        {% if label is empty -%}
+                {%- if label_format is not empty -%}
+                {% set label = label_format|replace({
+                    '%name%': name,
+                    '%id%': id,
+                }) %}
+            {%- else -%}
+                {% set label = name|humanize %}
+            {%- endif -%}
+        {%- endif -%}
+        <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}{% if required %} *{% endif %}</label>
+    {%- endif -%}
+{%- endblock form_label -%}

@@ -1,3 +1,6 @@
-.beer-form-panel-body {
-  position: relative;
+.content-link {
+  cursor: pointer;
+}
+.embed-panel .panel {
+  margin-bottom: 0;
 }

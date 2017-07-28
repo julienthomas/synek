@@ -70,7 +70,7 @@ class BeerService extends AbstractService
      * @param $requestData
      * @return array
      */
-    protected function getListParams($requestData)
+    private function getListParams($requestData)
     {
         $orderColumns  = [self::DATATABLE_KEY_NAME, self::DATATABLE_KEY_TYPE, self::DATATABLE_KEY_ALCOHOL_DEGREE, self::DATATABLE_KEY_BREWERY];
         $searchColumns = [
@@ -86,5 +86,13 @@ class BeerService extends AbstractService
             'limit'    => DatatableUtil::getLimit($requestData),
             'offset'   => DatatableUtil::getOffset($requestData),
         ];
+    }
+
+    /**
+     * @param Beer $beer
+     */
+    public function saveBeer(Beer $beer)
+    {
+        $this->persistAndFlush($beer);
     }
 }

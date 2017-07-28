@@ -1,18 +1,28 @@
 <div class="panel">
     <div class="panel-body">
-        {{ form_start(form) }}
+        {% if isEmbedded is not defined %}
+            {{ form_start(form) }}
+        {% endif %}
         <div class="panel-action">
-            <button type="button" class="btn btn-danger"><i class="fa fa-times"></i> {{ 'Cancel'|trans }}</button>
-            {% set btnType = isEmbed is not defined ? 'submit' : 'button' %}
-            <button type="{{ btnType }}" class="btn btn-success beer-submit"><i class="fa fa-check"></i> {{ 'Send'|trans }}</button>
+            {% if isEmbedded is not defined %}
+                <a href="{{ path('admin_brewery') }}" class="btn btn-danger"><i class="fa fa-times"></i> {{ 'Cancel'|trans }}</a>
+                <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> {{ 'Send'|trans }}</button>
+            {% else %}
+                <button type="button" data-id="brewery-cancel" class="btn btn-danger"><i class="fa fa-times"></i> {{ 'Cancel'|trans }}</button>
+                <button type="button" data-id="brewery-submit" data-url="{{ path('auth_brewery_create') }}" class="btn btn-success"><i class="fa fa-check"></i> {{ 'Send'|trans }}</button>
+            {% endif %}
         </div>
         <div class="col-lg-12">
             <h3 class="page-header">{{ 'Brewery information' }}</h3>
         </div>
-        <div class="col-lg-4">
+        <div class="{% if isEmbedded is not defined %}col-lg-4{% else %}col-lg-12{% endif %}">
             {{ form_row(form.name) }}
             {{ form_row(form.country) }}
         </div>
-        {{ form_end(form) }}
+        {% if isEmbedded is not defined %}
+            {{ form_end(form) }}
+        {% else %}
+            {{ form_row(form._token) }}
+        {% endif %}
     </div>
 </div>

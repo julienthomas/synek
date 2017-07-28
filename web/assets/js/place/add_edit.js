@@ -310,6 +310,9 @@ function setPicturePreview(input)
     };
 }
 
+/**
+ * @param event
+ */
 function uploadPictures(event)
 {
     var url   = $("[data-id='place-form']").data('upload-url');

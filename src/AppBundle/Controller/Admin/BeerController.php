@@ -6,7 +6,6 @@ use AppBundle\Entity\Beer;
 use AppBundle\Entity\Beer\Type;
 use AppBundle\Entity\Brewery;
 use AppBundle\Form\BeerType;
-use AppBundle\Form\BreweryType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -56,13 +55,28 @@ class BeerController extends Controller
             $isNew = true;
         }
 
-        $beerForm    = $this->createForm(new BeerType($this->getUser()->getLanguage()), $beer);
-        $breweryForm = $this->createForm(new BreweryType($this->getUser()->getLanguage()), new Brewery());
+        $beerForm     = $this->createForm(new BeerType($this->getUser()->getLanguage()), $beer);
+        $breweryForm  = $this->createForm($this->get('synek.form.brewery'), new Brewery());
+        $beerTypeForm = $this->createForm($this->get('synek.form.beer_type'), new Type());
+
+        $beerForm->handleRequest($request);
+        if ($beerForm->isSubmitted()) {
+            $translator = $this->get('translator');
+            if ($beerForm->isValid()) {
+                $this->get('synek.service.beer')->saveBeer($beer);
+                $msg = $isNew ? $translator->trans('Beer successfully added.') : $translator->trans('Beer successfully edited.');
+                $this->get('session')->getFlashBag()->add('success', $msg);
+                return $this->redirectToRoute('admin_beer');
+            } else {
+                $this->get('session')->getFlashBag()->add('error', $translator->trans('Some fields are invalids.'));
+            }
+        }
 
         return $this->render('admin/beer/add_edit.html.twig', [
-            'form'        => $beerForm->createView(),
-            'breweryForm' => $breweryForm->createView(),
-            'isNew'       => $isNew
+            'form'         => $beerForm->createView(),
+            'breweryForm'  => $breweryForm->createView(),
+            'beerTypeForm' => $beerTypeForm->createView(),
+            'isNew'        => $isNew
         ]);
     }
 }
