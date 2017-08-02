@@ -5,11 +5,11 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Entity\Beer;
 use AppBundle\Entity\Beer\Type;
 use AppBundle\Entity\Brewery;
-use AppBundle\Form\BeerType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class BeerController extends Controller
 {
@@ -31,6 +31,7 @@ class BeerController extends Controller
 
     /**
      * @Route("/admin/beer/refresh", name="admin_beer_refresh")
+     * @Method("POST")
      * @param Request $request
      * @return JsonResponse
      */

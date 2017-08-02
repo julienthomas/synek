@@ -5,14 +5,13 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Entity\Beer;
 use AppBundle\Entity\Brewery;
 use AppBundle\Entity\Place;
-use AppBundle\Form\BeerType;
-use AppBundle\Form\BreweryType;
 use AppBundle\Form\PlaceType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class ShopController extends Controller
 {
@@ -26,6 +25,7 @@ class ShopController extends Controller
 
     /**
      * @Route("/admin/shop/new-refresh", name="admin_shop_new_refresh")
+     * @Method("POST")
      * @param Request $request
      * @return JsonResponse
      */
@@ -37,6 +37,7 @@ class ShopController extends Controller
 
     /**
      * @Route("/admin/shop/refresh", name="admin_shop_refresh")
+     * @Method("POST")
      * @param Request $request
      * @return JsonResponse
      */

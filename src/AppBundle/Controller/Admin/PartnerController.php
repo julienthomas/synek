@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class PartnerController extends Controller
 {
@@ -21,6 +22,7 @@ class PartnerController extends Controller
 
     /**
      * @Route("/admin/partner/refresh", name="admin_partner_refresh")
+     * @Method("POST")
      * @param Request $request
      * @return JsonResponse
      */

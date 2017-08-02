@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class BreweryController extends Controller
 {
@@ -30,6 +30,7 @@ class BreweryController extends Controller
 
     /**
      * @Route("/admin/brewery/refresh", name="admin_brewery_refresh")
+     * @Method("POST")
      * @param Request $request
      * @return JsonResponse
      */

@@ -1,27 +1,33 @@
 (function ($){
-    var table     = null;
-    var datatable = null;
-
     $.fn.SearchableDatatable = function(options){
         var defaultOptions = {
             orderCellsTop: true,
-            dom: 'ltipr'
+            dom: 'ltipr',
+            ajax: {
+                type: 'POST'
+            }
         };
-        var datatableOptions = $.extend({}, defaultOptions, options);
-        table = $(this);
+        var table = $(this);
+        var datatableOptions = $.extend(true, defaultOptions, options);
 
-        buildFilters();
-        datatable = $(this).DataTable(datatableOptions);
+        buildFilters(table);
+        table.DataTable(datatableOptions);
 
-        table.on('click', "[data-id='datatable-filter-apply']", function() {
-            applyFilters();
+        $("[data-role='datatable-filter-apply']", table).click(function(){
+            applyFilters(table);
+        });
+        $("[data-role='datatable-filter']", table).keyup(function(event){
+            var code = event.keyCode || event.which;
+            if (code == 13) {
+                applyFilters(table);
+            }
         });
     };
 
     /**
      * Set the filters on the second header row
      */
-    function buildFilters()
+    function buildFilters(table)
     {
         $("[data-id='datatable-filters'] th", table).each(function(){
             if ($(this).data('type')) {
@@ -44,7 +50,7 @@
      */
     function buildInputFilter(cell)
     {
-        var input = $("<input type='text' class='form-control' style='width: 100%;' placeholder='" + cell.text() + "'>");
+        var input = $("<input type='text' data-role='datatable-filter' class='form-control' style='width: 100%;' placeholder='" + cell.text() + "'>");
         cell.html(input);
     }
 
@@ -55,7 +61,7 @@
      */
     function buildSelectFilter(cell)
     {
-        var select  = $("<select class='form-control' style='width: 100%;'>");
+        var select  = $("<select data-role='datatable-filter' class='form-control' style='width: 100%;'>");
         var choices = cell.data('choices');
         var option = $('<option selected>');
         option.text();
@@ -75,7 +81,7 @@
      */
     function buildSubmitButton(cell)
     {
-        var button = $("<button type='button' data-id='datatable-filter-apply' class='btn btn-default pull-right'>");
+        var button = $("<button type='button' data-role='datatable-filter-apply' class='btn btn-default pull-right'>");
         button.html(cell.html());
         cell.html(button);
     }
@@ -83,17 +89,17 @@
     /**
      * Apply serach value for each column and redraw the table
      */
-    function applyFilters()
+    function applyFilters(table)
     {
         $("[data-type]", table).each(function(index) {
             var val = null;
             if ($(this).data('type') == 'text') {
                 val = $('input', this).val();
                 if (val !== null) {
-                    datatable.columns(index).search(val);
+                    table.DataTable().columns(index).search(val);
                 }
             }
         });
-        datatable.draw();
+        table.DataTable().draw();
     }
 })(jQuery);
