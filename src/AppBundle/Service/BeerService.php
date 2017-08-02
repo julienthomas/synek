@@ -95,4 +95,15 @@ class BeerService extends AbstractService
     {
         $this->persistAndFlush($beer);
     }
+
+    /**
+     * @param $name
+     * @return Beer|null
+     */
+    public function getBeerByName($name)
+    {
+        $name = preg_replace('/\s+/', ' ', $name);
+        $beer = $this->manager->getRepository(Beer::class)->findOneByName($name);
+        return $beer;
+    }
 }

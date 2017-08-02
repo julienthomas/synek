@@ -12,12 +12,13 @@
     </div>
     <div class="row">
         <div class="col-lg-12">
-            {% include 'beer/partial/form.html.twig' %}
+            {% include 'beer/form.html.twig' %}
+            {% include 'partial/form_error_template.html.twig' %}
         </div>
     </div>
-    {% include 'partial/form_error_template.html.twig' %}
 {% endblock body %}
 
 {% block javascripts %}
+    <script src="{{ asset('assets/js/utils.js') }}"></script>
     <script src="{{ asset('assets/js/beer/form.js') }}"></script>
 {% endblock javascripts %}

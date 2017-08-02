@@ -53,10 +53,10 @@ function createNewType()
         success: function(data, textStatus, xhr){
             if (xhr.status === 200) {
                 $("[data-id='type-choice']").val(data.id).selectpicker('refresh');
-                $("[data-id='type-new']").slideUp();
             } else if (xhr.status === 201) {
                 refreshTypes(data.id, data.name);
             }
+            $("[data-id='type-new']").slideUp();
         },
         error: function(xhr){
             if (xhr.status === 400) {
@@ -90,10 +90,10 @@ function createNewBrewery()
         success: function(data, textStatus, xhr){
             if (xhr.status === 200) {
                 $("[data-id='brewery-choice']").val(data.id).selectpicker('refresh');
-                $("[data-id='brewery-new']").slideUp();
             } else if (xhr.status === 201) {
                 refreshBreweries(data.id, data.name);
             }
+            $("[data-id='brewery-new']").slideUp();
         },
         error: function(xhr){
             if (xhr.status === 400) {
@@ -116,7 +116,7 @@ function showTypeErrors(jsonErrors)
         error.removeClass('form-error-template');
         $("[data-role='form-error-message']", error).html(msg);
         parent.addClass('has-error');
-        field.after(error);
+        parent.append(error);
     });
 }
 
@@ -133,7 +133,7 @@ function showBreweryErrors(jsonErrors)
         error.removeClass('form-error-template');
         $("[data-role='form-error-message']", error).html(msg);
         parent.addClass('has-error');
-        field.after(error);
+        parent.append(error);
     });
 }
 
@@ -154,7 +154,6 @@ function refreshTypes(id, name)
     select.empty().append(allOptions);
     select.val(id);
     select.selectpicker('refresh');
-    $("[data-id='type-new']").slideUp();
 }
 
 /**
@@ -174,29 +173,4 @@ function refreshBreweries(id, name)
     select.empty().append(allOptions);
     select.val(id);
     select.selectpicker('refresh');
-    $("[data-id='brewery-new']").slideUp();
-}
-
-/**
- *
- * @param options
- * @returns array
- */
-function sortOptions(options)
-{
-    options.sort(function(option1, option2){
-        if ($(option1).val() && $(option2).val()) {
-            var text1 = option1.text;
-            var text2 = option2.text;
-            for (var i = 0; i < text1.length; i++) {
-                if (i >= text2.length || text1[i] > text2[i]) {
-                    return 1;
-                } else if (text1[i] < text2[i]) {
-                    return -1;
-                }
-            }
-            return 0;
-        }
-    });
-    return options;
 }

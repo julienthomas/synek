@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\Util\EntityUtil;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -31,6 +32,9 @@ class Beer
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=64, nullable=false)
+     * @Constraints\NotBlank(
+     *  message="The name must be filled."
+     * )
      */
     private $name;
 
@@ -38,6 +42,9 @@ class Beer
      * @var string
      *
      * @ORM\Column(name="alcohol_degree", type="decimal", precision=4, scale=1, nullable=false)
+     * @Constraints\NotBlank(
+     *  message="The alcohol degree must be filled."
+     * )
      */
     private $alcoholDegree;
 
@@ -62,6 +69,9 @@ class Beer
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="beer_type_id", referencedColumnName="id", nullable=false)
      * })
+     * @Constraints\NotBlank(
+     *  message="The type must be filled."
+     * )
      */
     private $type;
 
@@ -72,6 +82,9 @@ class Beer
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="brewery_id", referencedColumnName="id", nullable=false)
      * })
+     * @Constraints\NotBlank(
+     *  message="The brewery must be filled."
+     * )
      */
     private $brewery;
 

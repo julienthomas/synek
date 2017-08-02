@@ -8,11 +8,13 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class BeerTypeController extends Controller
 {
     /**
      * @Route("/auth/beer-type/create", name="auth_beer_type_create")
+     * @Method("POST")
      * @param Request $request
      * @return JsonResponse
      */

@@ -55,7 +55,7 @@ class BeerController extends Controller
             $isNew = true;
         }
 
-        $beerForm     = $this->createForm(new BeerType($this->getUser()->getLanguage()), $beer);
+        $beerForm     = $this->createForm($this->get('synek.form.beer'), $beer);
         $breweryForm  = $this->createForm($this->get('synek.form.brewery'), new Brewery());
         $beerTypeForm = $this->createForm($this->get('synek.form.beer_type'), new Type());
 

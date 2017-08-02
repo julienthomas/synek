@@ -9,6 +9,11 @@ var geocoder         = null;
 var pictureIndex     = 0;
 
 $(function() {
+
+    $("[data-id='place-submit']").click(function(event, submit){
+        focusFormError(event, submit);
+    });
+
     if ($("#place-address").is(':visible')) {
         initMap();
     }
@@ -29,15 +34,10 @@ $(function() {
         setMarkerPosition(placeResults[$(this).val()]);
     });
 
-    $("[data-id='place-submit']").click(function(event, submit){
-        focusFormError(event, submit);
-    });
-
     var pictures  = $("[data-id='pictures']");
     $("[data-id='picture-add']").click(function(){
         addPicture();
     });
-
 
     pictures.on('click', "[data-role='picture-edit']", function(){
         $("[data-role='picture-input']", $(this).parents("[data-role='picture']")).first().click();
@@ -54,14 +54,72 @@ $(function() {
         uploadPictures(event);
     });
 
-    $("[data-id='place-beers']").change(function(){
-        updateSelectedBeers($(this).val());
+    $("[name^='beer[']").attr('required', false);
+
+    $("[data-id='beer-choice']").change(function(){
+        updateSelectedBeers();
     });
+    updateSelectedBeers();
 
     $("[data-id='selected-beers']").on('click', "[data-role='beer-delete']", function(){
         removeSelectedBeer($(this).parent("[data-role='beer-label']"));
     });
+
+    $("[data-id='beer-new-show']").click(function(){
+        $("#beer-new").slideDown();
+    });
+
+    $("[data-id='beer-cancel']").click(function(){
+        $("#beer-new").slideUp();
+    });
+
+    $("#brewery-filter").change(function(){
+        filterBeers($(this).val());
+    });
+
+    $("[data-id='beer-submit']").click(function(){
+        addBeer();
+    });
 });
+
+/**
+ * Focus hidden field with error
+ * @param event
+ * @param submit
+ */
+function focusFormError(event, submit)
+{
+    if (submit) {
+        return;
+    }
+    var invalids     = $(':invalid', "[data-id='place-form']");
+    var firstInvalid = invalids.first();
+
+    if (invalids.length === 0) {
+        return;
+    }
+
+    event.preventDefault();
+
+    invalids.not(firstInvalid).prop('disabled', true);
+    invalids.not(firstInvalid).addClass('validate-disabled');
+
+    var panel       = firstInvalid.parents("[data-role='place-panel']");
+    var showTimeout = 0;
+    if (panel.is(':hidden')) {
+        var link = $("a[href='#" + panel.attr('id') + "']", "[data-id='place-panels-links']");
+        link.click();
+        showTimeout = 150;
+    }
+
+    setTimeout(function(){
+        $("[data-id='place-submit']").trigger('click', true);
+        setTimeout(function(){
+            invalids.not(firstInvalid).prop('disabled', false);
+            invalids.not(firstInvalid).removeClass('validate-disabled');
+        }, 1);
+    }, showTimeout);
+}
 
 /**
  * Init the Google Map and add a marker if the place information is filled
@@ -356,76 +414,193 @@ function uploadPictures(event)
 }
 
 /**
- * Focus hidden field with error
- * @param event
- * @param submit
+ * Add a beer label
  */
-function focusFormError(event, submit)
+function updateSelectedBeers()
 {
-    if (submit) {
-        return;
-    }
-    var invalids     = $(':invalid', "[data-id='place-form']");
-    var firstInvalid = invalids.first();
-
-    if (invalids.length === 0) {
-        return;
-    }
-
-    event.preventDefault();
-
-    invalids.not(firstInvalid).prop('disabled', true);
-    invalids.not(firstInvalid).addClass('validate-disabled');
-
-    var panel       = firstInvalid.parents("[data-role='place-panel']");
-    var showTimeout = 0;
-    if (panel.is(':hidden')) {
-        var link = $("a[href='#" + panel.attr('id') + "']", "[data-id='place-panels-links']");
-        link.click();
-        showTimeout = 150;
-    }
-
-    setTimeout(function(){
-        $("[data-id='place-submit']").trigger('click', true);
-        setTimeout(function(){
-            invalids.not(firstInvalid).prop('disabled', false);
-            invalids.not(firstInvalid).removeClass('validate-disabled');
-        }, 1);
-    }, showTimeout);
-}
-
-function updateSelectedBeers(beersId)
-{
-    var select       = $("[data-id='place-beers']");
-    var selected     = $("[data-id='selected-beers']");
-    var template     = $("[data-role='beer-label'][data-template='1']");
-    var currentBeers = [];
+    var select           = $("[data-id='beer-choice']");
+    var beersId          = select.val();
+    var selected         = $("[data-id='selected-beers']");
+    var beerTemplate     = $("[data-role='beer-label'][data-template='1']");
+    var beerListTemplate =  $("[data-role='beer-list'][data-template='1']");
+    var currentBeers     = {};
 
     $.each(beersId, function(index, id) {
-        currentBeers.push({'id': id, 'name': $("option[value='" + id + "']", select).text()});
+        var brewery = $("option[value='" + id + "']", select).data('tokens');
+        if (!currentBeers[brewery]) {
+            currentBeers[brewery] = [];
+        }
+        currentBeers[brewery].push({'id': id, 'name': $("option[value='" + id + "']", select).text()});
     });
-    currentBeers.sort(function(a, b){
-        return a.name.localeCompare(b.name);
+
+    $.each(currentBeers, function(key, obj) {
+        obj.sort();
     });
-    $("[data-role='beer-label']", selected).remove();
-    $.each(currentBeers, function(index, obj){
-        var label = template.clone();
-        label.attr({
-            'data-template': 0,
-            'data-beer-id': obj.id
+    Object.keys(currentBeers).sort();
+
+    $(selected).empty();
+    $.each(currentBeers, function(brewery, list){
+        var beerList = beerListTemplate.clone();
+        beerList.attr('data-template', 0);
+        $("[data-role='brewery-name']", beerList).text(brewery);
+        $.each(list, function(index, obj) {
+            var beer = beerTemplate.clone();
+            beer.attr({
+                'data-template': 0,
+                'data-beer-id': obj.id
+            });
+            $("[data-role='beer-name']", beer).text(obj.name);
+            beer.show();
+            beerList.append(beer);
         });
-        $("[data-role='beer-name']", label).text(obj.name);
-        label.show();
-        selected.append(label);
+        beerList.show();
+        selected.append(beerList);
     });
 }
 
+/**
+ * Remove deselected beer label
+ * @param beerLabel
+ */
 function removeSelectedBeer(beerLabel)
 {
-    var select = $("[data-id='place-beers']");
+    var select = $("[data-id='beer-choice']");
     var id     = beerLabel.data('beer-id');
+    var list   = beerLabel.parent("[data-role='beer-list']");
 
     $("option[value='" + id + "']", select).prop('selected', false);
-    select.selectpicker('refresh');
+
     beerLabel.remove();
+    if ($("[data-role='beer-label']", list).length === 0) {
+        list.remove();
+    }
+    select.selectpicker('refresh');
+    filterBeers();
+}
+
+/**
+ * Filter beers depending on brewery
+ */
+function filterBeers()
+{
+    var breweryName  = $("#brewery-filter").val();
+    var selectPicker = $("[data-id='place_beers']").parent(".bootstrap-select");
+
+    if (breweryName == null) {
+        $("[data-optgroup]", selectPicker).show();
+        return;
+    }
+
+    var optgroup      = selectPicker.find($("span:contains(" + breweryName + ")", 'li.dropdown-header'));
+    var optindex      = optgroup.parent('li').data('optgroup');
+    var selectedGroup = $("[data-optgroup='" + optindex + "']", selectPicker);
+
+    selectedGroup.show();
+    $("[data-optgroup]", selectPicker).not(selectedGroup).hide();
+}
+
+function addBeer()
+{
+    var brewerySelect = $("[data-id='brewery-choice']");
+    var breweryName   = $("option:selected", brewerySelect).text();
+    var fields        = $("[name^='beer[']");
+    var formData       = new FormData();
+
+    fields.each(function(){
+        if ($(this).val() !== null) {
+            var parent = $(this).parents('.form-group').first();
+            formData.append($(this).attr('name'), $(this).val());
+            parent.removeClass('has-error');
+            $("[data-role='form-error']", parent).remove();
+        }
+    });
+
+    $.ajax({
+        type: 'POST',
+        url: $("[data-id='beer-submit']").data('url'),
+        dataType: 'json',
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(data, textStatus, xhr) {
+            if (xhr.status === 200 || xhr.status === 201) {
+                if (xhr.status === 201) {
+                    refreshBreweryFilter(breweryName);
+                    refreshBeers(breweryName, data.id, data.name);
+                }
+                updateBeerChoiceValues(data.id);
+                $("#beer-new").slideUp();
+            }
+        },
+        error: function(xhr){
+            if (xhr.status === 400) {
+                showBeerErrors(xhr.responseJSON);
+            }
+        }
+    });
+}
+
+function refreshBreweryFilter(breweryName)
+{
+    var breweryFilter = $("#brewery-filter");
+    var currentVal    = breweryFilter.val();
+    if ($("option[value='" + breweryName + "']", breweryFilter).length != 0) {
+        return;
+    }
+    var option = $("<option value='" + breweryName + "'>");
+    option.text(breweryName);
+    breweryFilter.append(option);
+    var allOptions = $("option", breweryFilter);
+    sortOptions(allOptions);
+    breweryFilter.empty().append(allOptions);
+    breweryFilter.val(currentVal);
+    breweryFilter.selectpicker('refresh');
+}
+
+function refreshBeers(breweryName, beerId, beerName)
+{
+    var beersSelect  = $("[data-id='beer-choice']");
+    var group        = $("optgroup[label='" + breweryName + "']", beersSelect);
+    var option       = $("<option value='" + beerId + "' data-tokens='" + breweryName + "'>");
+
+    option.text(beerName);
+    if (group.length == 0) {
+        group = $("<optgroup label='" + breweryName + "'>");
+        beersSelect.append(group);
+        var allGroups = $("optgroup", beersSelect);
+        sortOptGroups(allGroups);
+        beersSelect.empty().append(allGroups);
+    }
+    group.append(option);
+    var allOptions = $("option", group);
+    sortOptions(allOptions);
+    group.empty().append(allOptions);
+    updateBeerChoiceValues(beerId);
+}
+
+function updateBeerChoiceValues(beerId)
+{
+    var beersSelect  = $("[data-id='beer-choice']");
+    var currentBeers = beersSelect.val();
+    currentBeers.push(beerId);
+    $.each(currentBeers, function(index, value){
+        $("option[value='" + value + "']", beersSelect).attr('selected', true);
+    });
+    beersSelect.selectpicker('refresh');
+    beersSelect.change();
+}
+
+function showBeerErrors(jsonErrors)
+{
+    $.each(jsonErrors, function(name, msg){
+        var field  = $("[name='beer[" + name + "]'");
+        var error  = $("[data-id='form-error-template']").clone();
+        var parent = field.parents('.form-group').first();
+        error.removeAttr('data-id');
+        error.removeClass('form-error-template');
+        $("[data-role='form-error-message']", error).html(msg);
+        parent.addClass('has-error');
+        parent.append(error);
+    });
 }

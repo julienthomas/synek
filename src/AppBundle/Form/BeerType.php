@@ -7,10 +7,10 @@ use AppBundle\Entity\Brewery;
 use AppBundle\Entity\Language;
 use Doctrine\ORM\EntityRepository;
 use AppBundle\Entity\Beer\Type;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class BeerType extends AbstractType
 {
@@ -20,13 +20,16 @@ class BeerType extends AbstractType
     private $language;
 
     /**
-     * @param Language $language
+     * @param TokenStorage $tokenStorage
      */
-    public function __construct(Language $language)
+    public function __construct(TokenStorage $tokenStorage)
     {
-        $this->language = $language;
+        $this->language = $tokenStorage->getToken()->getUser()->getLanguage();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

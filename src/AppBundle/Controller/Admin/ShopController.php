@@ -55,16 +55,18 @@ class ShopController extends Controller
      */
     public function editAction(Request $request, Place $place)
     {
-        $shopService = $this->get('synek.service.shop');
-        $basePictures = $shopService->getCurrentPictures($place);
-        $formType = new PlaceType($this->getUser()->getLanguage(), $this->get('synek.service.shop'), true);
-        $form = $this->createForm($formType, $place);
-        $beerForm = $this->createForm(new BeerType($this->getUser()->getLanguage()), new Beer());
-        $breweryForm = $this->createForm(new BreweryType($this->getUser()->getLanguage()), new Brewery());
+        $shopService   = $this->get('synek.service.shop');
+        $basePictures  = $shopService->getCurrentPictures($place);
+        $formType      = new PlaceType($this->getUser()->getLanguage(), $this->get('synek.service.shop'), true, $this->get('synek.service.beer'));
+        $placeForm     = $this->createForm($formType, $place);
+        $beerForm      = $this->createForm($this->get('synek.form.beer'), new Beer());
+        $beerTypeForm  = $this->createForm($this->get('synek.form.beer_type'), new Beer\Type());
+        $breweryForm   = $this->createForm($this->get('synek.form.brewery'), new Brewery());
+        $breweries     = $this->getDoctrine()->getManager()->getRepository(Brewery::class)->getBreweriesWithBeers();
 
-        $form->handleRequest($request);
-        if ($form->isSubmitted()) {
-            if ($form->isValid()) {
+        $placeForm->handleRequest($request);
+        if ($placeForm->isSubmitted()) {
+            if ($placeForm->isValid()) {
                 $shopService->saveShop($place);
                 $shopService->deleteUnusedPictures($place, $basePictures);
                 $this->get('session')->getFlashBag()->add('success', _('Shop successfully edited.'));
@@ -75,10 +77,12 @@ class ShopController extends Controller
         }
 
         return $this->render('admin/shop/edit.html.twig', [
-            'place'       => $place,
-            'form'        => $form->createView(),
-            'beerForm'    => $beerForm->createView(),
-            'breweryForm' => $breweryForm->createView()
+            'place'        => $place,
+            'breweries'    => $breweries,
+            'form'         => $placeForm->createView(),
+            'beerForm'     => $beerForm->createView(),
+            'beerTypeForm' => $beerTypeForm->createView(),
+            'breweryForm'  => $breweryForm->createView()
         ]);
     }
 

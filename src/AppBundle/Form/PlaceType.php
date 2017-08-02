@@ -6,6 +6,7 @@ use AppBundle\Entity\Beer;
 use AppBundle\Entity\Language;
 use AppBundle\Form\Place\AddressType;
 use AppBundle\Form\Place\PictureType;
+use AppBundle\Service\BeerService;
 use AppBundle\Service\ShopService;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
@@ -104,11 +105,19 @@ class PlaceType extends AbstractType
                         'choice_label'  => 'name',
                         'query_builder' => function (EntityRepository $er) {
                             return $er->createQueryBuilder('beer')
-                                ->orderBy('beer.name', 'ASC');
+                                ->addSelect('brewery')
+                                ->innerJoin('beer.brewery', 'brewery')
+                                ->addOrderBy('brewery.name')
+                                ->orderBy('beer.name');
                         },
+                        'group_by' => function($val) {
+                            return $val->getBrewery()->getName();
+                        },
+                        'choice_attr' => function($val) {
+                            return ['data-tokens' => $val->getBrewery()->getName()];
+                        }
                     ]
-                )
-            ;
+                );
         }
     }
 

@@ -1,11 +1,27 @@
-{% extends 'place/add_edit.html.twig' %}
+{% extends 'layout_admin.html.twig' %}
 
-{% set layout = 'layout_admin.html.twig' %}
-{% set mapMarker = asset('assets/img/map/marker_shop.png') %}
-{% set isShop = true %}
-{% set addOwner = true %}
+{% block stylesheets %}
+    <link href="{{ asset('assets/css/place/add_edit.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/beer/form.css') }}" rel="stylesheet">
+{% endblock stylesheets %}
 
 {% block title %}
     {{ 'Shop edition'|trans }}
 {% endblock title %}
 
+{% block body %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{ 'Shop edition'|trans }}</h1>
+        </div>
+    </div>
+    {% include 'place/form.html.twig' with {'mapMarker': asset('assets/img/map/marker_shop.png'), 'isShop': true, 'addOwner': true} %}
+    {% include 'partial/form_error_template.html.twig' %}
+{% endblock body %}
+
+{% block javascripts %}
+    <script src="https://maps.googleapis.com/maps/api/js?v=3&key={{ google_api_key }}"></script>
+    <script src="{{ asset('assets/js/utils.js') }}"></script>
+    <script src="{{ asset('assets/js/place/add_edit.js') }}"></script>
+    <script src="{{ asset('assets/js/beer/form.js') }}"></script>
+{% endblock javascripts %}

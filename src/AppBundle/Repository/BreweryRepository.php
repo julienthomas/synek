@@ -62,43 +62,19 @@ class BreweryRepository extends EntityRepository
         return DatatableUtil::getQbData($this->_em, $qb, 'brewery.id', $searchs);
     }
 
-//    /**
-//     * @param Type $type
-//     * @return array
-//     */
-//    public function getTypeWithTranslations(Type $type)
-//    {
-//        $qb = $this->_em->createQueryBuilder();
-//        $qb
-//            ->select('type, translation')
-//            ->from('AppBundle:Beer\Type', 'type')
-//            ->innerJoin('type.translations', 'translation')
-//            ->innerJoin('translation.language', 'language')
-//            ->where('type = :type')
-//            ->setParameter('type', $type);
-//
-//        $query = $qb->getQuery();
-//        $query->useQueryCache(true);
-//        return $query->getResult();
-//    }
-//
-//    /**
-//     * @param $language
-//     * @return array
-//     */
-//    public function getTypesWithTranslation(Language $language)
-//    {
-//        $qb = $this->_em->createQueryBuilder();
-//        $qb
-//            ->select('type, translations')
-//            ->from('AppBundle:Beer\Type', 'type')
-//            ->innerJoin('type.translations', 'translations')
-//            ->where('translations.language = :language')
-//            ->orderBy('translations.name')
-//            ->setParameter('language', $language);
-//
-//        $query = $qb->getQuery();
-//        $query->useQueryCache(true);
-//        return $query->getResult();
-//    }
+    /**
+     * @return array
+     */
+    public function getBreweriesWithBeers()
+    {
+        $qb = $this->_em->createQueryBuilder()
+            ->select('brewery, beers')
+            ->from('AppBundle:Brewery', 'brewery')
+            ->innerJoin('brewery.beers', 'beers')
+            ->orderBy('brewery.name');
+
+        $query = $qb->getQuery();
+        $query->useQueryCache(true);
+        return $query->getResult();
+    }
 }

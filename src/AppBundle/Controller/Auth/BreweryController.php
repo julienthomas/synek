@@ -8,11 +8,13 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class BreweryController extends Controller
 {
     /**
      * @Route("/auth/brewery/create", name="auth_brewery_create")
+     * @Method("POST")
      * @param Request $request
      * @return JsonResponse
      */
@@ -24,8 +26,6 @@ class BreweryController extends Controller
         if ($brewery) {
             return new JsonResponse(['id' => $brewery->getId()], Response::HTTP_OK);
         }
-
-
 
         $brewery = new Brewery();
         $form = $this->createForm($this->get('synek.form.brewery'), $brewery);

@@ -1,5 +1,12 @@
 services:
-        #form
+    #form
+    synek.form.beer:
+        class: AppBundle\Form\BeerType
+        arguments:
+            - '@security.token_storage'
+        tags:
+            - { name: form.type, alias: synek_beer_type }
+
     synek.form.beer_type:
         class: AppBundle\Form\BeerTypeType
         arguments:
@@ -13,7 +20,7 @@ services:
         arguments:
             - '@security.token_storage'
         tags:
-            - { name: form.type, alias: synek_beer_type_type }
+            - { name: form.type, alias: synek_brewery_type }
 
     #security
     synek.security.authentication_redirect:
