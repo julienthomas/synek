@@ -51,7 +51,7 @@
                 <div class="panel">
                     <div class="panel-body tab-content">
                         <div class="place-action">
-                            <button type="button" class="btn btn-danger"><i class="fa fa-times"></i> {{ 'Cancel'|trans }}</button>
+                            <a href="{{ cancelUrl }}" class="btn btn-danger"><i class="fa fa-times"></i> {{ 'Cancel'|trans }}</a>
                             <button type="submit" class="btn btn-success place-submit" data-id="place-submit"><i class="fa fa-check"></i> {{ 'Send'|trans }}</button>
                         </div>
                         {% include 'place/partial/information.html.twig' %}

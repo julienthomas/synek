@@ -16,7 +16,7 @@
             <h1 class="page-header">{{ 'Shop edition'|trans }}</h1>
         </div>
     </div>
-    {% include 'place/form.html.twig' with {'mapMarker': asset('assets/img/map/marker_shop.png'), 'isShop': true, 'addOwner': true} %}
+    {% include 'place/form.html.twig' with {'mapMarker': asset('assets/img/map/marker_shop.png'), 'isShop': true, 'addOwner': true, 'cancelUrl': path('admin_shop')} %}
     {% include 'partial/form_error_template.html.twig' %}
 {% endblock body %}
 
