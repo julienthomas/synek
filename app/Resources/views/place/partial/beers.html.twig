@@ -9,7 +9,7 @@
                     <div class="form-group">
                         <label class="control-label" for="beer-filter">{{ 'Filter beers by brewery' }}</label>
                         <select id="brewery-filter" class="form-control selectpicker brewery-filter" data-live-search="true">
-                            <option class="filter-default">{{ 'All breweries'|trans }}</option>
+                            <option value="" class="filter-default">{{ 'All breweries'|trans }}</option>
                             {% for brewery in breweries %}
                                 <option value="{{ brewery.name }}">{{ brewery.name }}</option>
                             {% endfor %}

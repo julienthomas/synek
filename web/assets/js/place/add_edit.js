@@ -496,7 +496,7 @@ function filterBeers()
     var breweryName  = $("#brewery-filter").val();
     var selectPicker = $("[data-id='place_beers']").parent(".bootstrap-select");
 
-    if (breweryName == null) {
+    if (breweryName.length === 0) {
         $("[data-optgroup]", selectPicker).show();
         return;
     }
