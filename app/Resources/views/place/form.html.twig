@@ -32,14 +32,15 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#place-schedule" data-toggle="tab" aria-expanded="false">
+                                <a href="#place-schedule" data-toggle="tab" aria-expanded="false" data-id="place-schedule-link">
                                     {{ 'Schedules'|trans }}
-                                    {#{% include 'place/partial/nav-errors.html.twig' with {'form': form} %}#}
+                                    {% include 'place/partial/nav_errors.html.twig' with {'form': form.schedules, 'isParentForm': false} %}
                                 </a>
                             </li>
                             <li>
                                 <a href="#place-beers" data-toggle="tab" aria-expanded="false">
                                     {{ 'Beers'|trans }}
+                                    {% include 'place/partial/nav_errors.html.twig' with {'form': form.beers, 'isParentForm': false} %}
                                 </a>
                             </li>
                         {% endif %}
@@ -51,7 +52,7 @@
                     <div class="panel-body tab-content">
                         <div class="place-action">
                             <button type="button" class="btn btn-danger"><i class="fa fa-times"></i> {{ 'Cancel'|trans }}</button>
-                            <button type="submit" class="btn btn-success beer-submit"><i class="fa fa-check"></i> {{ 'Send'|trans }}</button>
+                            <button type="submit" class="btn btn-success place-submit" data-id="place-submit"><i class="fa fa-check"></i> {{ 'Send'|trans }}</button>
                         </div>
                         {% include 'place/partial/information.html.twig' %}
                         {% if isShop == true %}
@@ -60,7 +61,7 @@
                         {% include 'place/partial/address.html.twig' with {'form': form.address} %}
                         {% if isShop == true %}
                             {% include 'place/partial/pictures.html.twig' with {'form': form.pictures} %}
-                            {% include 'place/partial/schedule.html.twig' %}
+                            {% include 'place/partial/schedule.html.twig' with {'form': form.schedules} %}
                             {% include 'place/partial/beers.html.twig'  %}
                         {% endif %}
                     </div>

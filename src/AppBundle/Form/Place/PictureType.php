@@ -35,7 +35,8 @@ class PictureType extends AbstractType
                 'file',
                 'hidden',
                 ['required' => false]
-            )->addEventListener(FormEvents::SUBMIT, [$this, 'verifFile']);
+            )
+            ->addEventListener(FormEvents::SUBMIT, [$this, 'verifFile']);
     }
 
     /**
@@ -64,6 +65,6 @@ class PictureType extends AbstractType
 
     public function getName()
     {
-        return 'picture';
+        return 'place_picture';
     }
 }

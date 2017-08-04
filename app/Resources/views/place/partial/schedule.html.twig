@@ -2,4 +2,15 @@
     <div class="col-lg-12">
         <h3 class="page-header">{{ 'Schedule'|trans }}</h3>
     </div>
+    <div class="col-lg-12">
+        <div data-id="calendar" class="calendar"></div>
+    </div>
+    <div class="row" data-id="schedules" data-timezone="{{ place.timezone.name }}">
+        {% for schedule in form %}
+            {% include 'place/partial/schedules/template.html.twig' with {'form': schedule, 'isPrototype': false}  %}
+        {% endfor %}
+    </div>
+    <div class="row" data-id="schedule-prototype" hidden>
+        {% include 'place/partial/schedules/template.html.twig' with {'form': form.vars.prototype, 'isPrototype': true}  %}
+    </div>
 </div>

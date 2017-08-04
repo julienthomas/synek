@@ -6,6 +6,7 @@ use AppBundle\Entity\Beer;
 use AppBundle\Entity\Language;
 use AppBundle\Form\Place\AddressType;
 use AppBundle\Form\Place\PictureType;
+use AppBundle\Form\Place\ScheduleType;
 use AppBundle\Service\BeerService;
 use AppBundle\Service\ShopService;
 use Doctrine\ORM\EntityRepository;
@@ -63,12 +64,18 @@ class PlaceType extends AbstractType
             ->add(
                 'email',
                 'email',
-                ['label' => _('Email')]
+                [
+                    'label'    => _('Email'),
+                    'required' => false
+                ]
             )
             ->add(
                 'phone',
                 'text',
-                ['label' => _('Phone number')]
+                [
+                    'label'    => _('Phone number'),
+                    'required' => false
+                ]
             )
             ->add(
                 'address',
@@ -117,7 +124,19 @@ class PlaceType extends AbstractType
                             return ['data-tokens' => $val->getBrewery()->getName()];
                         }
                     ]
-                );
+                )
+                ->add(
+                    'schedules',
+                    'collection',
+                    [
+                        'type'         => new ScheduleType(),
+                        'required'     => false,
+                        'allow_add'    => true,
+                        'allow_delete' => true,
+                        'by_reference' => true
+                    ]
+                )
+            ;
         }
     }
 

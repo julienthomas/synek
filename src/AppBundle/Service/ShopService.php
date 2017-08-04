@@ -6,6 +6,7 @@ use AppBundle\Entity\Country;
 use AppBundle\Entity\Place\Address;
 use AppBundle\Entity\Place\Type;
 use AppBundle\Entity\Place\Picture;
+use AppBundle\Entity\Place\Schedule;
 use AppBundle\Entity\Timezone;
 use AppBundle\Util\DatatableUtil;
 use Doctrine\Bundle\DoctrineBundle\Registry;
@@ -270,16 +271,18 @@ class ShopService extends PlaceService
     {
         $address  = $place->getAddress();
         $pictures = $place->getPictures();
+        $schedules = $place->getSchedules();
 
         $place
             ->setAddress(null)
-            ->clearPictures();
+            ->clearPictures()
+            ->clearSchedules();
 
         $this->persistAndFlush($address);
         $place->setAddress($address);
         $this->persistAndFlush($place);
         $newPictures = [];
-        /** @var Place\Picture $picture */
+        /** @var Picture $picture */
         foreach ($pictures as $picture) {
             $serverPath = "{$_SERVER['DOCUMENT_ROOT']}/web/{$picture->getFile()}";
             if ($picture->getFile() && file_exists($serverPath) && !$place->hasPicture($picture)) {
@@ -291,7 +294,15 @@ class ShopService extends PlaceService
                 }
             }
         }
+        /** @var Schedule $schedule */
+        foreach ($schedules as $schedule) {
+            if (!$place->hasSchedule($schedule)) {
+                $schedule->setPlace($place);
+                $place->addSchedule($schedule);
+            }
+        }
         $this->persistAndFlush($place->getPictures()->toArray());
+        $this->persistAndFlush($place->getSchedules()->toArray());
         $this->removeUnused($place);
     }
 
@@ -300,7 +311,8 @@ class ShopService extends PlaceService
      */
     private function removeUnused(Place $place)
     {
-        $pictures = $this->manager->getRepository('AppBundle:Place\Picture')->findByPlace($place);
+        $pictures  = $this->manager->getRepository(Picture::class)->findByPlace($place);
+        $schedules = $this->manager->getRepository(Schedule::class)->findByPlace($place);
 
         $remove = [];
         /** @var Place\Picture $picture */
@@ -310,6 +322,13 @@ class ShopService extends PlaceService
                 if ($picture->getFile()) {
                     $this->deleteFile($picture->getFile());
                 }
+            }
+        }
+
+        /** @var Schedule $schedule */
+        foreach ($schedules as $schedule) {
+            if (!$place->hasSchedule($schedule)) {
+                $remove[] = $schedule;
             }
         }
 

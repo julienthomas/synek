@@ -95,6 +95,6 @@ class AddressType extends AbstractType
      */
     public function getName()
     {
-        return 'place';
+        return 'place_address';
     }
 }

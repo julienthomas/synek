@@ -59,7 +59,7 @@ class BeerType extends AbstractType
             )
             ->add(
                 'alcoholDegree',
-                'integer',
+                'number',
                 [
                     'label' => 'Alcohol degree',
                     'scale' => 1,

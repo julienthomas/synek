@@ -131,3 +131,16 @@
 .brewery-filter .dropdown-toggle.bs-placeholder:focus {
   color: #333;
 }
+.calendar {
+  height: 600px;
+}
+.calendar td.fc-today {
+  background: none;
+}
+.calendar th.fc-day-header {
+  text-transform: capitalize;
+}
+.calendar div.fc-event-container {
+  font-size: 20px;
+  text-align: center;
+}

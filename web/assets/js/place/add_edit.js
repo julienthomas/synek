@@ -7,11 +7,27 @@ var isMapInit        = false;
 var placeResults     = null;
 var geocoder         = null;
 var pictureIndex     = 0;
+var isCalendarInit   = false;
 
 $(function() {
+    $("[data-id='place-submit']").click(function(event, checkValidity){
+        checkValidity = checkValidity != undefined ? checkValidity : true;
+        if (checkValidity && $('form')[0].checkValidity() === false) {
+            event.preventDefault();
+            focusFirstInvalid();
+            setTimeout(function(){
+                $("[data-id='place-submit']").trigger('click', false);
+                setTimeout(function(){
+                    resetInvalids();
+                }, 100);
+            }, 200);
+        } else {
+            buildSchedule();
+        }
+    });
 
-    $("[data-id='place-submit']").click(function(event, submit){
-        focusFormError(event, submit);
+    $("[data-id='place-form']").submit(function(event){
+        uploadPictures(event);
     });
 
     if ($("#place-address").is(':visible')) {
@@ -22,7 +38,7 @@ $(function() {
         if (isMapInit === false) {
             setTimeout(function(){
                 initMap();
-            }, 300);
+            }, 200);
         }
     });
 
@@ -50,10 +66,6 @@ $(function() {
     });
     pictureIndex = $("[data-role='picture']", pictures).length;
 
-    $("[data-id='place-form']").submit(function(event){
-        uploadPictures(event);
-    });
-
     $("[name^='beer[']").attr('required', false);
 
     $("[data-id='beer-choice']").change(function(){
@@ -80,45 +92,45 @@ $(function() {
     $("[data-id='beer-submit']").click(function(){
         addBeer();
     });
+
+    if ($("#place-schedule").is(':visible')) {
+        initCalendar();
+    }
+
+    $("[data-id='place-schedule-link']").click(function(){
+        if (isCalendarInit === false) {
+            setTimeout(function(){
+                initCalendar();
+            }, 200);
+        }
+    });
 });
 
 /**
  * Focus hidden field with error
- * @param event
- * @param submit
  */
-function focusFormError(event, submit)
+function focusFirstInvalid()
 {
-    if (submit) {
-        return;
-    }
     var invalids     = $(':invalid', "[data-id='place-form']");
     var firstInvalid = invalids.first();
 
-    if (invalids.length === 0) {
-        return;
-    }
-
-    event.preventDefault();
-
+    var panel = firstInvalid.parents("[data-role='place-panel']");
     invalids.not(firstInvalid).prop('disabled', true);
+    invalids.not(firstInvalid).attr('data-invalid', '1');
     invalids.not(firstInvalid).addClass('validate-disabled');
 
-    var panel       = firstInvalid.parents("[data-role='place-panel']");
-    var showTimeout = 0;
     if (panel.is(':hidden')) {
         var link = $("a[href='#" + panel.attr('id') + "']", "[data-id='place-panels-links']");
         link.click();
-        showTimeout = 150;
     }
+}
 
-    setTimeout(function(){
-        $("[data-id='place-submit']").trigger('click', true);
-        setTimeout(function(){
-            invalids.not(firstInvalid).prop('disabled', false);
-            invalids.not(firstInvalid).removeClass('validate-disabled');
-        }, 1);
-    }, showTimeout);
+function resetInvalids()
+{
+    var invalids  = $("[data-invalid='1']", "[data-id='place-form']");
+    invalids.prop('disabled', false);
+    invalids.removeAttr('data-invalid');
+    invalids.removeClass('validate-disabled');
 }
 
 /**
@@ -138,8 +150,6 @@ function initMap()
         zoom = mapZoom;
         addMarker = true;
     }
-
-    console.log(center);
 
     map = new google.maps.Map(document.getElementById("place-map"), {
         center: center,
@@ -294,7 +304,7 @@ function setPlacesChoice()
  */
 function addPicture()
 {
-    var clone     = $("[data-role='picture']", "[data-id='pictures-template']").clone();
+    var clone     = $("[data-role='picture']", "[data-id='picture-prototype']").clone();
     var reg       = /__name__/g;
     var placeFile = $("[data-role='place-file']", clone);
     var pictures  = $("[data-id='pictures']");
@@ -499,6 +509,9 @@ function filterBeers()
     $("[data-optgroup]", selectPicker).not(selectedGroup).hide();
 }
 
+/**
+ * Create a new beer
+ */
 function addBeer()
 {
     var brewerySelect = $("[data-id='brewery-choice']");
@@ -541,6 +554,10 @@ function addBeer()
     });
 }
 
+/**
+ * Add the new created beer brewery to the brewery filter
+ * @param breweryName
+ */
 function refreshBreweryFilter(breweryName)
 {
     var breweryFilter = $("#brewery-filter");
@@ -558,6 +575,12 @@ function refreshBreweryFilter(breweryName)
     breweryFilter.selectpicker('refresh');
 }
 
+/**
+ * Add the new beer to beers choice
+ * @param breweryName
+ * @param beerId
+ * @param beerName
+ */
 function refreshBeers(breweryName, beerId, beerName)
 {
     var beersSelect  = $("[data-id='beer-choice']");
@@ -579,6 +602,10 @@ function refreshBeers(breweryName, beerId, beerName)
     updateBeerChoiceValues(beerId);
 }
 
+/**
+ * Select the new beer
+ * @param beerId
+ */
 function updateBeerChoiceValues(beerId)
 {
     var beersSelect  = $("[data-id='beer-choice']");
@@ -591,6 +618,10 @@ function updateBeerChoiceValues(beerId)
     beersSelect.change();
 }
 
+/**
+ * Display beer form errors
+ * @param jsonErrors
+ */
 function showBeerErrors(jsonErrors)
 {
     $.each(jsonErrors, function(name, msg){
@@ -602,5 +633,101 @@ function showBeerErrors(jsonErrors)
         $("[data-role='form-error-message']", error).html(msg);
         parent.addClass('has-error');
         parent.append(error);
+    });
+}
+
+/**
+ * init the calendar
+ */
+function initCalendar()
+{
+    var calendarDiv = $("[data-id='calendar']");
+
+    calendarDiv.fullCalendar({
+        firstDay:      1,
+        header:        false,
+        allDaySlot:    false,
+        defaultView:   'agendaWeek',
+        columnFormat:  'dddd',
+        height:        'parent',
+        editable:      true,
+        selectable:    true,
+        selectHelper:  true,
+        selectOverlap: false,
+        eventOverlap:  false,
+        events:        buildCalendarEvents(),
+        timezone:      false,
+        selectAllow: function(selectInfo) {
+            return selectInfo.start.day() == selectInfo.end.day();
+        },
+        select: function(start, end) {
+            calendarDiv.fullCalendar('renderEvent', {start: start, end: end}, true);
+            calendarDiv.fullCalendar('unselect');
+        },
+        eventClick: function(event) {
+            calendarDiv.fullCalendar('removeEvents', event._id);
+        }
+    });
+    isCalendarInit = true;
+    console.log($("[data-id='calendar']").fullCalendar('clientEvents'));
+}
+
+/**
+ * Build the events for calendar
+ * @returns {Array}
+ */
+function buildCalendarEvents()
+{
+    var events = [];
+
+    $("[data-role='schedule']", "[data-id='schedules']").each(function(){
+        var start      = moment();
+        var end        = moment();
+        var startParts = $("[data-role='schedule-opening']", $(this)).val().split(':');
+        var endParts   = $("[data-role='schedule-closure']", $(this)).val().split(':');
+
+        start.day($("[data-role='schedule-day']", $(this)).val());
+        start.hour(startParts[0]);
+        start.minute(startParts[1]);
+        start.second(0);
+        end.day($("[data-role='schedule-day']", $(this)).val());
+        end.hour(endParts[0]);
+        end.minute(endParts[1]);
+        end.second(0);
+        events.push({'start': start.format('Y-MM-DD HH:mm:ss'), 'end': end.format('Y-MM-DD HH:mm:ss')});
+    });
+    return events;
+}
+
+/**
+ * Add the schedules inputs
+ */
+function buildSchedule()
+{
+    var prototype = $("[data-role='schedule']", "[data-id='schedule-prototype']");
+    var events    = $("[data-id='calendar']").fullCalendar('clientEvents');
+    var schedules = $("[data-id='schedules']");
+    var timezone  = schedules.data('timezone');
+    var reg       = /__name__/g;
+
+    if (!isCalendarInit) {
+        return;
+    }
+
+    schedules.empty();
+    $.each(events, function(index, event){
+        var schedule = prototype.clone();
+        $("input", schedule).each(function(){
+            $(this).attr({
+                disabled: false,
+                name:     $(this).attr('name').replace(reg, index),
+                id:       $(this).attr('id').replace(reg, index)
+            });
+        });
+        index++;
+        $("[data-role='schedule-day']", schedule).val(event.start.weekday() + 1);
+        $("[data-role='schedule-opening']", schedule).val(event.start.format('HH:mm'));
+        $("[data-role='schedule-closure']", schedule).val(event.end.format('HH:mm'));
+        schedules.append(schedule);
     });
 }

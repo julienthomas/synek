@@ -4,6 +4,7 @@ namespace AppBundle\Entity\Place;
 
 use AppBundle\Util\EntityUtil;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints;
 
 /**
  * Address
@@ -26,6 +27,9 @@ class Address
      * @var string
      *
      * @ORM\Column(name="address", type="string", length=32, nullable=false)
+     * @Constraints\NotBlank(
+     *  message="The address must be filled."
+     * )
      */
     private $address;
 
@@ -40,6 +44,9 @@ class Address
      * @var string
      *
      * @ORM\Column(name="zip_code", type="string", length=16, nullable=false)
+     * @Constraints\NotBlank(
+     *  message="The zip code must be filled."
+     * )
      */
     private $zipCode;
 
@@ -47,6 +54,9 @@ class Address
      * @var string
      *
      * @ORM\Column(name="city", type="string", length=32, nullable=false)
+     * @Constraints\NotBlank(
+     *  message="The city must be filled."
+     * )
      */
     private $city;
 
@@ -85,6 +95,9 @@ class Address
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="country_id", referencedColumnName="id", nullable=false)
      * })
+     * @Constraints\NotBlank(
+     *  message="The country must be filled."
+     * )
      */
     private $country;
 

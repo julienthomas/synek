@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\Util\EntityUtil;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints;
 
 /**
  * Place
@@ -26,6 +27,9 @@ class Place
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=64, nullable=false)
+     * @Constraints\NotBlank(
+     *  message="The name must be filled."
+     * )
      */
     private $name;
 
@@ -432,10 +436,14 @@ class Place
 
     /**
      * Clear pictures
+     *
+     * @return Place
      */
     public function clearPictures()
     {
         $this->pictures = new \Doctrine\Common\Collections\ArrayCollection();
+
+        return $this;
     }
 
     /**
@@ -480,6 +488,28 @@ class Place
     public function getSchedules()
     {
         return $this->schedules;
+    }
+
+    /**
+     * Clear schedules
+     *
+     * @return Place
+     */
+    public function clearSchedules()
+    {
+        $this->schedules = new \Doctrine\Common\Collections\ArrayCollection();
+
+        return $this;
+    }
+
+    /**
+     * @param \AppBundle\Entity\Place\Schedule $schedule
+     *
+     * @return bool
+     */
+    public function hasSchedule(\AppBundle\Entity\Place\Schedule $schedule)
+    {
+        return $this->schedules->contains($schedule);
     }
 
     /**

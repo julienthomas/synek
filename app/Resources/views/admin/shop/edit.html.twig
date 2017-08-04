@@ -1,6 +1,7 @@
 {% extends 'layout_admin.html.twig' %}
 
 {% block stylesheets %}
+    <link href="{{ asset('assets/lib/fullcalendar/fullcalendar.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/place/add_edit.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/beer/form.css') }}" rel="stylesheet">
 {% endblock stylesheets %}
@@ -21,6 +22,9 @@
 
 {% block javascripts %}
     <script src="https://maps.googleapis.com/maps/api/js?v=3&key={{ google_api_key }}"></script>
+    <script src="{{ asset('assets/lib/fullcalendar/lib/moment.min.js') }}"></script>
+    <script src="{{ asset('assets/lib/fullcalendar/fullcalendar.js') }}"></script>
+    <script src="{{ asset('assets/lib/fullcalendar/locale/fr.js') }}"></script>
     <script src="{{ asset('assets/js/utils.js') }}"></script>
     <script src="{{ asset('assets/js/place/add_edit.js') }}"></script>
     <script src="{{ asset('assets/js/beer/form.js') }}"></script>

@@ -4,6 +4,7 @@ namespace AppBundle\Entity\Place;
 
 use AppBundle\Util\EntityUtil;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints;
 
 /**
  * Schedule
@@ -23,9 +24,12 @@ class Schedule
     private $id;
 
     /**
-     * @var boolean
+     * @var integer
      *
-     * @ORM\Column(name="day", type="boolean", nullable=false)
+     * @ORM\Column(name="day", type="integer", length=1, nullable=false, options={"unsigned":true})
+     * @Constraints\NotBlank(
+     *  message="The day must be filled."
+     * )
      */
     private $day;
 
@@ -33,6 +37,9 @@ class Schedule
      * @var \DateTime
      *
      * @ORM\Column(name="opening_time", type="time", nullable=false)
+     * @Constraints\NotBlank(
+     *  message="The opening time must be filled."
+     * )
      */
     private $openingTime;
 
@@ -40,6 +47,9 @@ class Schedule
      * @var \DateTime
      *
      * @ORM\Column(name="closure_time", type="time", nullable=false)
+     * @Constraints\NotBlank(
+     *  message="The closure time must be filled."
+     * )
      */
     private $closureTime;
 
