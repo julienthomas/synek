@@ -41,9 +41,4 @@
     <script src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}"></script>
     <script src="{{ asset('assets/lib/geolocation-marker/geolocation-marker.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/home.js') }}"></script>
-    <script type="text/javascript">
-        $(function() {
-            initMap({{ places|json_encode|raw }})
-        });
-    </script>
 {% endblock javascripts %}

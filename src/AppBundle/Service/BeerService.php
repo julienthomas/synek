@@ -106,4 +106,19 @@ class BeerService extends AbstractService
         $beer = $this->manager->getRepository(Beer::class)->findOneByName($name);
         return $beer;
     }
+
+    /**
+     * @return array
+     */
+    public function getBeerList()
+    {
+        $beerList = $this->manager->getRepository(Beer::class)->getBeersWithBreweries();
+
+        $data = [];
+        /** @var Beer $beer */
+        foreach ($beerList as $beer) {
+            $data[$beer->getBrewery()->getName()][] = $beer;
+        }
+        return $data;
+    }
 }

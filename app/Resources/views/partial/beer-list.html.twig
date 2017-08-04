@@ -1,0 +1,11 @@
+<label for="beer-search">{{ 'Search a beer'|trans }}</label>
+<select id="beer-search" class="form-control selectpicker" data-live-search="true">
+    <option>{{ 'All beers' }}</option>
+    {% for brewery, beers in beerList %}
+        <optgroup label="{{ brewery }}">
+            {% for beer in beers %}
+                <option value="{{ beer.id }}">{{ beer.name }}</option>
+            {% endfor %}
+        </optgroup>
+    {% endfor %}
+</select>

@@ -48,6 +48,11 @@ function initMap(places)
     });
 }
 
+function updateMarkers()
+{
+    var beer =
+}
+
 /**
  * @param placeData
  */

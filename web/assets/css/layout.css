@@ -100,20 +100,20 @@ nav.navbar.navbar-default.navbar-static-top .navbar-default.sidebar {
   margin-top: 0;
   border-top: 1px solid #515151;
 }
-nav.navbar.navbar-default.navbar-static-top .navbar-default.sidebar ul li {
+nav.navbar.navbar-default.navbar-static-top .navbar-default.sidebar ul.nav > li {
   border-bottom: 1px solid #515151;
 }
-nav.navbar.navbar-default.navbar-static-top .navbar-default.sidebar ul li label,
-nav.navbar.navbar-default.navbar-static-top .navbar-default.sidebar ul li a {
+nav.navbar.navbar-default.navbar-static-top .navbar-default.sidebar ul.nav > li > label,
+nav.navbar.navbar-default.navbar-static-top .navbar-default.sidebar ul.nav > li > a {
   color: white;
 }
-nav.navbar.navbar-default.navbar-static-top .navbar-default.sidebar ul li a {
+nav.navbar.navbar-default.navbar-static-top .navbar-default.sidebar ul.nav > li > a {
   height: 50px;
   padding-top: 15px;
 }
-nav.navbar.navbar-default.navbar-static-top .navbar-default.sidebar ul li a.active,
-nav.navbar.navbar-default.navbar-static-top .navbar-default.sidebar ul li a:hover,
-nav.navbar.navbar-default.navbar-static-top .navbar-default.sidebar ul li a:focus {
+nav.navbar.navbar-default.navbar-static-top .navbar-default.sidebar ul.nav > li > a.active,
+nav.navbar.navbar-default.navbar-static-top .navbar-default.sidebar ul.nav > li > a:hover,
+nav.navbar.navbar-default.navbar-static-top .navbar-default.sidebar ul.nav > li > a:focus {
   background-color: #515151;
 }
 nav.navbar.navbar-default.navbar-static-top .navbar-default.sidebar ul.primary-nav {
@@ -170,4 +170,10 @@ div.form-nav div.panel ul.nav li:not(:last-child) {
 }
 .form-error-template {
   display: none;
+}
+.navbar-default .sidebar .bootstrap-select li {
+  border-bottom: none !important;
+}
+.bootstrap-select span.filter-option {
+  text-overflow: ellipsis;
 }

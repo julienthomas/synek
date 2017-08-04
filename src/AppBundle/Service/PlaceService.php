@@ -2,9 +2,9 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Entity\Beer;
 use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\Place;
-use AppBundle\Util\DatatableUtil;
 use AppBundle\Entity\Place\Type;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 
@@ -41,13 +41,12 @@ class PlaceService extends AbstractService
     }
 
     /**
-     * @param $name
-     * @param $beers
+     * @param string $beerName
      * @return array
      */
-    public function getHomeMapPlaces($name, $beers)
+    public function getHomeMapPlaces($beerName)
     {
-        $places    = $this->manager->getRepository('AppBundle:Place')->getHomeMapPlaces($name, $beers);
+        $places    = $this->manager->getRepository('AppBundle:Place')->getHomeMapPlaces($beerName);
         $markers   = $this->placeParameters['markers'];
         $data      = [];
         /** @var Place $place */
@@ -65,15 +64,16 @@ class PlaceService extends AbstractService
                 'longitude'         => $address->getLongitude(),
                 'marker'            => $this->assetsHelper->getUrl($marker),
             ];
-
             if ($typeCode === Type::SHOP) {
                 $placeInfo += [
                     'phone'       => $place->getPhone(),
                     'description' => $place->getDescription(),
-                    'beers'       => $place->getBeers(),
-                    'pictures'    => $place->getPictures(),
-                    'events'      => $place->getEvents()
+                    'beers'       => []
                 ];
+                /** @var Beer $beer */
+                foreach ($place->getBeers() as $beer) {
+                    $placeInfo['beers'][$beer->getBrewery()->getName()][] = $beer->getName();
+                }
             }
             $data[] = $placeInfo;
         }

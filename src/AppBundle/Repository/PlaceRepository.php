@@ -109,22 +109,25 @@ class PlaceRepository extends EntityRepository
     }
 
     /**
-     * @param $name
-     * @param $beers
+     * @param string $beerName
      * @return array
      */
-    public function getHomeMapPlaces($name, $beers)
+    public function getHomeMapPlaces($beerName)
     {
         $qb = $this->_em->createQueryBuilder()
-            ->select('place, address, type')
+            ->select('place, address, type, beers')
             ->from('AppBundle:Place', 'place')
             ->innerJoin('place.address', 'address')
-            ->innerJoin('place.type', 'type');
+            ->innerJoin('place.type', 'type')
+            ->leftJoin('place.beers', 'beers')
+            ->leftJoin('beers.brewery', 'brewery')
+            ->orderBy('brewery.name')
+            ->addOrderBy('beers.name');
 
-        if ($name) {
+        if ($beerName) {
             $qb
-                ->where($qb->expr()->like('place.name', ':name'))
-                ->setParameter('name', "%{$name}%");
+                ->where('beers.name = :beerName')
+                ->setParameter('beerName', $beerName);
         }
 
         $query = $qb->getQuery();

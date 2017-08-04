@@ -60,4 +60,19 @@ class BeerRepository extends EntityRepository
         }
         return DatatableUtil::getQbData($this->_em, $qb, 'beer.id', $searchs);
     }
+
+    /**
+     * @return array
+     */
+    public function getBeersWithBreweries()
+    {
+        $qb = $this->_em->createQueryBuilder()
+            ->select('beer, brewery')
+            ->from('AppBundle:Beer', 'beer')
+            ->innerJoin('beer.brewery', 'brewery');
+
+        $query = $qb->getQuery();
+        $query->useQueryCache(true);
+        return $query->getResult();
+    }
 }

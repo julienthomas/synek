@@ -111,17 +111,17 @@ nav.navbar.navbar-default.navbar-static-top {
     background-color: @body_background_color;
     margin-top: 0;
     border-top: 1px solid @nav_border_color;
-    ul {
-      li {
+    ul.nav {
+      > li {
         border-bottom: 1px solid @nav_border_color;
-        label, a {
+        > label, > a {
           color: white;
         }
-        a {
+        > a {
           height: 50px;
           padding-top: 15px;
         }
-        a.active, a:hover, a:focus {
+        > a.active, > a:hover, > a:focus {
           background-color: @nav_border_color;
         }
       }
@@ -197,4 +197,18 @@ div.form-nav {
 
 .form-error-template {
   display: none;
+}
+
+.navbar-default .sidebar {
+  .bootstrap-select {
+    li {
+      border-bottom: none !important;
+    }
+  }
+}
+
+.bootstrap-select {
+  span.filter-option {
+    text-overflow: ellipsis;
+  }
 }
