@@ -4,6 +4,7 @@ namespace AppBundle\Service;
 
 use AppBundle\Entity\Beer;
 use AppBundle\Entity\Language;
+use AppBundle\Entity\Place;
 use AppBundle\Util\DatatableUtil;
 use Doctrine\ORM\EntityManager;
 
@@ -47,7 +48,7 @@ class BeerService extends AbstractService
             $language
         );
 
-        $template = $this->twig->loadTemplate('admin/beer/partial/datatable_items.html.twig');
+        $template = $this->twig->loadTemplate('admin/beer/datatable/items.html.twig');
         $data     = [];
         foreach ($results['data'] as $place) {
             $data[] = [
@@ -108,7 +109,7 @@ class BeerService extends AbstractService
     }
 
     /**
-     * @return array
+     *
      */
     public function getBeerList()
     {

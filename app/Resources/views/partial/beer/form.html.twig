@@ -29,7 +29,7 @@
                         {{ form_widget(form.type, {'attr': {'data-id': 'type-choice'}}) }}
                     </div>
                     <div class="form-group embed-panel type-new" data-id="type-new" hidden>
-                        {% include 'beer_type/form.html.twig' with {'form': beerTypeForm, 'isEmbedded': true} %}
+                        {% include 'partial/beer_type/form.html.twig' with {'form': beerTypeForm, 'isEmbedded': true} %}
                     </div>
                     <div class="form-group">
                         {{ form_label(form.brewery) }}
@@ -37,7 +37,7 @@
                         {{ form_widget(form.brewery, {'attr': {'data-id': 'brewery-choice'}}) }}
                     </div>
                     <div class="form-group embed-panel brewery-new" data-id="brewery-new" hidden>
-                        {% include 'brewery/form.html.twig' with {'form': breweryForm, 'isEmbedded': true} %}
+                        {% include 'partial/brewery/form.html.twig' with {'form': breweryForm, 'isEmbedded': true} %}
                     </div>
                 </div>
             </div>

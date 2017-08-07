@@ -13,13 +13,12 @@
     <div class="row">
         <div class="col-lg-12 home-wrapper">
             <div class="home-overflow">
-                <div id="home-map">
-                </div>
+                <div id="home-map" data-url="{{ path('home_places') }}"></div>
                 <div class="place-info col-lg-4" data-id="place-info">
                     <div class="row">
                         <div class="col-lg-12">
                             <button type="button" class="btn btn-danger pull-left" data-id="place-info-close"><i class="fa fa-times"></i> {{ 'Close'|trans }}</button>
-                            <a href="#" class="btn btn-default pull-right" hidden><i class="fa fa-search"></i> {{ 'View place description'|trans }}</a>
+                            <a href="#" class="btn btn-default pull-right" data-id="place-information-link"><i class="fa fa-search"></i> {{ 'View place description'|trans }}</a>
                         </div>
                         <div class="col-lg-12">
                             <h3 class="page-header" data-id="place-name"></h3>
@@ -27,8 +26,15 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <span data-id="place-address"></span>
-                            <span data-id="place-phone" hidden><i class="fa fa-phone"></i> <span class="no-block" data-id="place-phone-number"></span></span>
+                            <div data-id="place-address"></div>
+                            <div data-id="place-phone" hidden><i class="fa fa-phone"></i> <span data-id="place-phone-number"></span></div>
+                            <div data-id="place-email" hidden><i class="fa fa-envelope"></i> <span data-id="place-email-address"></span></div>
+                            <div class="place-available-beers" data-id="place-available-beers">
+                                <h4>{{ 'Available beers'|trans }}</h4>
+                                <div class="place-available-beers-list" data-id="place-available-beers-list">
+                                    {#<h5 class="page-header"></h5>#}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

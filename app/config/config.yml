@@ -7,7 +7,7 @@ imports:
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en
+    locale: fr_FR
 
 framework:
     #esi:             ~
@@ -22,7 +22,7 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        assets_version: 2017008041717
+        assets_version: 2017008071405
     default_locale:  "%locale%"
     trusted_hosts:   ~
     trusted_proxies: ~

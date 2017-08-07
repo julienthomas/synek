@@ -67,6 +67,7 @@ class PlaceService extends AbstractService
             if ($typeCode === Type::SHOP) {
                 $placeInfo += [
                     'phone'       => $place->getPhone(),
+                    'email'       => $place->getEmail(),
                     'description' => $place->getDescription(),
                     'beers'       => []
                 ];

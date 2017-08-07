@@ -7,10 +7,10 @@
     </div>
     <div class="row" data-id="schedules" data-timezone="{{ place.timezone.name }}">
         {% for schedule in form %}
-            {% include 'place/partial/schedules/template.html.twig' with {'form': schedule, 'isPrototype': false}  %}
+            {% include 'partial/place/form/schedules/template.html.twig' with {'form': schedule, 'isPrototype': false}  %}
         {% endfor %}
     </div>
     <div class="row" data-id="schedule-prototype" hidden>
-        {% include 'place/partial/schedules/template.html.twig' with {'form': form.vars.prototype, 'isPrototype': true}  %}
+        {% include 'partial/place/form/schedules/template.html.twig' with {'form': form.vars.prototype, 'isPrototype': true}  %}
     </div>
 </div>

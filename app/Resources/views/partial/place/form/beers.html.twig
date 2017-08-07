@@ -24,7 +24,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-12" id="beer-new" hidden>
-                    {% include 'beer/form.html.twig' with {'form': beerForm, 'beerTypeForm': beerTypeForm, 'breweryForm': breweryForm, 'isEmbedded': true} %}
+                    {% include 'partial/beer/form.html.twig' with {'form': beerForm, 'beerTypeForm': beerTypeForm, 'breweryForm': breweryForm, 'isEmbedded': true} %}
                 </div>
             </div>
             <div class="row form-group selected-beers" data-id="selected-beers"></div>

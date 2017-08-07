@@ -69,7 +69,9 @@ class BeerRepository extends EntityRepository
         $qb = $this->_em->createQueryBuilder()
             ->select('beer, brewery')
             ->from('AppBundle:Beer', 'beer')
-            ->innerJoin('beer.brewery', 'brewery');
+            ->innerJoin('beer.brewery', 'brewery')
+            ->orderBy('brewery.name')
+            ->addOrderBy('beer.name');
 
         $query = $qb->getQuery();
         $query->useQueryCache(true);

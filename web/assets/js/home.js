@@ -2,11 +2,7 @@ var map = null;
 var geolocationZoom = 11;
 var geolocMakerInit = false;
 
-/**
- * @param places
- */
-function initMap(places)
-{
+$(function(){
     map = new google.maps.Map(document.getElementById("home-map"), {
         center: {lat: 46.81676808590648, lng: 2.4233221091003587},
         zoom:   6
@@ -31,26 +27,42 @@ function initMap(places)
         }
     });
 
-    $.each(places, function(index, value){
-        var marker = new google.maps.Marker({
-            icon:     value['marker'],
-            position: {lat: parseFloat(value['latitude']), lng: parseFloat(value['longitude'])},
-            title:    value['name'],
-            map:      map
-        });
-        marker.addListener('click', function(){
-            displayPlaceInfo(value);
-        });
-    });
-
     $("[data-id='place-info-close']").click(function(){
         $("[data-id='place-info']").removeClass('show');
     });
-}
 
+    updateMarkers();
+});
+
+/**
+ * Get place list and update map markers
+ */
 function updateMarkers()
 {
-    var beer =
+    var beer = $("#beer-filter").val();
+    if (beer.length === 0) {
+        beer = null;
+    }
+
+    $.ajax({
+        type: 'GET',
+        url: $("#home-map").data('url'),
+        dataType: 'json',
+        data: {beer: beer},
+        success: function(data){
+            $.each(data, function(index, place){
+                var marker = new google.maps.Marker({
+                    icon:     place.marker,
+                    position: {lat: parseFloat(place.latitude), lng: parseFloat(place.longitude)},
+                    title:    place.name,
+                    map:      map
+                });
+                marker.addListener('click', function(){
+                    displayPlaceInfo(place);
+                });
+            });
+        }
+    });
 }
 
 /**
@@ -58,22 +70,55 @@ function updateMarkers()
  */
 function displayPlaceInfo(placeData)
 {
-    var placeInfo = $("[data-id='place-info']");
-    var address   = placeData['address'];
-    if (placeData['addressComplement'] && placeData['addressComplement'].length > 0) {
-        address += ' ' + placeData['addressComplement'];
+    var placeInfo          = $("[data-id='place-info']");
+    var placeName          = $("[data-id='place-name']", placeInfo);
+    var placeAddress       = $("[data-id='place-address']", placeInfo);
+    var placePhone         = $("[data-id='place-phone']", placeInfo);
+    var placePhoneNumber   = $("[data-id='place-phone-number']", placeInfo);
+    var placeEmail         = $("[data-id='place-email']", placeInfo);
+    var placeEmailAddress  = $("[data-id='place-email-address']", placeInfo);
+    var availableBeers     = $("[data-id='place-available-beers']", placeInfo);
+    var availableBeersList = $("[data-id='place-available-beers-list']", placeInfo);
+    var address            = placeData['address'];
+
+    if (placeData.addressComplement && placeData.addressComplement.length > 0) {
+        address += ' ' + placeData.addressComplement;
     }
-    address += ', ' + placeData['zipCode'] + ' ' + placeData['city'];
+    address += ', ' + placeData.zipCode + ' ' + placeData.city;
 
-    $("[data-id='place-name']", placeInfo).text(placeData['name']);
-    $("[data-id='place-address']", placeInfo).text(address);
+    placeName.text(placeData.name);
+    placeAddress.text(address);
 
-    if (placeData['phone'] && placeData['phone'].length > 0) {
-        $("[data-id='place-phone-number']", placeInfo).text(placeData['phone']);
-        $("[data-id='place-phone']", placeInfo).show();
+    if (placeData.phone && placeData.phone.length > 0) {
+        placePhoneNumber.text(placeData['phone']);
+        placePhone.show();
     } else {
-        $("[data-id='place-phone-number']", placeInfo).text(null);
-        $("[data-id='place-phone']", placeInfo).hide();
+        placePhone.hide();
+        placePhoneNumber.text(null);
     }
+
+    if (placeData.email && placeData.email.length > 0) {
+        placeEmailAddress.text(placeData.email);
+        placeEmail.show();
+    } else {
+        placeEmail.hide();
+        placeEmailAddress.text(null);
+    }
+
+    availableBeersList.empty();
+    if (placeData.beers && Object.keys(placeData.beers).length > 0) {
+        $.each(placeData.beers, function(brewery, beers){
+            var breweryDiv = $("<div class='place-available-brewery'>");
+            breweryDiv.append("<h5 class='page-header'>" + brewery + "</h5>");
+            $.each(beers, function(index, beerName){
+                breweryDiv.append("<span class='label label-success beer-label'>" + beerName + "</span>");
+            });
+            availableBeersList.append(breweryDiv);
+        });
+        availableBeers.show();
+    } else {
+        availableBeers.hide();
+    }
+
     placeInfo.addClass('show');
 }

@@ -46,7 +46,7 @@ class PartnerService extends PlaceService
             $listParams['offset']
         );
 
-        $template = $this->twig->loadTemplate('admin/partner/partial/datatable_items.html.twig');
+        $template = $this->twig->loadTemplate('admin/partner/datatable/items.html.twig');
         $data     = [];
         foreach ($results['data'] as $place) {
             $data[] = [

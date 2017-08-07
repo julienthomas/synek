@@ -71,9 +71,6 @@
 .pictures .picture .picture-action .picture-delete {
   color: #d9534f;
 }
-.beer-select .dropdown-toggle .filter-option {
-  text-overflow: ellipsis;
-}
 .selected-beers {
   font-size: 17px;
 }

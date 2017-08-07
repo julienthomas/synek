@@ -14,6 +14,6 @@ class BeerController extends Controller
     public function getBeersListAction()
     {
         $list = $this->get('synek.service.beer')->getBeerList();
-        return $this->render('partial/beer-list.html.twig', ['beerList' => $list]);
+        return $this->render('partial/beer-filter.html.twig', ['beerList' => $list]);
     }
 }

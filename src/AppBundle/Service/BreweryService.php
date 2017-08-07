@@ -77,7 +77,7 @@ class BreweryService extends AbstractService
             $language
         );
 
-        $template = $this->twig->loadTemplate('admin/brewery/partial/datatable_items.html.twig');
+        $template = $this->twig->loadTemplate('admin/brewery/datatable/items.html.twig');
         $data     = [];
         foreach ($results['data'] as $brewery) {
             $data[] = [

@@ -151,4 +151,20 @@ class PlaceRepository extends EntityRepository
         $query->useQueryCache(true);
         return $query->getResult();
     }
+
+
+    public function getPlaceInformation($placeId, $locale)
+    {
+        $this->_em->createQueryBuilder()
+            ->select('place, type, address, country, translations, beers, brewery, pictures')
+            ->from('AppBundle:Place', 'place')
+            ->innerJoin('place.type', 'type')
+            ->innerJoin('place.address', 'address')
+            ->innerJoin('address.country', 'country')
+            ->innerJoin('country.translations', 'translations')
+            ->leftJoin('place.beers', 'beers')
+            ->leftJoin('beers.brewery', 'brewery')
+            ->leftJoin('place.pictures', 'pictures');
+        return [];
+    }
 }

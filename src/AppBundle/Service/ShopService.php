@@ -77,7 +77,7 @@ class ShopService extends PlaceService
      */
     private function buildDatatableData($results)
     {
-        $template = $this->twig->loadTemplate('admin/shop/partial/datatable_items.html.twig');
+        $template = $this->twig->loadTemplate('admin/shop/datatable/items.html.twig');
         $data     = [];
         foreach ($results['data'] as $place) {
             $data[] = [

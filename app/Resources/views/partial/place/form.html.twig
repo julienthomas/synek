@@ -8,7 +8,7 @@
                         <li class="active">
                             <a href="#place-information" data-toggle="tab" aria-expanded="true">
                                 {{ 'Information'|trans }}
-                                {% include 'place/partial/nav_errors.html.twig' with {'form': form, 'isParentForm': true} %}
+                                {% include 'partial/place/form/nav_errors.html.twig' with {'form': form, 'isParentForm': true} %}
                             </a>
                         </li>
                         {% if isShop == true and addOwner is defined and addOwner == true %}
@@ -21,26 +21,26 @@
                         <li>
                             <a href="#place-address" data-toggle="tab" aria-expanded="false" data-id="place-address-link">
                                 {{ 'Address'|trans }}
-                                {% include 'place/partial/nav_errors.html.twig' with {'form': form.address, 'isParentForm': false} %}
+                                {% include 'partial/place/form/nav_errors.html.twig' with {'form': form.address, 'isParentForm': false} %}
                             </a>
                         </li>
                         {% if isShop == true %}
                             <li>
                                 <a href="#place-pictures" data-toggle="tab" aria-expanded="false" data-id="place-pictures-link">
                                     {{ 'Pictures'|trans }}
-                                    {% include 'place/partial/nav_errors.html.twig' with {'form': form.pictures, 'isParentForm': false} %}
+                                    {% include 'partial/place/form/nav_errors.html.twig' with {'form': form.pictures, 'isParentForm': false} %}
                                 </a>
                             </li>
                             <li>
                                 <a href="#place-schedule" data-toggle="tab" aria-expanded="false" data-id="place-schedule-link">
                                     {{ 'Schedules'|trans }}
-                                    {% include 'place/partial/nav_errors.html.twig' with {'form': form.schedules, 'isParentForm': false} %}
+                                    {% include 'partial/place/form/nav_errors.html.twig' with {'form': form.schedules, 'isParentForm': false} %}
                                 </a>
                             </li>
                             <li>
                                 <a href="#place-beers" data-toggle="tab" aria-expanded="false">
                                     {{ 'Beers'|trans }}
-                                    {% include 'place/partial/nav_errors.html.twig' with {'form': form.beers, 'isParentForm': false} %}
+                                    {% include 'partial/place/form/nav_errors.html.twig' with {'form': form.beers, 'isParentForm': false} %}
                                 </a>
                             </li>
                         {% endif %}
@@ -54,15 +54,15 @@
                             <a href="{{ cancelUrl }}" class="btn btn-danger"><i class="fa fa-times"></i> {{ 'Cancel'|trans }}</a>
                             <button type="submit" class="btn btn-success place-submit" data-id="place-submit"><i class="fa fa-check"></i> {{ 'Send'|trans }}</button>
                         </div>
-                        {% include 'place/partial/information.html.twig' %}
+                        {% include 'partial/place/form/information.html.twig' %}
                         {% if isShop == true %}
-                            {% include 'place/partial/owner.html.twig' %}
+                            {% include 'partial/place/form/owner.html.twig' %}
                         {% endif %}
-                        {% include 'place/partial/address.html.twig' with {'form': form.address} %}
+                        {% include 'partial/place/form/address.html.twig' with {'form': form.address} %}
                         {% if isShop == true %}
-                            {% include 'place/partial/pictures.html.twig' with {'form': form.pictures} %}
-                            {% include 'place/partial/schedule.html.twig' with {'form': form.schedules} %}
-                            {% include 'place/partial/beers.html.twig'  %}
+                            {% include 'partial/place/form/pictures.html.twig' with {'form': form.pictures} %}
+                            {% include 'partial/place/form/schedule.html.twig' with {'form': form.schedules} %}
+                            {% include 'partial/place/form/beers.html.twig'  %}
                         {% endif %}
                     </div>
                 </div>

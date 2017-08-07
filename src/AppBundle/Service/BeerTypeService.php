@@ -77,7 +77,7 @@ class BeerTypeService extends AbstractService
             $language
         );
 
-        $template = $this->twig->loadTemplate('admin/beer_type/partial/datatable_items.html.twig');
+        $template = $this->twig->loadTemplate('admin/beer_type/datatable/items.html.twig');
         $data     = [];
         foreach ($results['data'] as $type) {
             $data[] = [
