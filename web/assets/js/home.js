@@ -73,12 +73,9 @@ function displayPlaceInfo(placeData)
     var placeInfo          = $("[data-id='place-info']");
     var placeName          = $("[data-id='place-name']", placeInfo);
     var placeAddress       = $("[data-id='place-address']", placeInfo);
-    var placePhone         = $("[data-id='place-phone']", placeInfo);
-    var placePhoneNumber   = $("[data-id='place-phone-number']", placeInfo);
-    var placeEmail         = $("[data-id='place-email']", placeInfo);
-    var placeEmailAddress  = $("[data-id='place-email-address']", placeInfo);
     var availableBeers     = $("[data-id='place-available-beers']", placeInfo);
     var availableBeersList = $("[data-id='place-available-beers-list']", placeInfo);
+    var informationLink    = $("[data-id='place-information-link']", placeInfo);
     var address            = placeData['address'];
 
     if (placeData.addressComplement && placeData.addressComplement.length > 0) {
@@ -89,36 +86,66 @@ function displayPlaceInfo(placeData)
     placeName.text(placeData.name);
     placeAddress.text(address);
 
-    if (placeData.phone && placeData.phone.length > 0) {
-        placePhoneNumber.text(placeData['phone']);
-        placePhone.show();
-    } else {
-        placePhone.hide();
-        placePhoneNumber.text(null);
-    }
-
-    if (placeData.email && placeData.email.length > 0) {
-        placeEmailAddress.text(placeData.email);
-        placeEmail.show();
-    } else {
-        placeEmail.hide();
-        placeEmailAddress.text(null);
-    }
+    setTextInformation($("[data-id='place-phone']", placeInfo), placeData.phone);
+    setTextInformation($("[data-id='place-email']", placeInfo), placeData.email);
+    setLinkInformation($("[data-id='place-website']", placeInfo), placeData.website);
+    setLinkInformation($("[data-id='place-facebook']", placeInfo), placeData.facebook);
 
     availableBeersList.empty();
     if (placeData.beers && Object.keys(placeData.beers).length > 0) {
-        $.each(placeData.beers, function(brewery, beers){
-            var breweryDiv = $("<div class='place-available-brewery'>");
-            breweryDiv.append("<h5 class='page-header'>" + brewery + "</h5>");
-            $.each(beers, function(index, beerName){
-                breweryDiv.append("<span class='label label-success beer-label'>" + beerName + "</span>");
-            });
-            availableBeersList.append(breweryDiv);
+        $.each(placeData.beers, function(index, beer){
+            var beerDiv =  $("<div class='beer'>");
+            beerDiv.text(beer.name + ' (' + beer.brewery + ')');
+            availableBeersList.append(beerDiv);
         });
         availableBeers.show();
     } else {
         availableBeers.hide();
     }
 
+    if (placeData.route) {
+        informationLink.attr('href', placeData.route);
+        informationLink.show();
+    } else {
+        informationLink.hide();
+        informationLink.attr('href','#');
+    }
+
     placeInfo.addClass('show');
+}
+
+/**
+ * @param parent
+ * @param value
+ */
+function setTextInformation(parent, value)
+{
+    var span = $('span', parent);
+
+    if (value && value.length > 0) {
+        span.text(value);
+        parent.show();
+    } else {
+        parent.hide();
+        span.text(null);
+    }
+}
+
+/**
+ * @param parent
+ * @param value
+ */
+function setLinkInformation(parent, value)
+{
+    var link =  $('a', parent);
+
+    if (value && value.length > 0) {
+        link.text(value);
+        link.attr('href', value);
+        parent.show();
+    } else {
+        parent.hide();
+        link.text(null);
+        link.attr('href', '#');
+    }
 }

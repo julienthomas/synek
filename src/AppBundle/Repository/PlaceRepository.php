@@ -2,10 +2,12 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Language;
 use AppBundle\Entity\Place\Type;
 use AppBundle\Service\PlaceService;
 use AppBundle\Util\DatatableUtil;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query\Expr;
 
 class PlaceRepository extends EntityRepository
 {
@@ -121,8 +123,7 @@ class PlaceRepository extends EntityRepository
             ->innerJoin('place.type', 'type')
             ->leftJoin('place.beers', 'beers')
             ->leftJoin('beers.brewery', 'brewery')
-            ->orderBy('brewery.name')
-            ->addOrderBy('beers.name');
+            ->orderBy('beers.name');
 
         if ($beerName) {
             $qb
@@ -152,19 +153,35 @@ class PlaceRepository extends EntityRepository
         return $query->getResult();
     }
 
-
-    public function getPlaceInformation($placeId, $locale)
+    /**
+     * @param $placeId
+     * @param \AppBundle\Entity\Language $language
+     * @return \AppBundle\Entity\Place|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getShopInformation($placeId, Language $language = null)
     {
-        $this->_em->createQueryBuilder()
-            ->select('place, type, address, country, translations, beers, brewery, pictures')
+        $qb = $this->_em->createQueryBuilder()
+            ->select('place, type, address, country, country_translations, beers, brewery, pictures')
             ->from('AppBundle:Place', 'place')
             ->innerJoin('place.type', 'type')
             ->innerJoin('place.address', 'address')
             ->innerJoin('address.country', 'country')
-            ->innerJoin('country.translations', 'translations')
+            ->leftJoin('country.translations', 'country_translations', Expr\Join::WITH, 'country_translations.language = :language')
             ->leftJoin('place.beers', 'beers')
+            ->leftJoin('beers.type', 'beer_type')
+            ->leftJoin('beer_type.translations', 'beer_type_translations', Expr\Join::WITH, 'beer_type_translations.language = :language')
             ->leftJoin('beers.brewery', 'brewery')
-            ->leftJoin('place.pictures', 'pictures');
-        return [];
+            ->leftJoin('place.pictures', 'pictures')
+            ->where('place.id = :id')
+            ->orderBy('beers.name')
+            ->setParameters([
+                'id'       => $placeId,
+                'language' => $language
+            ]);
+
+        $query = $qb->getQuery();
+        $query->useQueryCache(true);
+        return $query->getOneOrNullResult();
     }
 }

@@ -1,0 +1,17 @@
+{% extends 'layout.html.twig' %}
+
+{% block stylesheets %}
+    <link href="{{ asset('assets/css/shop/information.css') }}" rel="stylesheet">
+{% endblock stylesheets %}
+
+{% block nav_left_items %}
+{% endblock nav_left_items %}
+
+{% block body %}
+    {% include 'partial/shop/information.html.twig' %}
+{% endblock body %}
+
+{% block javascripts %}
+    <script src="https://maps.googleapis.com/maps/api/js?v=3&key={{ google_api_key }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/shop/information.js') }}"></script>
+{% endblock javascripts%}

@@ -50,9 +50,22 @@ class Place
     /**
      * @var string
      *
-     * @ORM\Column(name="web_site", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="website", type="text", length=65535, nullable=true)
+     * @Constraints\Url(
+     *  message="The website url is invalid."
+     * )
      */
-    private $webSite;
+    private $website;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="facebook", type="text", length=65535, nullable=true)
+     * @Constraints\Url(
+     *  message="The website url is invalid."
+     * )
+     */
+    private $facebook;
 
     /**
      * @var string
@@ -257,15 +270,39 @@ class Place
     }
 
     /**
-     * Set webSite
+     * Set website
      *
-     * @param string $webSite
+     * @param string $website
      *
      * @return Place
      */
-    public function setWebSite($webSite)
+    public function setWebsite($website)
     {
-        $this->webSite = $webSite;
+        $this->website = $website;
+
+        return $this;
+    }
+
+    /**
+     * Get website
+     *
+     * @return string
+     */
+    public function getWebsite()
+    {
+        return $this->website;
+    }
+
+    /**
+     * Set facebook
+     *
+     * @param string $facebook
+     *
+     * @return Place
+     */
+    public function setFacebook($facebook)
+    {
+        $this->facebook = $facebook;
 
         return $this;
     }
@@ -275,9 +312,9 @@ class Place
      *
      * @return string
      */
-    public function getWebSite()
+    public function getFacebook()
     {
-        return $this->webSite;
+        return $this->facebook;
     }
 
     /**

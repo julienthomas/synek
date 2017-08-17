@@ -8,8 +8,13 @@ use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 
-class PartnerService extends PlaceService
+class PartnerService extends AbstractService
 {
+    const DATATABLE_KEY_ID      = 'id';
+    const DATATABLE_KEY_NAME    = 'name';
+    const DATATABLE_KEY_EMAIL   = 'email';
+    const DATATABLE_KEY_ADDRESS = 'address';
+
     /**
      * @var \Twig_Environment
      */
@@ -17,17 +22,11 @@ class PartnerService extends PlaceService
 
     /**
      * @param EntityManager $manager
-     * @param AssetsHelper $assetsHelper
-     * @param $placeParameters
      * @param \Twig_Environment $twig
      */
-    public function __construct(
-        EntityManager $manager,
-        AssetsHelper $assetsHelper,
-        $placeParameters,
-        \Twig_Environment $twig
-    ) {
-        parent::__construct($manager, $assetsHelper, $placeParameters);
+    public function __construct(EntityManager $manager, \Twig_Environment $twig)
+    {
+        parent::__construct($manager);
         $this->twig = $twig;
     }
 

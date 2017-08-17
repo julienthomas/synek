@@ -36,14 +36,13 @@ services:
         arguments:
             - '@doctrine.orm.default_entity_manager'
             - '@templating.helper.assets'
+            - '@router'
             - '%place%'
 
     synek.service.shop:
         class: AppBundle\Service\ShopService
         arguments:
             - '@doctrine.orm.default_entity_manager'
-            - '@templating.helper.assets'
-            - '%place%'
             - '@twig'
             - '@doctrine'
 
@@ -51,8 +50,6 @@ services:
         class: AppBundle\Service\PartnerService
         arguments:
             - '@doctrine.orm.default_entity_manager'
-            - '@templating.helper.assets'
-            - '%place%'
             - '@twig'
 
     synek.service.beer:

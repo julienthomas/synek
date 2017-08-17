@@ -80,7 +80,24 @@ class PlaceType extends AbstractType
             ->add(
                 'address',
                 new AddressType($this->language)
-            );
+            )
+            ->add(
+                'website',
+                'url',
+                [
+                    'label'    => 'Website',
+                    'required' => false
+                ]
+            )
+            ->add(
+                'facebook',
+                'url',
+                [
+                    'label'    => 'Facebook',
+                    'required' => false
+                ]
+            )
+        ;
 
         if ($this->isShop) {
             $builder
@@ -88,7 +105,7 @@ class PlaceType extends AbstractType
                     'description',
                     'textarea',
                     [
-                        'label'    => _('Description'),
+                        'label'    => 'Description',
                         'required' => false
                     ]
                 )

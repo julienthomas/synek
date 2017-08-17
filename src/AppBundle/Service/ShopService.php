@@ -2,6 +2,7 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Entity\Beer;
 use AppBundle\Entity\Country;
 use AppBundle\Entity\Place\Address;
 use AppBundle\Entity\Place\Type;
@@ -17,9 +18,13 @@ use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Acl\Exception\Exception;
 
-class ShopService extends PlaceService
+class ShopService extends AbstractService
 {
-    const PRESTASHOP_MANAGER = 'prestashop';
+    const DATATABLE_KEY_ID      = 'id';
+    const DATATABLE_KEY_NAME    = 'name';
+    const DATATABLE_KEY_EMAIL   = 'email';
+    const DATATABLE_KEY_ADDRESS = 'address';
+    const PRESTASHOP_MANAGER    = 'prestashop';
 
     /**
      * @var \Twig_Environment
@@ -31,14 +36,9 @@ class ShopService extends PlaceService
      */
     private $prestashopManager;
 
-    public function __construct(
-        EntityManager $manager,
-        AssetsHelper $assetsHelper,
-        $placeParameters,
-        \Twig_Environment $twig,
-        Registry $registry
-    ) {
-        parent::__construct($manager, $assetsHelper, $placeParameters);
+    public function __construct(EntityManager $manager, \Twig_Environment $twig, Registry $registry)
+    {
+        parent::__construct($manager);
         $this->prestashopManager = $registry->getManager(self::PRESTASHOP_MANAGER);
         $this->twig              = $twig;
     }
@@ -149,7 +149,8 @@ class ShopService extends PlaceService
                     $shop[$key] = null;
                 }
             }
-            $place = new Place();
+            $website = preg_match("/^https?:\/\//", $shop['link']) ? $shop['link'] : "http://{$shop['link']}";
+            $place   = new Place();
             $address = new Address();
             $address
                 ->setAddress($shop['address1'])
@@ -165,7 +166,7 @@ class ShopService extends PlaceService
                 ->setName($shop['sign'])
                 ->setEmail($shop['email'])
                 ->setPhone($shop['phone'])
-                ->setWebSite($shop['link'])
+                ->setWebsite($website)
                 ->setTimezone($timezone)
                 ->setEnabled($shop['enabled'])
                 ->setMycollectionplacesReferenceId($shop['id_place']);
@@ -375,5 +376,36 @@ class ShopService extends PlaceService
         if (file_exists($serverPath)) {
             unlink($serverPath);
         }
+    }
+
+    /**
+     * @param $beers
+     * @return array
+     */
+    public function buildBeersArray($beers)
+    {
+        $data = [];
+        /** @var Beer $beer */
+        foreach ($beers as $beer) {
+            $data[$beer->getBrewery()->getName()][] = $beer;
+        }
+        return $data;
+    }
+
+    /**
+     * @param $schedules
+     * @return array
+     */
+    public function buildScheduleArray($schedules)
+    {
+        $data = [];
+        /** @var Schedule $schedule */
+        foreach ($schedules as $schedule) {
+            $data[$schedule->getDay()][] = [
+                'opening' => $schedule->getOpeningTime(),
+                'closure' => $schedule->getClosureTime()
+            ];
+        }
+        return $data;
     }
 }

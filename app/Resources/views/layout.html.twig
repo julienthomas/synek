@@ -48,7 +48,12 @@
                     <div class="sidebar-nav navbar-collapse collapse" aria-expanded="false">
                         <ul class="nav in primary-nav" id="side-menu">
                             {% block nav_left_items %}
-                                {% include 'partial/nav_left.html.twig' %}
+                                <li class="sidebar-search">
+                                    <button type="button" class="btn btn-default" data-id="map-locate"><i class="fa fa-map-marker"></i> {{ 'Locate me'|trans }}</button>
+                                </li>
+                                <li class="sidebar-search">
+                                    {{ render(controller('AppBundle:Beer:getBeersList')) }}
+                                </li>
                             {% endblock nav_left_items %}
                             {% include 'partial/nav_switch.html.twig' %}
                         </ul>
