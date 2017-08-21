@@ -1,4 +1,5 @@
 var map = null;
+var markers = [];
 var geolocationZoom = 11;
 var geolocMakerInit = false;
 
@@ -32,6 +33,10 @@ $(function(){
     });
 
     updateMarkers();
+
+    $("#beer-filter").change(function(){
+        updateMarkers();
+    });
 });
 
 /**
@@ -43,6 +48,11 @@ function updateMarkers()
     if (beer.length === 0) {
         beer = null;
     }
+
+    $.each(markers, function(index, marker){
+        marker.setMap(null);
+    });
+    markers = [];
 
     $.ajax({
         type: 'GET',
@@ -60,6 +70,7 @@ function updateMarkers()
                 marker.addListener('click', function(){
                     displayPlaceInfo(place);
                 });
+                markers.push(marker);
             });
         }
     });

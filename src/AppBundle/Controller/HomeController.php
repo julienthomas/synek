@@ -10,13 +10,20 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class HomeController extends Controller
 {
+    const SESSION_HONE_SELECTED_BEER = 'home_selected_beer';
+
     /**
      * @Route("/", name="home")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function homeAction()
     {
-        return $this->render('home/home.html.twig');
+        $list = $this->get('synek.service.beer')->getBeerList();
+        $selectedBeer = $this->get('session')->get(self::SESSION_HONE_SELECTED_BEER);
+        return $this->render('home/home.html.twig', [
+            'beerList'     => $list,
+            'selectedBeer' => $selectedBeer
+        ]);
     }
 
     /**
@@ -27,7 +34,9 @@ class HomeController extends Controller
      */
     public function getMapPlacesAction(Request $request)
     {
-        $places = $this->get('synek.service.place')->getHomeMapPlaces($request->query->get('beer'));
+        $selectedBeer = $request->query->get('beer');
+        $this->get('session')->set(self::SESSION_HONE_SELECTED_BEER, $selectedBeer);
+        $places = $this->get('synek.service.place')->getHomeMapPlaces($selectedBeer);
         return new JsonResponse($places);
     }
 }

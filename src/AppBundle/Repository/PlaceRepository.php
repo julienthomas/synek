@@ -111,10 +111,10 @@ class PlaceRepository extends EntityRepository
     }
 
     /**
-     * @param string $beerName
+     * @param $beerId
      * @return array
      */
-    public function getHomeMapPlaces($beerName)
+    public function getHomeMapPlaces($beerId)
     {
         $qb = $this->_em->createQueryBuilder()
             ->select('place, address, type, beers')
@@ -125,10 +125,10 @@ class PlaceRepository extends EntityRepository
             ->leftJoin('beers.brewery', 'brewery')
             ->orderBy('beers.name');
 
-        if ($beerName) {
+        if ($beerId) {
             $qb
-                ->where('beers.name = :beerName')
-                ->setParameter('beerName', $beerName);
+                ->where('beers.id = :beerId')
+                ->setParameter('beerId', $beerId);
         }
 
         $query = $qb->getQuery();

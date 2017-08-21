@@ -1,3 +1,6 @@
+// In case of 403 response
+$.fn.dataTable.ext.errMode = 'none';
+
 (function ($){
     $.fn.SearchableDatatable = function(options){
         var defaultOptions = {
@@ -5,6 +8,9 @@
             dom: 'ltipr',
             ajax: {
                 type: 'POST'
+            },
+            error: function(xhr) {
+                console.log(xhr.status);
             }
         };
         var table = $(this);

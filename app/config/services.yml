@@ -1,5 +1,11 @@
 services:
-    #form
+    # listeners
+    synek.listener.ajax_authentication_listener:
+        class: AppBundle\Listener\AjaxAuthenticationListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onCoreException, priority: 1000 }
+
+    # form
     synek.form.beer:
         class: AppBundle\Form\BeerType
         arguments:
@@ -22,7 +28,7 @@ services:
         tags:
             - { name: form.type, alias: synek_brewery_type }
 
-    #security
+    # security
     synek.security.authentication_redirect:
         class: AppBundle\Security\AuthenticationRedirect
         arguments:
@@ -30,7 +36,7 @@ services:
             - 'admin_home'
             - 'user_home'
 
-    #services
+    # services
     synek.service.place:
         class: AppBundle\Service\PlaceService
         arguments:

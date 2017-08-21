@@ -50,12 +50,12 @@ class PlaceService extends AbstractService
     }
 
     /**
-     * @param string $beerName
+     * @param $beerId
      * @return array
      */
-    public function getHomeMapPlaces($beerName)
+    public function getHomeMapPlaces($beerId)
     {
-        $places = $this->manager->getRepository('AppBundle:Place')->getHomeMapPlaces($beerName);
+        $places = $this->manager->getRepository('AppBundle:Place')->getHomeMapPlaces($beerId);
         $markers = $this->placeParameters['markers'];
         $data = [];
         /** @var Place $place */

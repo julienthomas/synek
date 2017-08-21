@@ -4,6 +4,25 @@
     <link href="{{ asset('assets/css/home.css') }}" rel="stylesheet">
 {% endblock stylesheets %}
 
+{% block nav_left_items %}
+    <li class="sidebar-search">
+        <button type="button" class="btn btn-default" data-id="map-locate"><i class="fa fa-map-marker"></i> {{ 'Locate me'|trans }}</button>
+    </li>
+    <li class="sidebar-search">
+        <label for="beer-filter">{{ 'Search a beer'|trans }}</label>
+        <select id="beer-filter" class="form-control selectpicker beer-filter" data-live-search="true">
+            <option value="" class="filter-default" {% if selectedBeer == null %}selected{% endif %}>{{ 'All beers'|trans }}</option>
+            {% for brewery, beers in beerList %}
+                <optgroup label="{{ brewery }}">
+                    {% for beer in beers %}
+                        <option value="{{ beer.id }}" {% if beer.id == selectedBeer %}selected{% endif %}>{{ beer.name }}</option>
+                    {% endfor %}
+                </optgroup>
+            {% endfor %}
+        </select>
+    </li>
+{% endblock nav_left_items %}
+
 {% block body %}
     <div class="row">
         <div class="col-lg-12">
