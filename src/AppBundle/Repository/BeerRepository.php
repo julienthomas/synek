@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Beer;
 use AppBundle\Entity\Language;
 use AppBundle\Service\BeerService;
 use AppBundle\Util\DatatableUtil;
@@ -76,5 +77,34 @@ class BeerRepository extends EntityRepository
         $query = $qb->getQuery();
         $query->useQueryCache(true);
         return $query->getResult();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBeersCount()
+    {
+        $qb = $this->_em->createQueryBuilder()
+            ->select('count(beer)')
+            ->from('AppBundle:Beer', 'beer');
+        $query = $qb->getQuery();
+        $query->useQueryCache(true);
+        return $query->getSingleScalarResult();
+    }
+
+    /**
+     * @return Beer|mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getNewestBeer()
+    {
+        $qb = $this->_em->createQueryBuilder()
+            ->select('beer')
+            ->from('AppBundle:Beer', 'beer')
+            ->orderBy('beer.id', 'DESC')
+            ->setMaxResults(1);
+        $query = $qb->getQuery();
+        $query->useQueryCache(true);
+        return $query->getOneOrNullResult();
     }
 }

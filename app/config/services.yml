@@ -81,3 +81,8 @@ services:
             - '@translator.default'
             - '@form.factory'
             - '@synek.form.brewery'
+
+    synek.service.admin_dashboard:
+        class: AppBundle\Service\AdminDashboardService
+        arguments:
+            - '@doctrine.orm.default_entity_manager'

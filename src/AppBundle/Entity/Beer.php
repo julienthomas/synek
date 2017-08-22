@@ -6,12 +6,14 @@ use AppBundle\Util\EntityUtil;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Tests\Fixtures\Entity;
 
 /**
  * Beer
  *
  * @ORM\Table(name="beer", uniqueConstraints={@ORM\UniqueConstraint(name="name", columns={"name"})}, indexes={@ORM\Index(name="beer_type_id", columns={"beer_type_id"}), @ORM\Index(name="brewery_id", columns={"brewery_id"})})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\BeerRepository")
+ * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity(
  *  fields={"name"},
  *  message="This beer already exists."
@@ -248,5 +250,13 @@ class Beer
     public function getBrewery()
     {
         return $this->brewery;
+    }
+
+    /**
+     * @ORM\PreUpdate()
+     */
+    public function onPreUpdate()
+    {
+        $this->updatedDate = new \DateTime('now', new \DateTimeZone(EntityUtil::DEFAULT_TIMEZONE));
     }
 }

@@ -62,27 +62,7 @@ class TypeRepository extends EntityRepository
     }
 
     /**
-     * @param Type $type
-     * @return array
-     */
-    public function getTypeWithTranslations(Type $type)
-    {
-        $qb = $this->_em->createQueryBuilder();
-        $qb
-            ->select('type, translation')
-            ->from('AppBundle:Beer\Type', 'type')
-            ->innerJoin('type.translations', 'translation')
-            ->innerJoin('translation.language', 'language')
-            ->where('type = :type')
-            ->setParameter('type', $type);
-
-        $query = $qb->getQuery();
-        $query->useQueryCache(true);
-        return $query->getResult();
-    }
-
-    /**
-     * @param $language
+     * @param Language $language
      * @return array
      */
     public function getTypesWithTranslation(Language $language)
@@ -99,5 +79,38 @@ class TypeRepository extends EntityRepository
         $query = $qb->getQuery();
         $query->useQueryCache(true);
         return $query->getResult();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTypesCount()
+    {
+        $qb = $this->_em->createQueryBuilder()
+            ->select('count(type)')
+            ->from('AppBundle:Beer\Type', 'type');
+        $query = $qb->getQuery();
+        $query->useQueryCache(true);
+        return $query->getSingleScalarResult();
+    }
+
+    /**
+     * @param Language $language
+     * @return Type|mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getNewestType(Language $language)
+    {
+        $qb = $this->_em->createQueryBuilder()
+            ->select('type')
+            ->from('AppBundle:Beer\Type', 'type')
+            ->innerJoin('type.translations', 'translations')
+            ->where('translations.language = :language')
+            ->orderBy('type.id', 'DESC')
+            ->setMaxResults(1)
+            ->setParameter('language', $language);
+        $query = $qb->getQuery();
+        $query->useQueryCache(true);
+        return $query->getOneOrNullResult();
     }
 }

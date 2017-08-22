@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints;
  *
  * @ORM\Table(name="place", uniqueConstraints={@ORM\UniqueConstraint(name="place_address_id", columns={"place_address_id"}), @ORM\UniqueConstraint(name="mycollectionplaces_reference_id", columns={"mycollectionplaces_reference_id"})}, indexes={@ORM\Index(name="place_type_id", columns={"place_type_id"}), @ORM\Index(name="timezone_id", columns={"timezone_id"})})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PlaceRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Place
 {
@@ -711,5 +712,13 @@ class Place
         $this->user = $user;
 
         return $this;
+    }
+
+    /**
+     * @ORM\PreUpdate()
+     */
+    public function onPreUpdate()
+    {
+        $this->updatedDate = new \DateTime('now', new \DateTimeZone(EntityUtil::DEFAULT_TIMEZONE));
     }
 }

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Brewery;
 use AppBundle\Entity\Language;
 use AppBundle\Service\BreweryService;
 use AppBundle\Util\DatatableUtil;
@@ -76,5 +77,34 @@ class BreweryRepository extends EntityRepository
         $query = $qb->getQuery();
         $query->useQueryCache(true);
         return $query->getResult();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBreweriesCount()
+    {
+        $qb = $this->_em->createQueryBuilder()
+            ->select('count(brewery)')
+            ->from('AppBundle:Brewery', 'brewery');
+        $query = $qb->getQuery();
+        $query->useQueryCache(true);
+        return $query->getSingleScalarResult();
+    }
+
+    /**
+     * @return Brewery|mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getNewestBrewery()
+    {
+        $qb = $this->_em->createQueryBuilder()
+            ->select('brewery')
+            ->from('AppBundle:Brewery', 'brewery')
+            ->orderBy('brewery.id', 'DESC')
+            ->setMaxResults(1);
+        $query = $qb->getQuery();
+        $query->useQueryCache(true);
+        return $query->getOneOrNullResult();
     }
 }

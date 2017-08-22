@@ -12,6 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="brewery", indexes={@ORM\Index(name="country_id", columns={"country_id"})}, uniqueConstraints={@ORM\UniqueConstraint(name="name", columns={"name"})})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\BreweryRepository")
+ * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity(
  *  fields={"name"},
  *  message="This brewery already exists."
@@ -37,6 +38,20 @@ class Brewery
      * )
      */
     private $name;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_date", type="datetime", nullable=false)
+     */
+    private $createdDate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_date", type="datetime", nullable=true)
+     */
+    private $updatedDate;
 
     /**
      * @var \AppBundle\Entity\Country
@@ -102,6 +117,44 @@ class Brewery
     }
 
     /**
+     * Set createdDate
+     *
+     * @param \DateTime $createdDate
+     *
+     * @return Brewery
+     */
+    public function setCreatedDate($createdDate)
+    {
+        $this->createdDate = $createdDate;
+
+        return $this;
+    }
+
+    /**
+     * Get createdDate
+     *
+     * @return \DateTime
+     */
+    public function getCreatedDate()
+    {
+        return $this->createdDate;
+    }
+
+    /**
+     * Set updatedDate
+     *
+     * @param \DateTime $updatedDate
+     *
+     * @return Brewery
+     */
+    public function setUpdatedDate($updatedDate)
+    {
+        $this->updatedDate = $updatedDate;
+
+        return $this;
+    }
+
+    /**
      * Set country
      *
      * @param \AppBundle\Entity\Country $country
@@ -157,5 +210,13 @@ class Brewery
     public function getBeers()
     {
         return $this->beers;
+    }
+
+    /**
+     * @ORM\PreUpdate()
+     */
+    public function onPreUpdate()
+    {
+        $this->updatedDate = new \DateTime('now', new \DateTimeZone(EntityUtil::DEFAULT_TIMEZONE));
     }
 }

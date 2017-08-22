@@ -3,10 +3,13 @@
 namespace AppBundle\Repository;
 
 use AppBundle\Entity\Language;
+use AppBundle\Entity\Place;
 use AppBundle\Entity\Place\Type;
 use AppBundle\Service\PlaceService;
 use AppBundle\Util\DatatableUtil;
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\Expr;
 
 class PlaceRepository extends EntityRepository
@@ -117,10 +120,11 @@ class PlaceRepository extends EntityRepository
     public function getHomeMapPlaces($beerId)
     {
         $qb = $this->_em->createQueryBuilder()
-            ->select('place, address, type, beers')
+            ->select('place, user, address, type, beers')
             ->from('AppBundle:Place', 'place')
             ->innerJoin('place.address', 'address')
             ->innerJoin('place.type', 'type')
+            ->leftJoin('place.user', 'user')
             ->leftJoin('place.beers', 'beers')
             ->leftJoin('beers.brewery', 'brewery')
             ->orderBy('beers.name');
@@ -162,9 +166,10 @@ class PlaceRepository extends EntityRepository
     public function getShopInformation($placeId, Language $language = null)
     {
         $qb = $this->_em->createQueryBuilder()
-            ->select('place, type, address, country, country_translations, beers, brewery, pictures')
+            ->select('place, user, type, address, country, country_translations, beers, brewery, pictures, schedules')
             ->from('AppBundle:Place', 'place')
             ->innerJoin('place.type', 'type')
+            ->leftJoin('place.user', 'user')
             ->innerJoin('place.address', 'address')
             ->innerJoin('address.country', 'country')
             ->leftJoin('country.translations', 'country_translations', Expr\Join::WITH, 'country_translations.language = :language')
@@ -173,6 +178,7 @@ class PlaceRepository extends EntityRepository
             ->leftJoin('beer_type.translations', 'beer_type_translations', Expr\Join::WITH, 'beer_type_translations.language = :language')
             ->leftJoin('beers.brewery', 'brewery')
             ->leftJoin('place.pictures', 'pictures')
+            ->leftJoin('place.schedules', 'schedules')
             ->where('place.id = :id')
             ->orderBy('beers.name')
             ->setParameters([
@@ -183,5 +189,75 @@ class PlaceRepository extends EntityRepository
         $query = $qb->getQuery();
         $query->useQueryCache(true);
         return $query->getOneOrNullResult();
+    }
+
+    /**
+     * @return Place|null
+     */
+    public function getNewestShop()
+    {
+        return $this->getNewestPlace(Type::SHOP);
+    }
+
+    /**
+     * @return Place|null
+     */
+    public function getNewestPartner()
+    {
+        return $this->getNewestPlace(Type::PARTNER);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getShopsCount()
+    {
+        return $this->getPlacesCount(Type::SHOP);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPartnersCount()
+    {
+        return $this->getPlacesCount(Type::PARTNER);
+    }
+
+    /**
+     * @param $typeCode
+     * @return Place|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    private function getNewestPlace($typeCode)
+    {
+        $qb = $this->_em->createQueryBuilder()
+            ->select('place, user')
+            ->from('AppBundle:Place', 'place')
+            ->innerJoin('place.type', 'type')
+            ->leftJoin('place.user', 'user')
+            ->where('type.code = :typeCode')
+            ->orderBy('place.id', 'DESC')
+            ->setMaxResults(1)
+            ->setParameter('typeCode', $typeCode);
+        $query = $qb->getQuery();
+        $query->useQueryCache(true);
+        return $query->getOneOrNullResult();
+    }
+
+    /**
+     * @param $typeCode
+     * @return mixed
+     */
+    private function getPlacesCount($typeCode)
+    {
+        $qb = $this->_em->createQueryBuilder()
+            ->select('count(place)')
+            ->from('AppBundle:Place', 'place')
+            ->innerJoin('place.type', 'type')
+            ->where('type.code = :typeCode')
+            ->setParameter('typeCode', $typeCode);
+        $query = $qb->getQuery();
+        $query->useQueryCache(true);
+        return $query->getSingleScalarResult();
     }
 }

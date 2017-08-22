@@ -12,6 +12,7 @@ class HomeController extends Controller
      */
     public function homeAction()
     {
-        return $this->render('admin/home/home.html.twig');
+        $stats = $this->get('synek.service.admin_dashboard')->getDashboardStats($this->getUser()->getLanguage());
+        return $this->render('admin/home/home.html.twig', ['stats' => $stats]);
     }
 }

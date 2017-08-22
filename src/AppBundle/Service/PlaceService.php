@@ -3,6 +3,7 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Beer;
+use AppBundle\Entity\Language;
 use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\Place;
 use AppBundle\Entity\Place\Type;
@@ -99,10 +100,8 @@ class PlaceService extends AbstractService
         /** @var Beer $beer */
         foreach ($beers as $beer) {
             $data[] = [
-                'name'          => $beer->getName(),
-                'type'          => $beer->getType()->getTranslations()->first()->getName(),
-                'alcoholDegree' => $beer->getAlcoholDegree(),
-                'brewery'       => $beer->getBrewery()->getName()
+                'name'    => $beer->getName(),
+                'brewery' => $beer->getBrewery()->getName()
             ];
         }
         return $data;

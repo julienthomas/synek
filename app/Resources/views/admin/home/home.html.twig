@@ -14,11 +14,11 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    {% include 'admin/home/partial/panel.html.twig' with {'class': 'panel-primary', 'icon': 'fa-shopping-cart', 'number': 0, 'title': 'Shops', 'link': path('admin_shop')} %}
-                    {% include 'admin/home/partial/panel.html.twig' with {'class': 'panel-green', 'icon': 'fa-users', 'number': 0, 'title': 'Partners', 'link': path('admin_partner')} %}
-                    {% include 'admin/home/partial/panel.html.twig' with {'class': 'panel-yellow', 'icon': 'fa-beer', 'number': 0, 'title': 'Beers', 'link': path('admin_beer')} %}
-                    {% include 'admin/home/partial/panel.html.twig' with {'class': 'panel-red', 'icon': 'fa-tags', 'number': 0, 'title': 'Beer types', 'link': path('admin_beer_type')} %}
-                    {% include 'admin/home/partial/panel.html.twig' with {'class': 'panel-breweries', 'icon': 'fa-home', 'number': 0, 'title': 'Breweries', 'link': path('admin_brewery')} %}
+                    {% include 'admin/home/partial/panel.html.twig' with {'class': 'panel-primary', 'icon': 'fa-shopping-cart', 'title': 'Shops', 'stats': stats['shops'], 'link': path('admin_shop')} %}
+                    {% include 'admin/home/partial/panel.html.twig' with {'class': 'panel-green', 'icon': 'fa-users', 'title': 'Partners', 'stats': stats['partners'], 'link': path('admin_partner')} %}
+                    {% include 'admin/home/partial/panel.html.twig' with {'class': 'panel-yellow', 'icon': 'fa-beer', 'title': 'Beers', 'stats': stats['beers'], 'link': path('admin_beer')} %}
+                    {% include 'admin/home/partial/panel.html.twig' with {'class': 'panel-red', 'icon': 'fa-tags', 'title': 'Beer types', 'stats': stats['beerTypes'], 'link': path('admin_beer_type')} %}
+                    {% include 'admin/home/partial/panel.html.twig' with {'class': 'panel-breweries', 'icon': 'fa-home', 'title': 'Breweries', 'stats': stats['breweries'], 'link': path('admin_brewery')} %}
                 </div>
             </div>
         </div>

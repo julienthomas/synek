@@ -11,6 +11,7 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
  *
  * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="email", columns={"email"})})
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks()
  */
 class User implements AdvancedUserInterface, \Serializable
 {
@@ -501,5 +502,13 @@ class User implements AdvancedUserInterface, \Serializable
             $this->password,
             $this->salt
             ) = unserialize($serialized);
+    }
+
+    /**
+     * @ORM\PreUpdate()
+     */
+    public function onPreUpdate()
+    {
+        $this->updatedDate = new \DateTime('now', new \DateTimeZone(EntityUtil::DEFAULT_TIMEZONE));
     }
 }

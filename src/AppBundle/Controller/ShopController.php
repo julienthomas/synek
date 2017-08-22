@@ -21,8 +21,8 @@ class ShopController extends Controller
      */
     public function informationAction(Request $request, $id = null, $isAdmin = false, $isUser = false)
     {
-        $locale   = $this->getUser() ? $this->getUser()->getLanguage()->getLocale() : $request->getLocale();
-        $language = $this->getDoctrine()->getManager()->getRepository(Language::class)->findOneByLocale($locale);
+        $language = $this->getUser() ? $this->getUser()->getLanguage() :
+            $this->getDoctrine()->getManager()->getRepository(Language::class)->findOneByLocale($request->getLocale());
         if (!$language) {
             $language = $this->getDoctrine()->getManager()->getRepository(Language::class)->findOneByLocale('fr_FR');
         }
