@@ -179,6 +179,7 @@ div.form-nav div.panel ul.nav li:not(:last-child) {
 }
 .loading {
   position: fixed;
+  z-index: 1000;
   bottom: 0;
   left: 250px;
   right: 0;

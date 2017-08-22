@@ -19,7 +19,7 @@
             <a href="{{ path('admin_partner') }}" {% if route matches '/^admin_partner$/' %}class="active"{% endif %}>{{ 'Partners list'|trans }}</a>
         </li>
         <li>
-            <a href="#" {% if route matches '/^admin_partner_add$/' %}class="active"{% endif %}>{{ 'Add a partner'|trans }}</a>
+            <a href="{{ path('admin_partner_add') }}" {% if route matches '/^admin_partner_add$/' %}class="active"{% endif %}>{{ 'Add a partner'|trans }}</a>
         </li>
     </ul>
 </li>
