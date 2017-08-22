@@ -58,6 +58,45 @@
             </div>
         </div>
     {% endif %}
+    {% if shop.beers|length > 0 %}
+        <div class="row">
+            <div class="col-lg-12">
+                <h4 class="page-header">{{ 'Available beers' }}</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                {% for beer in shop.beers %}
+                    <div class="beer">{{ beer.name }} ({{ beer.brewery.name }}) {{ beer.type.translations.first.name|default(null) }} {{ beer.alcoholDegree }}°</div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    {% if schedules|length > 0%}
+        {% set days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] %}
+        <div class="row">
+            <div class="col-lg-12">
+                <h4 class="page-header">{{ 'Take away'|trans }}</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 schedules">
+                {% for day in days %}
+                    {% set scheduleIndex = loop.index %}
+                    <div>
+                        <div class="day pull-left">{{ day|trans }}</div>
+                        {% if schedules[scheduleIndex] is defined %}
+                            {% for schedule in schedules[scheduleIndex] %}
+                                <span class="label label-success">{{ schedule.opening|date('H:i') }} - {{ schedule.closure|date('H:i') }}</span>
+                            {% endfor %}
+                        {% else %}
+                            <span class="label label-danger">{{ 'Closed'|trans }}</span>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
     <div class="row">
         <div class="col-lg-12">
             <h4 class="page-header">{{ 'Information' }}</h4>
@@ -89,50 +128,9 @@
                     <div><i class="fa fa-facebook-official"></i> <a href="{{ shop.facebook }}" target="_blank">{{ shop.facebook }}</a></div>
                 {% endif %}
             </div>
-            <div class="col-lg-6">
-                <div id="shop-map" class="shop-map" data-lat="{{ shop.address.latitude }}" data-lng="{{ shop.address.longitude }}" data-marker="{{ asset('assets/img/map/marker_shop.png') }}"></div>
-            </div>
+            <div id="shop-map" class="shop-map" data-lat="{{ shop.address.latitude }}" data-lng="{{ shop.address.longitude }}" data-marker="{{ asset('assets/img/map/marker_shop.png') }}"></div>
         </div>
     </div>
-    {% if shop.beers|length > 0 %}
-        <div class="row">
-            <div class="col-lg-12">
-                <h4 class="page-header">{{ 'Available beers' }}</h4>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                {% for beer in shop.beers %}
-                    <div class="beer">{{ beer.name }} ({{ beer.brewery.name }}) {{ beer.type.translations.first.name|default(null) }} {{ beer.alcoholDegree }}°</div>
-                {% endfor %}
-            </div>
-        </div>
-    {% endif %}
-    {% if schedules|length > 0%}
-        {% set days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] %}
-        <div class="row">
-            <div class="col-lg-12">
-                <h4 class="page-header">{{ 'Schedule' }}</h4>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 schedules">
-                {% for day in days %}
-                    {% set scheduleIndex = loop.index %}
-                    <div>
-                        <div class="day pull-left">{{ day|trans }}</div>
-                        {% if schedules[scheduleIndex] is defined %}
-                            {% for schedule in schedules[scheduleIndex] %}
-                                <span class="label label-success">{{ schedule.opening|date('H:i') }} - {{ schedule.closure|date('H:i') }}</span>
-                            {% endfor %}
-                        {% else %}
-                            <span class="label label-danger">{{ 'Closed'|trans }}</span>
-                        {% endif %}
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-    {% endif %}
 {% endblock body %}
 
 {% block javascripts %}

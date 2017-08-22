@@ -1,4 +1,5 @@
 .shop-pictures {
+  margin: auto;
   height: 20vw;
   width: 50%;
 }
@@ -10,14 +11,27 @@
   background-size: contain;
   height: 100%;
 }
-.shop-pictures .carousel-single {
-  opacity: 0.5;
+.shop-pictures .carousel-control {
+  background-image: none;
+  color: #ffe767;
+}
+.shop-pictures .carousel-control:focus,
+.shop-pictures .carousel-control:hover {
+  color: #f4d42c;
+}
+.shop-pictures .carousel-indicators li {
+  border-color: #f4d42c;
+}
+.shop-pictures .carousel-indicators li.active {
+  background-color: #f4d42c;
 }
 .shop-information {
   margin-right: 50px;
 }
 .shop-map {
   height: 300px;
+  min-width: 400px;
+  width: 400px;
 }
 .schedules .day {
   width: 10%;
@@ -38,5 +52,12 @@
 @media (max-width: 500px) {
   .schedules .day {
     width: 100%;
+  }
+}
+@media (max-width: 700px) {
+  .shop-map {
+    display: block;
+    width: 100%;
+    min-width: 100%;
   }
 }

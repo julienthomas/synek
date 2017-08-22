@@ -1,4 +1,7 @@
+@import '../vars';
+
 .shop-pictures {
+  margin: auto;
   height: 20vw;
   width: 50%;
   .carousel-inner {
@@ -9,8 +12,20 @@
       height: 100%;
     }
   }
-  .carousel-single {
-    opacity: 0.5;
+  .carousel-control {
+    background-image: none;
+    color: @synek_yellow_light;
+  }
+  .carousel-control:focus, .carousel-control:hover {
+    color: @synek_yellow;
+  }
+  .carousel-indicators {
+    li {
+      border-color: @synek_yellow;
+    }
+    li.active {
+      background-color: @synek_yellow;
+    }
   }
 }
 
@@ -20,6 +35,8 @@
 
 .shop-map {
   height: 300px;
+  min-width: 400px;
+  width: 400px;
 }
 
 .schedules {
@@ -53,5 +70,13 @@
     .day {
       width: 100%;
     }
+  }
+}
+
+@media (max-width: 700px) {
+  .shop-map {
+    display: block;
+    width: 100%;
+    min-width: 100%;
   }
 }
