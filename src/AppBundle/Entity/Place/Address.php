@@ -64,6 +64,9 @@ class Address
      * @var string
      *
      * @ORM\Column(name="latitude", type="decimal", precision=9, scale=7, nullable=false)
+     * @Constraints\NotBlank(
+     *  message="The position must be set.",
+     * )
      */
     private $latitude;
 
@@ -71,6 +74,9 @@ class Address
      * @var string
      *
      * @ORM\Column(name="longitude", type="decimal", precision=10, scale=7, nullable=false)
+     * @Constraints\NotBlank(
+     *  message="The position must be set.",
+     * )
      */
     private $longitude;
 

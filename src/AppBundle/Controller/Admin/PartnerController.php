@@ -3,6 +3,8 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Place;
+use AppBundle\Entity\Place\Type;
+use AppBundle\Entity\Timezone;
 use AppBundle\Form\PlaceType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -41,26 +43,30 @@ class PartnerController extends Controller
      */
     public function addEditAction(Request $request, Place $place = null)
     {
+        $partnerService = $this->get('synek.service.partner');
         $isNew = false;
         if ($place === null) {
-            $place = new Place();
+            $place = $partnerService->initPartner();
             $isNew = true;
-            $timezone = $this->getDoctrine()->getManager()
-                ->getRepository('AppBundle:Timezone')->findOneByName('Europe/paris');
-            $place->setTimezone($timezone);
         }
 
-        $placeType = new PlaceType($this->getUser()->getLanguage(), $this->get('synek.service.shop'));
-        $form      = $this->createForm($placeType, $place);
+        $formType = new PlaceType($this->getUser()->getLanguage());
+        $form     = $this->createForm($formType, $place);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            if (!$place->getTimezone()) {
+        if ($form->isSubmitted()) {
+            $translator = $this->get('translator');
+            $flashbag   = $this->get('session')->getFlashBag();
+            if ($form->isValid()) {
+                $partnerService->savePartner($place);
+                $msg = $isNew ?  'Partner successfully added.' : 'Partner successfully edited.';
+                $flashbag->add('success', $translator->trans($msg));
+                return $this->redirectToRoute('admin_partner');
+            } else {
+                $flashbag->add('error', $translator->trans('Some fields are invalids.'));
             }
-        } else {
-            $this->get('session')->getFlashBag()->add('error', _('Some fields are invalids.'));
         }
 
-        return $this->render('add_edit.html.twig', [
+        return $this->render('admin/partner/add_edit.html.twig', [
             'form'  => $form->createView(),
             'isNew' => $isNew
         ]);

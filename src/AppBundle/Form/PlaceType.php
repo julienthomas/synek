@@ -7,7 +7,6 @@ use AppBundle\Entity\Language;
 use AppBundle\Form\Place\AddressType;
 use AppBundle\Form\Place\PictureType;
 use AppBundle\Form\Place\ScheduleType;
-use AppBundle\Service\BeerService;
 use AppBundle\Service\ShopService;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
@@ -42,7 +41,7 @@ class PlaceType extends AbstractType
      * @param bool $isShop
      * @param bool $addUser
      */
-    public function __construct(Language $language, ShopService $shopService, $isShop = false, $addUser = false)
+    public function __construct(Language $language, ShopService $shopService = null, $isShop = false, $addUser = false)
     {
         $this->language    = $language;
         $this->shopService = $shopService;
@@ -96,8 +95,7 @@ class PlaceType extends AbstractType
                     'label'    => 'Facebook',
                     'required' => false
                 ]
-            )
-        ;
+            );
 
         if ($this->isShop) {
             $builder
@@ -107,15 +105,6 @@ class PlaceType extends AbstractType
                     [
                         'label'    => 'Description',
                         'required' => false
-                    ]
-                )
-                ->add(
-                    'pictures',
-                    'collection',
-                    [
-                        'type'         => new PictureType($this->shopService),
-                        'allow_add'    => true,
-                        'allow_delete' => true
                     ]
                 )
                 ->add(
@@ -152,8 +141,18 @@ class PlaceType extends AbstractType
                         'allow_delete' => true,
                         'by_reference' => true
                     ]
-                )
-            ;
+                );
+            if ($this->shopService) {
+                $builder->add(
+                    'pictures',
+                    'collection',
+                    [
+                        'type'         => new PictureType($this->shopService),
+                        'allow_add'    => true,
+                        'allow_delete' => true
+                    ]
+                );
+            }
         }
     }
 

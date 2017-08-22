@@ -63,13 +63,14 @@ class BeerController extends Controller
         $beerForm->handleRequest($request);
         if ($beerForm->isSubmitted()) {
             $translator = $this->get('translator');
+            $flashbag   = $this->get('session')->getFlashBag();
             if ($beerForm->isValid()) {
                 $this->get('synek.service.beer')->saveBeer($beer);
                 $msg = $isNew ? $translator->trans('Beer successfully added.') : $translator->trans('Beer successfully edited.');
-                $this->get('session')->getFlashBag()->add('success', $msg);
+                $flashbag->add('success', $msg);
                 return $this->redirectToRoute('admin_beer');
             } else {
-                $this->get('session')->getFlashBag()->add('error', $translator->trans('Some fields are invalids.'));
+                $flashbag->add('error', $translator->trans('Some fields are invalids.'));
             }
         }
 

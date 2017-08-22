@@ -10,6 +10,9 @@
   background-size: contain;
   height: 100%;
 }
+.shop-pictures .carousel-single {
+  opacity: 0.5;
+}
 .shop-information {
   margin-right: 50px;
 }

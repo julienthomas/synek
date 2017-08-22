@@ -72,14 +72,11 @@ class AddressType extends AbstractType
                 ]
             )
             ->add(
-                'latitude',
-                'text', ['required' => false]
+                'latitude', 'text', ['required' => false]
             )
             ->add(
-                'longitude',
-                'text', ['required' => false]
-            )
-        ;
+                'longitude', 'text', ['required' => false]
+            );
     }
 
     /**

@@ -704,15 +704,15 @@ function buildCalendarEvents()
  */
 function buildSchedule()
 {
+    if (!isCalendarInit) {
+        return;
+    }
+
     var prototype = $("[data-role='schedule']", "[data-id='schedule-prototype']");
     var events    = $("[data-id='calendar']").fullCalendar('clientEvents');
     var schedules = $("[data-id='schedules']");
     var timezone  = schedules.data('timezone');
     var reg       = /__name__/g;
-
-    if (!isCalendarInit) {
-        return;
-    }
 
     schedules.empty();
     $.each(events, function(index, event){

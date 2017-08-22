@@ -59,13 +59,14 @@ class BreweryController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             $translator = $this->get('translator');
+            $flashbag   = $this->get('session')->getFlashBag();
             if ($form->isValid()) {
                 $this->get('synek.service.brewery')->saveBrewery($brewery);
                 $msg = $isNew ? $translator->trans('Brewery successfully added.') : $translator->trans('Brewery successfully edited.');
-                $this->get('session')->getFlashBag()->add('success', $msg);
+                $flashbag->add('success', $msg);
                 return $this->redirectToRoute('admin_brewery');
             } else {
-                $this->get('session')->getFlashBag()->add('error', $translator->trans('Some fields are invalids.'));
+                $flashbag->add('error', $translator->trans('Some fields are invalids.'));
             }
         }
         return $this->render('admin/brewery/add_edit.html.twig', [

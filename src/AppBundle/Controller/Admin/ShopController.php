@@ -48,7 +48,6 @@ class ShopController extends Controller
     }
 
     /**
-     * @Route("/admin/shop/add", name="admin_shop_add")
      * @Route("/admin/shop/edit/{id}", name="admin_shop_edit")
      * @param Request $request
      * @param Place $place
@@ -58,7 +57,7 @@ class ShopController extends Controller
     {
         $shopService   = $this->get('synek.service.shop');
         $basePictures  = $shopService->getCurrentPictures($place);
-        $formType      = new PlaceType($this->getUser()->getLanguage(), $this->get('synek.service.shop'), true, $this->get('synek.service.beer'));
+        $formType      = new PlaceType($this->getUser()->getLanguage(), $this->get('synek.service.shop'), true, true);
         $placeForm     = $this->createForm($formType, $place);
         $beerForm      = $this->createForm($this->get('synek.form.beer'), new Beer());
         $beerTypeForm  = $this->createForm($this->get('synek.form.beer_type'), new Beer\Type());
@@ -67,13 +66,15 @@ class ShopController extends Controller
 
         $placeForm->handleRequest($request);
         if ($placeForm->isSubmitted()) {
+            $translator = $this->get('translator');
+            $flashbag   = $this->get('session')->getFlashBag();
             if ($placeForm->isValid()) {
                 $shopService->saveShop($place);
                 $shopService->deleteUnusedPictures($place, $basePictures);
-                $this->get('session')->getFlashBag()->add('success', _('Shop successfully edited.'));
+                $flashbag->add('success', $translator->trans('Shop successfully edited.'));
                 return $this->redirectToRoute('admin_shop');
             } else {
-                $this->get('session')->getFlashBag()->add('error', _('Some fields are invalids.'));
+                $flashbag->add('error', $translator->trans('Some fields are invalids.'));
             }
         }
 

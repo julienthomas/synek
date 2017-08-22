@@ -1,11 +1,27 @@
-{% extends 'place/add_edit.html.twig' %}
+{% extends 'layout_admin.html.twig' %}
 
-{% set layout = 'layout_admin.html.twig' %}
-{% set mapMarker = asset('assets/img/map/marker_partner.png') %}
-{% set isShop = false %}
+{% block stylesheets %}
+    <link href="{{ asset('assets/css/place/add_edit.css') }}" rel="stylesheet">
+{% endblock stylesheets %}
 
 {% block title %}
     {% set title = isNew ? 'New partner'|trans : 'Partner edition'|trans %}
     {{ title }}
 {% endblock title %}
 
+{% block body %}
+    <div class="row">
+        <div class="col-lg-12">
+            {% set title = isNew ? 'New partner'|trans : 'Partner edition'|trans %}
+            <h1 class="page-header">{{ title }}</h1>
+        </div>
+    </div>
+    {% include 'partial/place/form.html.twig' with {'mapMarker': asset('assets/img/map/marker_partner.png'), 'isShop': false, 'addOwner': false, 'cancelUrl': path('admin_partner')} %}
+    {% include 'partial/form_error_template.html.twig' %}
+{% endblock body %}
+
+{% block javascripts %}
+    <script src="https://maps.googleapis.com/maps/api/js?v=3&key={{ google_api_key }}"></script>
+    <script src="{{ asset('assets/js/utils.js') }}"></script>
+    <script src="{{ asset('assets/js/place/add_edit.js') }}"></script>
+{% endblock javascripts %}

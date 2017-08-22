@@ -3,10 +3,10 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Place;
+use AppBundle\Entity\Place\Type;
+use AppBundle\Entity\Timezone;
 use AppBundle\Util\DatatableUtil;
-use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\ORM\EntityManager;
-use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 
 class PartnerService extends AbstractService
 {
@@ -82,5 +82,28 @@ class PartnerService extends AbstractService
             'limit'    => DatatableUtil::getLimit($requestData),
             'offset'   => DatatableUtil::getOffset($requestData),
         ];
+    }
+
+    /**
+     * @return Place
+     */
+    public function initPartner()
+    {
+        $place    = new Place();
+        $type     = $this->manager->getRepository(Type::class)->findOneByCode(Type::PARTNER);
+        $timezone = $this->manager->getRepository(Timezone::class)->findOneByName('Europe/paris');
+        $place
+            ->setTimezone($timezone)
+            ->setEnabled(true)
+            ->setType($type);
+        return $place;
+    }
+
+    /**
+     * @param Place $place
+     */
+    public function savePartner(Place $place)
+    {
+        $this->persistAndFlush([$place->getAddress(), $place]);
     }
 }

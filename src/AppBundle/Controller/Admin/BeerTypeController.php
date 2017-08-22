@@ -51,13 +51,14 @@ class BeerTypeController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             $translator = $this->get('translator');
+            $flashbag   = $this->get('session')->getFlashBag();
             if ($form->isValid()) {
                 $this->get('synek.service.beer_type')->saveType($type);
                 $msg = $isNew ? $translator->trans('Type successfully added.') : $translator->trans('Type successfully edited.');
-                $this->get('session')->getFlashBag()->add('success', $msg);
+                $flashbag->add('success', $msg);
                 return $this->redirectToRoute('admin_beer_type');
             } else {
-                $this->get('session')->getFlashBag()->add('error', $translator->trans('Some fields are invalids.'));
+                $flashbag->add('error', $translator->trans('Some fields are invalids.'));
             }
         }
         return $this->render('admin/beer_type/add_edit.html.twig', [
