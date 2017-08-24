@@ -33,6 +33,14 @@
         <div class="col-lg-12 home-wrapper">
             <div class="home-overflow">
                 <div id="home-map" data-url="{{ path('home_places') }}"></div>
+                <div class="map-legend" data-id="map-legend">
+                    <div class="col-lg-12">
+                        <img src="{{ asset('assets/img/map/marker_shop.png') }}">{{ 'Synek shop'|trans }}
+                    </div>
+                    <div class="col-lg-12">
+                        <img src="{{ asset('assets/img/map/marker_partner.png') }}">{{ 'Filling place'|trans }}
+                    </div>
+                </div>
                 <div class="place-info col-lg-4" data-id="place-info">
                     <div class="row">
                         <div class="col-lg-12">

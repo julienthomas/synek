@@ -172,6 +172,12 @@ div.form-nav {
           border-top: 1px solid @nav_border_color;
           margin: 0;
         }
+        li:last-child {
+          border-bottom: none;
+        }
+      }
+      .sidebar-nav.navbar-collapse.collapse.in {
+        overflow-y: inherit;
       }
     }
     .navbar-header {
@@ -180,6 +186,9 @@ div.form-nav {
   }
   #page-wrapper {
     margin-left: 0;
+    .loading {
+      left: 0;
+    }
   }
 }
 
@@ -219,7 +228,7 @@ div.form-nav {
   position: fixed;
   z-index: 1000;
   bottom: 0;
-  left: 250px;
+  left: 249px;
   right: 0;
   background-color: @body_background_color;
   height: 50px;

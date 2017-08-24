@@ -153,11 +153,20 @@ div.form-nav div.panel ul.nav li:not(:last-child) {
     border-top: 1px solid #515151;
     margin: 0;
   }
+  nav.navbar.navbar-default.navbar-static-top .navbar-default.sidebar .sidebar-nav li:last-child {
+    border-bottom: none;
+  }
+  nav.navbar.navbar-default.navbar-static-top .navbar-default.sidebar .sidebar-nav.navbar-collapse.collapse.in {
+    overflow-y: inherit;
+  }
   nav.navbar.navbar-default.navbar-static-top .navbar-header {
     border-bottom: 1px solid #515151;
   }
   #page-wrapper {
     margin-left: 0;
+  }
+  #page-wrapper .loading {
+    left: 0;
   }
 }
 .panel-body .panel-action {
@@ -181,7 +190,7 @@ div.form-nav div.panel ul.nav li:not(:last-child) {
   position: fixed;
   z-index: 1000;
   bottom: 0;
-  left: 250px;
+  left: 249px;
   right: 0;
   background-color: #333333;
   height: 50px;

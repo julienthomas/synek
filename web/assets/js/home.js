@@ -6,9 +6,19 @@ var geolocMakerInit = false;
 $(function(){
     map = new google.maps.Map(document.getElementById("home-map"), {
         center: {lat: 46.81676808590648, lng: 2.4233221091003587},
-        zoom:   6
+        zoom:   6,
+        disableDefaultUI:  true,
+        streetViewControl: true,
+        zoomControl:       true,
+        rotateControl:     true,
+        fullscreenControl: true
     });
 
+    var test = $("[data-id='map-legend']");
+    //map.controls[google.maps.ControlPosition.LEFT_TOP].push($("[data-id='map-legend']").get(0));
+    map.controls[google.maps.ControlPosition.LEFT_TOP].push(test.get(0));
+    test.show();
+    //$("[data-id='map-legend']").show();
     var mapLocate = $("[data-id='map-locate']");
     var geolocationMarker = new GeolocationMarker(map, null, {visible: false});
     geolocationMarker.setCircleOptions({});
