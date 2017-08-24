@@ -1,10 +1,9 @@
 .shop-pictures {
   margin: auto;
-  height: 20vw;
   width: 50%;
 }
 .shop-pictures .carousel-inner {
-  height: 100%;
+  height: 20vw;
 }
 .shop-pictures .carousel-inner .item {
   background: no-repeat center;
@@ -24,6 +23,9 @@
 }
 .shop-pictures .carousel-indicators li.active {
   background-color: #f4d42c;
+}
+.shop-description {
+  text-align: center;
 }
 .shop-information {
   margin-right: 50px;
@@ -59,5 +61,13 @@
     display: block;
     width: 100%;
     min-width: 100%;
+  }
+}
+@media (max-width: 767px) {
+  .shop-pictures {
+    width: 70%;
+  }
+  .shop-pictures .carousel-inner {
+    height: 30vw;
   }
 }
