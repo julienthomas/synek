@@ -19,7 +19,12 @@
       border-right: 0;
       transition: transform .5s ease;
     }
+    .place-info.init {
+      left: 100%;
+      overflow: hidden;
+    }
     .place-info.show {
+      left: initial;
       transform: translateX(0);
     }
   }
@@ -46,18 +51,25 @@
 }
 
 .map-legend {
+  display: none;
   background-color: #FFFFFF;
-  padding: 15px;
+  padding: 10px;
   border: 1px solid;
   border-radius: 10px;
   margin-top: 15px;
   margin-left: 15px;
-  font-size: 15px;
-  width: 200px;
+  font-size: 13px;
   div:not(:last-child) {
     margin-bottom: 10px;
   }
   img {
-    margin-right: 20px;
+    height: 25px;
+    margin-right: 10px;
+  }
+}
+
+.home-map {
+  .map-legend {
+    display: block;
   }
 }

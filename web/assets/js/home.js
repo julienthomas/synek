@@ -14,11 +14,8 @@ $(function(){
         fullscreenControl: true
     });
 
-    var test = $("[data-id='map-legend']");
-    //map.controls[google.maps.ControlPosition.LEFT_TOP].push($("[data-id='map-legend']").get(0));
-    map.controls[google.maps.ControlPosition.LEFT_TOP].push(test.get(0));
-    test.show();
-    //$("[data-id='map-legend']").show();
+    var legend = $("[data-id='map-legend']");
+    map.controls[google.maps.ControlPosition.LEFT_TOP].push($("[data-id='map-legend']").get(0));
     var mapLocate = $("[data-id='map-locate']");
     var geolocationMarker = new GeolocationMarker(map, null, {visible: false});
     geolocationMarker.setCircleOptions({});
@@ -133,6 +130,7 @@ function displayPlaceInfo(placeData)
     }
 
     placeInfo.addClass('show');
+    placeInfo.removeClass('init');
 }
 
 /**
