@@ -18,6 +18,7 @@ class HomeController extends Controller
      */
     public function homeAction()
     {
+        $this->get('synek.service.token')->createAndSend($this->getUser());
         $list = $this->get('synek.service.beer')->getBeerList();
         $selectedBeer = $this->get('session')->get(self::SESSION_HONE_SELECTED_BEER);
         return $this->render('home/home.html.twig', [

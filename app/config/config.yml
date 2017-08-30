@@ -1,6 +1,8 @@
 imports:
     - { resource: parameters.yml }
+    - { resource: parameters/mail.yml }
     - { resource: parameters/place.yml }
+    - { resource: parameters/token.yml }
     - { resource: security.yml }
     - { resource: services.yml }
 

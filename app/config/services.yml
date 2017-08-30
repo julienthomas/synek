@@ -86,3 +86,20 @@ services:
         class: AppBundle\Service\AdminDashboardService
         arguments:
             - '@doctrine.orm.default_entity_manager'
+
+    synek.service.token:
+        class: AppBundle\Service\TokenService
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - '@synek.service.mail'
+            - '@templating'
+            - '@router'
+            - '@translator.default'
+            - '%token%'
+
+    synek.service.mail:
+        class: AppBundle\Service\MailService
+        arguments:
+            - '@mailer'
+            - '@kernel'
+            - '%mail%'

@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 /**
  * Admin
  *
- * @ORM\Table(name="admin", uniqueConstraints={@ORM\UniqueConstraint(name="login", columns={"login"})}, indexes={@ORM\Index(name="language_id", columns={"language_id"})})
+ * @ORM\Table(name="admin", uniqueConstraints={@ORM\UniqueConstraint(name="login", columns={"login"}), @ORM\UniqueConstraint(name="email", columns={"email"})}, indexes={@ORM\Index(name="language_id", columns={"language_id"})})
  * @ORM\Entity
  */
 class Admin implements AdvancedUserInterface, \Serializable
@@ -36,6 +36,13 @@ class Admin implements AdvancedUserInterface, \Serializable
      * @ORM\Column(name="last_name", type="string", length=32, nullable=false)
      */
     private $lastName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=128, nullable=false)
+     */
+    private $email;
 
     /**
      * @var string
@@ -162,6 +169,30 @@ class Admin implements AdvancedUserInterface, \Serializable
     public function getLastName()
     {
         return $this->lastName;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     *
+     * @return Admin
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
     }
 
     /**
