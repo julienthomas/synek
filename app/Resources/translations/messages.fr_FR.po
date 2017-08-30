@@ -68,9 +68,6 @@ msgstr "Retour à l'espace public"
 msgid "Beer edition"
 msgstr "Edition de la bière"
 
-msgid "Beer information"
-msgstr "Informations de la bière"
-
 msgid "Beer not found? You can add a new one by"
 msgstr "Vous ne trouvez pas la bière? vous pouvez en ajouter une nouvelle en"
 
@@ -109,9 +106,6 @@ msgstr "Brasserie"
 
 msgid "Brewery edition"
 msgstr "Edition de la brasserie"
-
-msgid "Brewery information"
-msgstr "Informations de la brasserie"
 
 msgid "Brewery not found? You can add a new one by"
 msgstr "Vous ne trouvez pas la brasserie? vous pouvez en ajouter une nouvelle en"
@@ -193,9 +187,6 @@ msgstr "Identifiant"
 
 msgid "Logout"
 msgstr "Deconnection"
-
-msgid "Look"
-msgstr "Voir"
 
 msgid "Name"
 msgstr "Nom"
@@ -281,6 +272,9 @@ msgstr "Rechercher un nombre"
 msgid "Search type"
 msgstr "Rechercher un type"
 
+msgid "See"
+msgstr "Voir"
+
 msgid "See shop information"
 msgstr "See shop information"
 
@@ -316,9 +310,6 @@ msgstr "Ce fichier n'est pas valide"
 
 msgid "Type"
 msgstr "Type"
-
-msgid "Type information"
-msgstr "Type information"
 
 msgid "Type not found? You can add a new one by"
 msgstr "Vous ne trouvez pas le type? vous pouvez en ajouter un nouveau en"
