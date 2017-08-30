@@ -32,32 +32,32 @@ class AddressType extends AbstractType
             ->add(
                 'address',
                 'text',
-                ['label' => _('Address')]
+                ['label' => 'Address']
             )
             ->add(
                 'addressComplement',
                 'text',
                 [
-                    'label'    => _('Address Complement'),
+                    'label'    => 'Address Complement',
                     'required' => false
                 ]
             )
             ->add(
                 'zipCode',
                 'text',
-                ['label' => _('Zip code')]
+                ['label' => 'Zip code']
             )
             ->add(
                 'city',
                 'text',
-                ['label' => _('City')]
+                ['label' => 'City']
             )
             ->add(
                 'country',
                 'entity',
                 [
-                    'label'         => _('Country'),
-                    'empty_value'   => '- ' . _('Choose one') . ' -',
+                    'label'         => 'Country',
+                    'empty_value'   => '- Choose one -',
                     'class'         => 'AppBundle\Entity\Country',
                     'choice_label'  => 'translations.first.name',
                     'query_builder' => function (EntityRepository $er) {

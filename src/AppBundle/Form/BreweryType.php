@@ -43,8 +43,8 @@ class BreweryType extends AbstractType
                 'country',
                 'entity',
                 [
-                    'label'         => _('Country'),
-                    'empty_value'   => '- ' . _('Choose one') . ' -',
+                    'label'         => 'Country',
+                    'empty_value'   => '- Choose one -',
                     'class'         => 'AppBundle\Entity\Country',
                     'choice_label'  => 'translations.first.name',
                     'query_builder' => function (EntityRepository $er) {

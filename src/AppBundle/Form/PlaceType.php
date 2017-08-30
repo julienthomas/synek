@@ -58,13 +58,13 @@ class PlaceType extends AbstractType
             ->add(
                 'name',
                 'text',
-                ['label' => _('Name')]
+                ['label' => 'Name']
             )
             ->add(
                 'email',
                 'email',
                 [
-                    'label'    => _('Email'),
+                    'label'    => 'Email',
                     'required' => false
                 ]
             )
@@ -72,7 +72,7 @@ class PlaceType extends AbstractType
                 'phone',
                 'text',
                 [
-                    'label'    => _('Phone number'),
+                    'label'    => 'Phone number',
                     'required' => false
                 ]
             )

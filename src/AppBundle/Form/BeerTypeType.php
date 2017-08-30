@@ -43,7 +43,7 @@ class BeerTypeType extends AbstractType
             ->add(
                 'translations',
                 'text',
-                ['label' => 'name']
+                ['label' => 'Name']
             );
         $builder
             ->get('translations')
