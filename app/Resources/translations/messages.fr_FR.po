@@ -68,6 +68,9 @@ msgstr "Retour à l'espace public"
 msgid "Beer edition"
 msgstr "Edition de la bière"
 
+msgid "Beer information"
+msgstr "Informations bière"
+
 msgid "Beer not found? You can add a new one by"
 msgstr "Vous ne trouvez pas la bière? vous pouvez en ajouter une nouvelle en"
 
@@ -78,7 +81,7 @@ msgid "Beer successfully added."
 msgstr "Bière ajoutée."
 
 msgid "Beer successfully edited."
-msgstr "Bière "
+msgstr "Bière modifiée."
 
 msgid "Beer type edition"
 msgstr "Edition du type de bière"
@@ -107,6 +110,9 @@ msgstr "Brasserie"
 msgid "Brewery edition"
 msgstr "Edition de la brasserie"
 
+msgid "Brewery information"
+msgstr "Informations brasserie"
+
 msgid "Brewery not found? You can add a new one by"
 msgstr "Vous ne trouvez pas la brasserie? vous pouvez en ajouter une nouvelle en"
 
@@ -114,7 +120,7 @@ msgid "Brewery successfully added."
 msgstr "Brasserie ajoutée."
 
 msgid "Brewery successfully edited."
-msgstr "Brasserie éditée."
+msgstr "Brasserie modifiée."
 
 msgid "Cancel"
 msgstr "Annuler"
@@ -144,7 +150,7 @@ msgid "Description"
 msgstr "Description"
 
 msgid "Edit"
-msgstr "Editer"
+msgstr "Modifier"
 
 msgid "Email"
 msgstr "Email"
@@ -204,7 +210,7 @@ msgid "New partner"
 msgstr "Nouveau partenaire"
 
 msgid "New types"
-msgstr "New types"
+msgstr "Nouveaux types"
 
 msgid "Newest"
 msgstr "Plus récent"
@@ -275,17 +281,17 @@ msgstr "Rechercher un type"
 msgid "See"
 msgstr "Voir"
 
-msgid "See shop information"
-msgstr "See shop information"
-
 msgid "Send"
 msgstr "Envoyer"
 
 msgid "Shop edition"
 msgstr "Edition de la boutique"
 
+msgid "Shop information"
+msgstr "Informations boutique"
+
 msgid "Shop successfully edited."
-msgstr "Boutique éditée."
+msgstr "Boutique modifiée."
 
 msgid "Shops"
 msgstr "Boutiques"
@@ -311,6 +317,9 @@ msgstr "Ce fichier n'est pas valide"
 msgid "Type"
 msgstr "Type"
 
+msgid "Type information"
+msgstr "Informations type"
+
 msgid "Type not found? You can add a new one by"
 msgstr "Vous ne trouvez pas le type? vous pouvez en ajouter un nouveau en"
 
@@ -318,7 +327,7 @@ msgid "Type successfully added."
 msgstr "Type ajouté."
 
 msgid "Type successfully edited."
-msgstr "Type édité."
+msgstr "Type modifié."
 
 msgid "Website"
 msgstr "Site web"

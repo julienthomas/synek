@@ -93,7 +93,7 @@ function displayPlaceInfo(placeData)
     var placeAddress       = $("[data-id='place-address']", placeInfo);
     var availableBeers     = $("[data-id='place-available-beers']", placeInfo);
     var availableBeersList = $("[data-id='place-available-beers-list']", placeInfo);
-    var informationLink    = $("[data-id='place-information-link']", placeInfo);
+    var informationLink    = $("[data-id='place-info-link']", placeInfo);
     var address            = placeData['address'];
 
     if (placeData.addressComplement && placeData.addressComplement.length > 0) {
