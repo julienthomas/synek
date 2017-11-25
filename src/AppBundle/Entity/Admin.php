@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 /**
- * Admin
+ * Admin.
  *
  * @ORM\Table(name="admin", uniqueConstraints={@ORM\UniqueConstraint(name="login", columns={"login"}), @ORM\UniqueConstraint(name="email", columns={"email"})}, indexes={@ORM\Index(name="language_id", columns={"language_id"})})
  * @ORM\Entity
@@ -105,16 +105,16 @@ class Admin implements AdvancedUserInterface, \Serializable
     private $roles;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
         $this->createdDate = new \DateTime('now', new \DateTimeZone(EntityUtil::DEFAULT_TIMEZONE));
-        $this->roles       = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Get id
+     * Get id.
      *
      * @return integer
      */
@@ -124,7 +124,7 @@ class Admin implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Set firstName
+     * Set firstName.
      *
      * @param string $firstName
      *
@@ -138,7 +138,7 @@ class Admin implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Get firstName
+     * Get firstName.
      *
      * @return string
      */
@@ -148,7 +148,7 @@ class Admin implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Set lastName
+     * Set lastName.
      *
      * @param string $lastName
      *
@@ -162,7 +162,7 @@ class Admin implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Get lastName
+     * Get lastName.
      *
      * @return string
      */
@@ -172,7 +172,7 @@ class Admin implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Set email
+     * Set email.
      *
      * @param string $email
      *
@@ -186,7 +186,7 @@ class Admin implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Get email
+     * Get email.
      *
      * @return string
      */
@@ -196,7 +196,7 @@ class Admin implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Set login
+     * Set login.
      *
      * @param string $login
      *
@@ -210,7 +210,7 @@ class Admin implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Get login
+     * Get login.
      *
      * @return string
      */
@@ -220,7 +220,7 @@ class Admin implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Set salt
+     * Set salt.
      *
      * @param string $salt
      *
@@ -234,7 +234,7 @@ class Admin implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Get salt
+     * Get salt.
      *
      * @return string
      */
@@ -244,7 +244,7 @@ class Admin implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Set password
+     * Set password.
      *
      * @param string $password
      *
@@ -258,7 +258,7 @@ class Admin implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Get password
+     * Get password.
      *
      * @return string
      */
@@ -268,7 +268,7 @@ class Admin implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Set createdDate
+     * Set createdDate.
      *
      * @param \DateTime $createdDate
      *
@@ -282,7 +282,7 @@ class Admin implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Get createdDate
+     * Get createdDate.
      *
      * @return \DateTime
      */
@@ -292,7 +292,7 @@ class Admin implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Set updatedDate
+     * Set updatedDate.
      *
      * @param \DateTime $updatedDate
      *
@@ -306,7 +306,7 @@ class Admin implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Get updatedDate
+     * Get updatedDate.
      *
      * @return \DateTime
      */
@@ -316,7 +316,7 @@ class Admin implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Set language
+     * Set language.
      *
      * @param \AppBundle\Entity\Language $language
      *
@@ -330,7 +330,7 @@ class Admin implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Get language
+     * Get language.
      *
      * @return \AppBundle\Entity\Language
      */
@@ -340,7 +340,7 @@ class Admin implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Add role
+     * Add role.
      *
      * @param \AppBundle\Entity\Role $role
      *
@@ -354,7 +354,7 @@ class Admin implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Remove role
+     * Remove role.
      *
      * @param \AppBundle\Entity\Role $role
      */
@@ -445,6 +445,7 @@ class Admin implements AdvancedUserInterface, \Serializable
         foreach ($this->roles as $role) {
             $data[] = $role->getCode();
         }
+
         return $data;
     }
 
@@ -470,8 +471,10 @@ class Admin implements AdvancedUserInterface, \Serializable
 
     /**
      * (PHP 5 &gt;= 5.1.0)<br/>
-     * String representation of object
-     * @link http://php.net/manual/en/serializable.serialize.php
+     * String representation of object.
+     *
+     * @see http://php.net/manual/en/serializable.serialize.php
+     *
      * @return string the string representation of the object or null
      */
     public function serialize()
@@ -480,18 +483,19 @@ class Admin implements AdvancedUserInterface, \Serializable
             $this->id,
             $this->login,
             $this->password,
-            $this->salt
+            $this->salt,
         ]);
     }
 
     /**
      * (PHP 5 &gt;= 5.1.0)<br/>
-     * Constructs the object
-     * @link http://php.net/manual/en/serializable.unserialize.php
+     * Constructs the object.
+     *
+     * @see http://php.net/manual/en/serializable.unserialize.php
+     *
      * @param string $serialized <p>
-     * The string representation of the object.
-     * </p>
-     * @return void
+     *                           The string representation of the object.
+     *                           </p>
      */
     public function unserialize($serialized)
     {

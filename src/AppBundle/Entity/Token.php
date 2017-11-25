@@ -6,7 +6,7 @@ use AppBundle\Util\EntityUtil;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Token
+ * Token.
  *
  * @ORM\Table(name="token", uniqueConstraints={@ORM\UniqueConstraint(name="token", columns={"token"})}, indexes={@ORM\Index(name="user_id", columns={"user_id"}), @ORM\Index(name="admin_id", columns={"admin_id"})})
  * @ORM\Entity
@@ -71,16 +71,16 @@ class Token
     private $user;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
-        $this->enabled     = true;
+        $this->enabled = true;
         $this->createdDate = new \DateTime('now', new \DateTimeZone(EntityUtil::DEFAULT_TIMEZONE));
     }
 
     /**
-     * Get id
+     * Get id.
      *
      * @return integer
      */
@@ -90,7 +90,7 @@ class Token
     }
 
     /**
-     * Set token
+     * Set token.
      *
      * @param string $token
      *
@@ -104,7 +104,7 @@ class Token
     }
 
     /**
-     * Get token
+     * Get token.
      *
      * @return string
      */
@@ -114,7 +114,7 @@ class Token
     }
 
     /**
-     * Set createdDate
+     * Set createdDate.
      *
      * @param \DateTime $createdDate
      *
@@ -128,7 +128,7 @@ class Token
     }
 
     /**
-     * Get createdDate
+     * Get createdDate.
      *
      * @return \DateTime
      */
@@ -138,7 +138,7 @@ class Token
     }
 
     /**
-     * Set ttl
+     * Set ttl.
      *
      * @param string $ttl
      *
@@ -152,7 +152,7 @@ class Token
     }
 
     /**
-     * Get ttl
+     * Get ttl.
      *
      * @return string
      */
@@ -162,9 +162,9 @@ class Token
     }
 
     /**
-     * Set enabled
+     * Set enabled.
      *
-     * @param boolean $enabled
+     * @param bool $enabled
      *
      * @return Token
      */
@@ -176,7 +176,7 @@ class Token
     }
 
     /**
-     * Is enabled
+     * Is enabled.
      *
      * @return boolean
      */
@@ -186,7 +186,7 @@ class Token
     }
 
     /**
-     * Set admin
+     * Set admin.
      *
      * @param \AppBundle\Entity\Admin $admin
      *
@@ -200,7 +200,7 @@ class Token
     }
 
     /**
-     * Get admin
+     * Get admin.
      *
      * @return \AppBundle\Entity\Admin
      */
@@ -210,7 +210,7 @@ class Token
     }
 
     /**
-     * Set user
+     * Set user.
      *
      * @param \AppBundle\Entity\User $user
      *
@@ -224,7 +224,7 @@ class Token
     }
 
     /**
-     * Get user
+     * Get user.
      *
      * @return \AppBundle\Entity\User
      */

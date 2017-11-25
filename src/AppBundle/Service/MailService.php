@@ -23,14 +23,14 @@ class MailService
     private $mailParameters;
 
     /**
-     * @param \Swift_Mailer $mailer
+     * @param \Swift_Mailer   $mailer
      * @param KernelInterface $kernel
      * @param $mailParameters
      */
     public function __construct(\Swift_Mailer $mailer, KernelInterface $kernel, $mailParameters)
     {
-        $this->mailer         = $mailer;
-        $this->kernel         = $kernel;
+        $this->mailer = $mailer;
+        $this->kernel = $kernel;
         $this->mailParameters = $mailParameters;
     }
 
@@ -39,13 +39,13 @@ class MailService
      * @param $body
      * @param $to
      * @param string $bodyType
-     * @param null $from
+     * @param null   $from
      */
     public function send($subject, $body, $to, $bodyType = 'text/html', $from = null)
     {
-        if ($this->kernel->getEnvironment() === 'dev') {
+        if ('dev' === $this->kernel->getEnvironment()) {
             $from = 'julien.thomas0@gmail.com';
-            $to   = 'julien.thomas0@gmail.com';
+            $to = 'julien.thomas0@gmail.com';
         } else {
             $from = $from ?: $this->mailParameters['from'];
         }

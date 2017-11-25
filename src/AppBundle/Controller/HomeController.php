@@ -14,6 +14,7 @@ class HomeController extends Controller
 
     /**
      * @Route("/", name="home")
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function homeAction()
@@ -21,16 +22,19 @@ class HomeController extends Controller
         $this->get('synek.service.token')->createAndSend($this->getUser());
         $list = $this->get('synek.service.beer')->getBeerList();
         $selectedBeer = $this->get('session')->get(self::SESSION_HONE_SELECTED_BEER);
+
         return $this->render('home/home.html.twig', [
-            'beerList'     => $list,
-            'selectedBeer' => $selectedBeer
+            'beerList' => $list,
+            'selectedBeer' => $selectedBeer,
         ]);
     }
 
     /**
      * @Route("/places", name="home_places")
      * @Method("GET")
+     *
      * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function getMapPlacesAction(Request $request)
@@ -38,6 +42,7 @@ class HomeController extends Controller
         $selectedBeer = $request->query->get('beer');
         $this->get('session')->set(self::SESSION_HONE_SELECTED_BEER, $selectedBeer);
         $places = $this->get('synek.service.place')->getHomeMapPlaces($selectedBeer);
+
         return new JsonResponse($places);
     }
 }
