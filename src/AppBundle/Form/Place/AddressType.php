@@ -38,8 +38,8 @@ class AddressType extends AbstractType
                 'addressComplement',
                 'text',
                 [
-                    'label'    => 'Address Complement',
-                    'required' => false
+                    'label' => 'Address Complement',
+                    'required' => false,
                 ]
             )
             ->add(
@@ -56,10 +56,10 @@ class AddressType extends AbstractType
                 'country',
                 'entity',
                 [
-                    'label'         => 'Country',
-                    'empty_value'   => '- Choose one -',
-                    'class'         => 'AppBundle\Entity\Country',
-                    'choice_label'  => 'translations.first.name',
+                    'label' => 'Country',
+                    'empty_value' => '- Choose one -',
+                    'class' => 'AppBundle\Entity\Country',
+                    'choice_label' => 'translations.first.name',
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('country')
                             ->addSelect('translations')

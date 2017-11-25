@@ -17,6 +17,7 @@ class TypeRepository extends EntityRepository
      * @param $limit
      * @param $offset
      * @param Language $language
+     *
      * @return array
      */
     public function getDatatableList($searchs, $order, $limit, $offset, Language $language)
@@ -36,17 +37,17 @@ class TypeRepository extends EntityRepository
             ->groupBy('type.id')
             ->setParameter('language', $language);
 
-        if ($order !== null) {
+        if (null !== $order) {
             $qb->orderBy($order['col'], $order['dir']);
         }
 
-        if ($offset !== null && $limit !== null) {
+        if (null !== $offset && null !== $limit) {
             $qb->setFirstResult($offset);
         }
-        if ($limit !== null) {
+        if (null !== $limit) {
             $qb->setMaxResults($limit);
         }
-        if ($searchs !== null) {
+        if (null !== $searchs) {
             foreach ($searchs as $search) {
                 $expr = $search['expr'];
                 $paramKey = $search['param']['key'];
@@ -63,6 +64,7 @@ class TypeRepository extends EntityRepository
 
     /**
      * @param Language $language
+     *
      * @return array
      */
     public function getTypesWithTranslation(Language $language)
@@ -78,6 +80,7 @@ class TypeRepository extends EntityRepository
 
         $query = $qb->getQuery();
         $query->useQueryCache(true);
+
         return $query->getResult();
     }
 
@@ -91,12 +94,15 @@ class TypeRepository extends EntityRepository
             ->from('AppBundle:Beer\Type', 'type');
         $query = $qb->getQuery();
         $query->useQueryCache(true);
+
         return $query->getSingleScalarResult();
     }
 
     /**
      * @param Language $language
+     *
      * @return Type|mixed
+     *
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function getNewestType(Language $language)
@@ -111,6 +117,7 @@ class TypeRepository extends EntityRepository
             ->setParameter('language', $language);
         $query = $qb->getQuery();
         $query->useQueryCache(true);
+
         return $query->getOneOrNullResult();
     }
 }

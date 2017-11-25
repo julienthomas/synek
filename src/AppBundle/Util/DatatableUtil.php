@@ -9,33 +9,36 @@ use Doctrine\ORM\QueryBuilder;
 class DatatableUtil
 {
     const SEARCH_EQUAL = '=';
-    const SEARCH_LIKE  = 'LIKE';
+    const SEARCH_LIKE = 'LIKE';
 
     /**
      * @param $requestData
      * @param $columns
+     *
      * @return array|null
      */
     public static function getOrder($requestData, $columns)
     {
         $orderColIndex = isset($requestData['order'][0]['column']) ? $requestData['order'][0]['column'] : null;
-        $orderCol      = null;
-        $orderDir      = null;
+        $orderCol = null;
+        $orderDir = null;
 
-        if ($orderColIndex !== null && !empty($columns[$orderColIndex])) {
+        if (null !== $orderColIndex && !empty($columns[$orderColIndex])) {
             return [
                 'col' => $columns[$orderColIndex],
-                'dir' => $requestData['order'][0]['dir']
+                'dir' => $requestData['order'][0]['dir'],
             ];
         }
+
         return null;
     }
 
     /**
-     * Create Expressions to use on querybuilder having
+     * Create Expressions to use on querybuilder having.
      *
      * @param $requestData
      * @param $columns
+     *
      * @return array|null
      */
     public static function getSearchs($requestData, $columns)
@@ -44,7 +47,7 @@ class DatatableUtil
             return null;
         }
 
-        $expr    = new Expr();
+        $expr = new Expr();
         $searchs = [];
         foreach ($requestData['columns'] as $requestColumn) {
             $index = $requestColumn['data'];
@@ -52,32 +55,32 @@ class DatatableUtil
             if (!empty($columns[$index]) && !empty($value)) {
                 $columnName = $columns[$index]['name'];
                 $searchType = $columns[$index]['searchType'];
-                $columnKey  = "{$columnName}Value";
-                if ($searchType === self::SEARCH_EQUAL) {
+                $columnKey = "{$columnName}Value";
+                if (self::SEARCH_EQUAL === $searchType) {
                     $searchs[] = [
-                        'expr'  => $expr->eq($columnName, ":{$columnKey}"),
+                        'expr' => $expr->eq($columnName, ":{$columnKey}"),
                         'param' => [
-                            'key'   => $columnKey,
-                            'value' => $value
-                        ]
+                            'key' => $columnKey,
+                            'value' => $value,
+                        ],
                     ];
-                } elseif ($searchType === self::SEARCH_LIKE) {
+                } elseif (self::SEARCH_LIKE === $searchType) {
                     $searchs[] = [
-                        'expr'  => new Expr\Comparison("Like($columnName, :{$columnKey})", '=', 1),
+                        'expr' => new Expr\Comparison("Like($columnName, :{$columnKey})", '=', 1),
                         'param' => [
-                            'key'   => $columnKey,
-                            'value' => "%{$value}%"
-                        ]
+                            'key' => $columnKey,
+                            'value' => "%{$value}%",
+                        ],
                     ];
                 }
             }
         }
+
         return count($searchs) > 0 ? $searchs : null;
     }
 
     /**
      * @param $requestData
-     * @return null
      */
     public static function getLimit($requestData)
     {
@@ -86,7 +89,6 @@ class DatatableUtil
 
     /**
      * @param $requestData
-     * @return null
      */
     public static function getOffset($requestData)
     {
@@ -94,13 +96,15 @@ class DatatableUtil
     }
 
     /**
-     * Build and execute all queries needed to populate a datatable
+     * Build and execute all queries needed to populate a datatable.
      *
      * @param EntityManager $manager
-     * @param QueryBuilder $qb
+     * @param QueryBuilder  $qb
      * @param $countAlias
      * @param $searchs
+     *
      * @return array
+     *
      * @throws \Doctrine\DBAL\DBALException
      */
     public static function getQbData(EntityManager $manager, QueryBuilder $qb, $countAlias, $searchs)
@@ -113,11 +117,11 @@ class DatatableUtil
             ->setFirstResult(null)
         ;
 
-        if ($searchs !== null) {
+        if (null !== $searchs) {
             $params = $totalQb->getParameters();
             foreach ($searchs as $search) {
                 foreach ($params as $index => $param) {
-                    if ($param->getName() === $search['param']['key']) {
+                    if ($search['param']['key'] === $param->getName()) {
                         $params->removeElement($param);
                         break;
                     }
@@ -125,16 +129,16 @@ class DatatableUtil
             }
         }
 
-        $data  = $qb->getQuery()->getResult();
+        $data = $qb->getQuery()->getResult();
         $total = $totalQb->getQuery()->getSingleScalarResult();
 
         $totalFiltered = $total;
-        if ($searchs !== null) {
+        if (null !== $searchs) {
             $paramsArray = [];
             foreach ($qb->getParameters() as $param) {
                 $paramsArray[$param->getName()] = $param->getValue();
             }
-            $pattern = "/" . implode(array_keys($paramsArray), '|') . "/";
+            $pattern = '/'.implode(array_keys($paramsArray), '|').'/';
             if (count($paramsArray) > 0 && preg_match_all($pattern, $qb->getDQL(), $matches)) {
                 $filteredParams = [];
                 // Build the parameters array to une in the native query
@@ -155,15 +159,15 @@ class DatatableUtil
         }
 
         return [
-            'data'            => $data,
-            'recordsTotal'    => $total,
-            'recordsFiltered' => $totalFiltered
+            'data' => $data,
+            'recordsTotal' => $total,
+            'recordsFiltered' => $totalFiltered,
         ];
 
         return [
-            'data'            => $data,
-            'recordsTotal'    => 0,
-            'recordsFiltered' => 0
+            'data' => $data,
+            'recordsTotal' => 0,
+            'recordsFiltered' => 0,
         ];
     }
 }

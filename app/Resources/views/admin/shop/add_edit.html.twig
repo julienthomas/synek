@@ -7,7 +7,8 @@
 {% endblock stylesheets %}
 
 {% block title %}
-    {{ 'Shop edition'|trans }}
+    {% set title = isNew ? 'New shop'|trans : 'Shop edition'|trans %}
+    {{ title }}
 {% endblock title %}
 
 {% block body %}

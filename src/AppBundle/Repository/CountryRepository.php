@@ -9,6 +9,7 @@ class CountryRepository extends EntityRepository
 {
     /**
      * @param $ids
+     *
      * @return array
      */
     public function findByIds($ids)
@@ -37,6 +38,7 @@ class CountryRepository extends EntityRepository
 
         $query = $qb->getQuery();
         $query->useQueryCache(true);
+
         return $query->getResult();
     }
 }

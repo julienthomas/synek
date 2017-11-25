@@ -9,6 +9,7 @@ class TranslationRepository extends EntityRepository
 {
     /**
      * @param Type $type
+     *
      * @return array
      */
     public function getTranslationsByType(Type $type)
@@ -22,6 +23,7 @@ class TranslationRepository extends EntityRepository
 
         $query = $qb->getQuery();
         $query->useQueryCache(true);
+
         return $query->getResult();
     }
 }

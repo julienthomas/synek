@@ -6,7 +6,7 @@ use AppBundle\Util\EntityUtil;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Event
+ * Event.
  *
  * @ORM\Table(name="place_event", indexes={@ORM\Index(name="place_id", columns={"place_id"}), @ORM\Index(name="event_type_id", columns={"event_type_id"})})
  * @ORM\Entity
@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Event
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", length=10, options={"unsigned":true})
      * @ORM\Id
@@ -85,7 +85,7 @@ class Event
     private $place;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -93,9 +93,9 @@ class Event
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -103,7 +103,7 @@ class Event
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -117,7 +117,7 @@ class Event
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -127,7 +127,7 @@ class Event
     }
 
     /**
-     * Set description
+     * Set description.
      *
      * @param string $description
      *
@@ -141,7 +141,7 @@ class Event
     }
 
     /**
-     * Get description
+     * Get description.
      *
      * @return string
      */
@@ -151,7 +151,7 @@ class Event
     }
 
     /**
-     * Set startDate
+     * Set startDate.
      *
      * @param \DateTime $startDate
      *
@@ -165,7 +165,7 @@ class Event
     }
 
     /**
-     * Get startDate
+     * Get startDate.
      *
      * @return \DateTime
      */
@@ -175,7 +175,7 @@ class Event
     }
 
     /**
-     * Set endDate
+     * Set endDate.
      *
      * @param \DateTime $endDate
      *
@@ -189,7 +189,7 @@ class Event
     }
 
     /**
-     * Get endDate
+     * Get endDate.
      *
      * @return \DateTime
      */
@@ -199,7 +199,7 @@ class Event
     }
 
     /**
-     * Set createdDate
+     * Set createdDate.
      *
      * @param \DateTime $createdDate
      *
@@ -213,7 +213,7 @@ class Event
     }
 
     /**
-     * Get createdDate
+     * Get createdDate.
      *
      * @return \DateTime
      */
@@ -223,7 +223,7 @@ class Event
     }
 
     /**
-     * Set updatedDate
+     * Set updatedDate.
      *
      * @param \DateTime $updatedDate
      *
@@ -237,7 +237,7 @@ class Event
     }
 
     /**
-     * Get updatedDate
+     * Get updatedDate.
      *
      * @return \DateTime
      */
@@ -247,7 +247,7 @@ class Event
     }
 
     /**
-     * Set type
+     * Set type.
      *
      * @param \AppBundle\Entity\Place\Event\Type $type
      *
@@ -261,7 +261,7 @@ class Event
     }
 
     /**
-     * Get type
+     * Get type.
      *
      * @return \AppBundle\Entity\Place\Event\Type
      */
@@ -271,7 +271,7 @@ class Event
     }
 
     /**
-     * Set place
+     * Set place.
      *
      * @param \AppBundle\Entity\Place $place
      *
@@ -285,7 +285,7 @@ class Event
     }
 
     /**
-     * Get place
+     * Get place.
      *
      * @return \AppBundle\Entity\Place
      */

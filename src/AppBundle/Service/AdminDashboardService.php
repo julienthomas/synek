@@ -25,67 +25,70 @@ class AdminDashboardService
 
     /**
      * @param Language $language
+     *
      * @return array
      */
     public function getDashboardStats(Language $language)
     {
-        $placeRepository    = $this->manager->getRepository(Place::class);
-        $breweryRepository  = $this->manager->getRepository(Brewery::class);
+        $placeRepository = $this->manager->getRepository(Place::class);
+        $breweryRepository = $this->manager->getRepository(Brewery::class);
         $beerTypeRepository = $this->manager->getRepository(Beer\Type::class);
-        $beerRepository     = $this->manager->getRepository(Beer::class);
+        $beerRepository = $this->manager->getRepository(Beer::class);
 
-        $newestShop     = $placeRepository->getNewestShop();
-        $newestPartner  = $placeRepository->getNewestPartner();
-        $newestBrewery  = $breweryRepository->getNewestBrewery();
-        $newestBeer     = $beerRepository->getNewestBeer();
+        $newestShop = $placeRepository->getNewestShop();
+        $newestPartner = $placeRepository->getNewestPartner();
+        $newestBrewery = $breweryRepository->getNewestBrewery();
+        $newestBeer = $beerRepository->getNewestBeer();
         $newestBeerType = $beerTypeRepository->getNewestType($language);
 
         return [
             'shops' => [
-                'count'  => $placeRepository->getShopsCount(),
+                'count' => $placeRepository->getShopsCount(),
                 'newest' => $newestShop ? [
                     'name' => $newestShop->getName(),
-                    'date' => $this->getDate($newestShop->getCreatedDate())
-                ] : null
+                    'date' => $this->getDate($newestShop->getCreatedDate()),
+                ] : null,
             ],
             'partners' => [
-                'count'  => $placeRepository->getPartnersCount(),
+                'count' => $placeRepository->getPartnersCount(),
                 'newest' => $newestPartner ? [
                     'name' => $newestPartner->getName(),
-                    'date' => $this->getDate($newestPartner->getCreatedDate())
-                ] : null
+                    'date' => $this->getDate($newestPartner->getCreatedDate()),
+                ] : null,
             ],
             'beers' => [
-                'count'  => $beerRepository->getBeersCount(),
+                'count' => $beerRepository->getBeersCount(),
                 'newest' => $newestBeer ? [
                     'name' => $newestBeer->getName(),
-                    'date' => $this->getDate($newestBeer->getCreatedDate())
-                ] : null
+                    'date' => $this->getDate($newestBeer->getCreatedDate()),
+                ] : null,
             ],
             'beerTypes' => [
-                'count'  => $beerTypeRepository->getTypesCount(),
+                'count' => $beerTypeRepository->getTypesCount(),
                 'newest' => $newestBeerType ? [
                     'name' => $newestBeerType->getTranslations()->first()->getName(),
-                    'date' => $this->getDate($newestBeerType->getCreatedDate())
-                ] : null
+                    'date' => $this->getDate($newestBeerType->getCreatedDate()),
+                ] : null,
             ],
             'breweries' => [
-                'count'  => $breweryRepository->getBreweriesCount(),
+                'count' => $breweryRepository->getBreweriesCount(),
                 'newest' => $newestBrewery ? [
                     'name' => $newestBrewery->getName(),
-                    'date' => $this->getDate($newestBrewery->getCreatedDate())
-                ] : null
-            ]
+                    'date' => $this->getDate($newestBrewery->getCreatedDate()),
+                ] : null,
+            ],
         ];
     }
 
     /**
      * @param \DateTime $baseDate
+     *
      * @return \DateTime
      */
     private function getDate(\DateTime $baseDate)
     {
         $date = new \DateTime($baseDate->format('Y/m/d H:i:s'), new \DateTimeZone('UTC'));
+
         return $date->setTimezone(new \DateTimeZone('Europe/Paris'));
     }
 }

@@ -5,7 +5,7 @@ namespace AppBundle\Entity\Place\Event\Type;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Translation
+ * Translation.
  *
  * @ORM\Table(name="place_event_type_translation")
  * @ORM\Entity
@@ -44,7 +44,7 @@ class Translation
     private $language;
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -58,7 +58,7 @@ class Translation
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -68,7 +68,7 @@ class Translation
     }
 
     /**
-     * Set type
+     * Set type.
      *
      * @param \AppBundle\Entity\Place\Event\Type $type
      *
@@ -82,7 +82,7 @@ class Translation
     }
 
     /**
-     * Get type
+     * Get type.
      *
      * @return \AppBundle\Entity\Place\Event\Type
      */
@@ -92,7 +92,7 @@ class Translation
     }
 
     /**
-     * Set language
+     * Set language.
      *
      * @param \AppBundle\Entity\Language $language
      *
@@ -106,7 +106,7 @@ class Translation
     }
 
     /**
-     * Get language
+     * Get language.
      *
      * @return \AppBundle\Entity\Language
      */

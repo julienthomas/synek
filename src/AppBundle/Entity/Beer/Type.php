@@ -6,7 +6,7 @@ use AppBundle\Util\EntityUtil;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Type
+ * Type.
  *
  * @ORM\Table(name="beer_type")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Beer\TypeRepository")
@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Type
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", length=10, options={"unsigned":true})
      * @ORM\Id
@@ -45,18 +45,18 @@ class Type
     private $translations;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
-        $this->createdDate  = new \DateTime('now', new \DateTimeZone(EntityUtil::DEFAULT_TIMEZONE));
+        $this->createdDate = new \DateTime('now', new \DateTimeZone(EntityUtil::DEFAULT_TIMEZONE));
         $this->translations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -64,7 +64,7 @@ class Type
     }
 
     /**
-     * Set createdDate
+     * Set createdDate.
      *
      * @param \DateTime $createdDate
      *
@@ -78,7 +78,7 @@ class Type
     }
 
     /**
-     * Get createdDate
+     * Get createdDate.
      *
      * @return \DateTime
      */
@@ -88,7 +88,7 @@ class Type
     }
 
     /**
-     * Set updatedDate
+     * Set updatedDate.
      *
      * @param \DateTime $updatedDate
      *
@@ -102,7 +102,7 @@ class Type
     }
 
     /**
-     * Get updatedDate
+     * Get updatedDate.
      *
      * @return \DateTime
      */
@@ -112,7 +112,7 @@ class Type
     }
 
     /**
-     * Add translation
+     * Add translation.
      *
      * @param \AppBundle\Entity\Beer\Type\Translation $translation
      *
@@ -126,7 +126,7 @@ class Type
     }
 
     /**
-     * Remove translation
+     * Remove translation.
      *
      * @param \AppBundle\Entity\Beer\Type\Translation $translation
      */
@@ -136,7 +136,7 @@ class Type
     }
 
     /**
-     * Get translations
+     * Get translations.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -146,7 +146,7 @@ class Type
     }
 
     /**
-     * Clear translations
+     * Clear translations.
      */
     public function clearTranslations()
     {

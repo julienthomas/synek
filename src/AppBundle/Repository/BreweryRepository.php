@@ -16,6 +16,7 @@ class BreweryRepository extends EntityRepository
      * @param $limit
      * @param $offset
      * @param Language $language
+     *
      * @return array
      */
     public function getDatatableList($searchs, $order, $limit, $offset, Language $language)
@@ -38,17 +39,17 @@ class BreweryRepository extends EntityRepository
             ->groupBy('brewery.id')
             ->setParameter('language', $language);
 
-        if ($order !== null) {
+        if (null !== $order) {
             $qb->orderBy($order['col'], $order['dir']);
         }
 
-        if ($offset !== null && $limit !== null) {
+        if (null !== $offset && null !== $limit) {
             $qb->setFirstResult($offset);
         }
-        if ($limit !== null) {
+        if (null !== $limit) {
             $qb->setMaxResults($limit);
         }
-        if ($searchs !== null) {
+        if (null !== $searchs) {
             foreach ($searchs as $search) {
                 $expr = $search['expr'];
                 $paramKey = $search['param']['key'];
@@ -76,6 +77,7 @@ class BreweryRepository extends EntityRepository
 
         $query = $qb->getQuery();
         $query->useQueryCache(true);
+
         return $query->getResult();
     }
 
@@ -89,11 +91,13 @@ class BreweryRepository extends EntityRepository
             ->from('AppBundle:Brewery', 'brewery');
         $query = $qb->getQuery();
         $query->useQueryCache(true);
+
         return $query->getSingleScalarResult();
     }
 
     /**
      * @return Brewery|mixed
+     *
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function getNewestBrewery()
@@ -105,6 +109,7 @@ class BreweryRepository extends EntityRepository
             ->setMaxResults(1);
         $query = $qb->getQuery();
         $query->useQueryCache(true);
+
         return $query->getOneOrNullResult();
     }
 }

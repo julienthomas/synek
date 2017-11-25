@@ -1,6 +1,10 @@
 .prestashop-import {
   margin-top: 3px;
 }
+.shop-add {
+  margin-top: 3px;
+  margin-right: 15px;
+}
 @media (max-width: 450px) {
   .prestashop-import {
     float: none !important;

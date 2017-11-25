@@ -15,7 +15,9 @@ class BeerController extends Controller
     /**
      * @Route("/auth/beer/create", name="auth_beer_create")
      * @Method("POST")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function createAction(Request $request)
@@ -33,9 +35,10 @@ class BeerController extends Controller
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 $beerService->saveBeer($beer);
+
                 return new JsonResponse([
                     'id' => $beer->getId(),
-                    'name' => $beer->getName()
+                    'name' => $beer->getName(),
                 ], Response::HTTP_CREATED);
             } else {
                 $errors = [];
@@ -43,9 +46,11 @@ class BeerController extends Controller
                 foreach ($formErrors as $formError) {
                     $errors[$formError->getOrigin()->getName()] = $formError->getMessage();
                 }
+
                 return new JsonResponse($errors, Response::HTTP_BAD_REQUEST);
             }
         }
+
         return new JsonResponse([], Response::HTTP_EXPECTATION_FAILED);
     }
 }

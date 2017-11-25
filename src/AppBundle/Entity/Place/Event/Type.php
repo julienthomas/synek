@@ -5,7 +5,7 @@ namespace AppBundle\Entity\Place\Event;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Type
+ * Type.
  *
  * @ORM\Table(name="place_event_type")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Type
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", length=10, options={"unsigned":true})
      * @ORM\Id
@@ -29,7 +29,7 @@ class Type
     private $translations;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -37,9 +37,9 @@ class Type
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -47,7 +47,7 @@ class Type
     }
 
     /**
-     * Add translation
+     * Add translation.
      *
      * @param \AppBundle\Entity\Place\Event\Type\Translation $translation
      *
@@ -61,7 +61,7 @@ class Type
     }
 
     /**
-     * Remove translation
+     * Remove translation.
      *
      * @param \AppBundle\Entity\Place\Event\Type\Translation $translation
      */
@@ -71,7 +71,7 @@ class Type
     }
 
     /**
-     * Get translations
+     * Get translations.
      *
      * @return \Doctrine\Common\Collections\Collection
      */

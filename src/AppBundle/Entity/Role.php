@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Role
+ * Role.
  *
  * @ORM\Table(name="role")
  * @ORM\Entity
@@ -13,10 +13,10 @@ use Doctrine\ORM\Mapping as ORM;
 class Role
 {
     const ADMIN = 'ROLE_ADMIN';
-    const USER  = 'ROLE_USER';
+    const USER = 'ROLE_USER';
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", length=10, options={"unsigned":true})
      * @ORM\Id
@@ -32,9 +32,9 @@ class Role
     private $code;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -42,7 +42,7 @@ class Role
     }
 
     /**
-     * Set code
+     * Set code.
      *
      * @param string $code
      *
@@ -56,7 +56,7 @@ class Role
     }
 
     /**
-     * Get code
+     * Get code.
      *
      * @return string
      */

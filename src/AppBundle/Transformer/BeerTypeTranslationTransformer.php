@@ -6,7 +6,6 @@ use AppBundle\Entity\Language;
 use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\Beer\Type;
 use AppBundle\Entity\Beer\Type\Translation;
-
 use Symfony\Component\Form\DataTransformerInterface;
 
 class BeerTypeTranslationTransformer implements DataTransformerInterface
@@ -22,12 +21,12 @@ class BeerTypeTranslationTransformer implements DataTransformerInterface
     private $manager;
 
     /**
-     * @param Type $type
+     * @param Type          $type
      * @param EntityManager $manager
      */
     public function __construct(Type $type, EntityManager $manager)
     {
-        $this->type    = $type;
+        $this->type = $type;
         $this->manager = $manager;
     }
 
@@ -36,16 +35,17 @@ class BeerTypeTranslationTransformer implements DataTransformerInterface
      */
     public function transform($value)
     {
-        if ($this->type->getId() === null) {
+        if (null === $this->type->getId()) {
             return null;
         }
         $translations = $this->manager->getRepository(Translation::class)->getTranslationsByType($this->type);
         /** @var Type\Translation $translation */
         foreach ($translations as $translation) {
-            if ($translation->getLanguage()->getLocale() === 'fr_FR') {
+            if ('fr_FR' === $translation->getLanguage()->getLocale()) {
                 return $translation->getName();
             }
         }
+
         return null;
     }
 
@@ -58,8 +58,9 @@ class BeerTypeTranslationTransformer implements DataTransformerInterface
             $translations = $this->manager->getRepository(Translation::class)->getTranslationsByType($this->type);
             /** @var Type\Translation $translation */
             foreach ($translations as $translation) {
-                if ($translation->getLanguage()->getLocale() === 'fr_FR') {
+                if ('fr_FR' === $translation->getLanguage()->getLocale()) {
                     $translation->setName($value);
+
                     return [$translation];
                 }
             }
@@ -70,6 +71,7 @@ class BeerTypeTranslationTransformer implements DataTransformerInterface
             ->setLanguage($language)
             ->setName($value);
         $translations[] = $translation;
+
         return [$translation];
     }
 }

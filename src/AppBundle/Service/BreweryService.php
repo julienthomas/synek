@@ -8,7 +8,6 @@ use AppBundle\Form\BreweryType;
 use AppBundle\Util\DatatableUtil;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Translation\Translator;
 
 class BreweryService extends AbstractService
@@ -33,18 +32,18 @@ class BreweryService extends AbstractService
      */
     private $breweryForm;
 
-    const DATATABLE_KEY_ID           = 'id';
-    const DATATABLE_KEY_NAME         = 'name';
-    const DATATABLE_KEY_COUNTRY_ID   = 'country_id';
+    const DATATABLE_KEY_ID = 'id';
+    const DATATABLE_KEY_NAME = 'name';
+    const DATATABLE_KEY_COUNTRY_ID = 'country_id';
     const DATATABLE_KEY_COUNTRY_NAME = 'country_name';
-    const DATATABLE_KEY_BEER_NUMBER  = 'beer_number';
+    const DATATABLE_KEY_BEER_NUMBER = 'beer_number';
 
     /**
-     * @param EntityManager $manager
-     * @param \Twig_Environment $twig
-     * @param Translator $translator
+     * @param EntityManager        $manager
+     * @param \Twig_Environment    $twig
+     * @param Translator           $translator
      * @param FormFactoryInterface $formFactory
-     * @param BreweryType $breweryForm
+     * @param BreweryType          $breweryForm
      */
     public function __construct(
         EntityManager $manager,
@@ -54,8 +53,8 @@ class BreweryService extends AbstractService
         BreweryType $breweryForm
     ) {
         parent::__construct($manager);
-        $this->twig        = $twig;
-        $this->translator  = $translator;
+        $this->twig = $twig;
+        $this->translator = $translator;
         $this->formFactory = $formFactory;
         $this->breweryForm = $breweryForm;
     }
@@ -63,6 +62,7 @@ class BreweryService extends AbstractService
     /**
      * @param $requestData
      * @param Language $language
+     *
      * @return array
      */
     public function getList($requestData, Language $language)
@@ -78,41 +78,42 @@ class BreweryService extends AbstractService
         );
 
         $template = $this->twig->loadTemplate('admin/brewery/datatable/items.html.twig');
-        $data     = [];
+        $data = [];
         foreach ($results['data'] as $brewery) {
             $data[] = [
                 $brewery[self::DATATABLE_KEY_NAME],
                 $brewery[self::DATATABLE_KEY_COUNTRY_NAME],
                 $brewery[self::DATATABLE_KEY_BEER_NUMBER],
-                $template->renderBlock('btns', ['id' => $brewery[self::DATATABLE_KEY_ID]])
+                $template->renderBlock('btns', ['id' => $brewery[self::DATATABLE_KEY_ID]]),
             ];
         }
 
         return [
-            'data'            => $data,
-            'recordsTotal'    => $results['recordsTotal'],
-            'recordsFiltered' => $results['recordsFiltered']
+            'data' => $data,
+            'recordsTotal' => $results['recordsTotal'],
+            'recordsFiltered' => $results['recordsFiltered'],
         ];
     }
 
     /**
      * @param $requestData
+     *
      * @return array
      */
     private function getListParams($requestData)
     {
-        $orderColumns  = [self::DATATABLE_KEY_NAME, self::DATATABLE_KEY_COUNTRY_NAME, self::DATATABLE_KEY_BEER_NUMBER];
+        $orderColumns = [self::DATATABLE_KEY_NAME, self::DATATABLE_KEY_COUNTRY_NAME, self::DATATABLE_KEY_BEER_NUMBER];
         $searchColumns = [
             ['name' => self::DATATABLE_KEY_NAME, 'searchType' => DatatableUtil::SEARCH_LIKE],
             ['name' => self::DATATABLE_KEY_COUNTRY_ID, 'searchType' => DatatableUtil::SEARCH_EQUAL],
-            ['name' => self::DATATABLE_KEY_BEER_NUMBER, 'searchType' => DatatableUtil::SEARCH_EQUAL]
+            ['name' => self::DATATABLE_KEY_BEER_NUMBER, 'searchType' => DatatableUtil::SEARCH_EQUAL],
         ];
 
         return [
-            'searchs'  => DatatableUtil::getSearchs($requestData, $searchColumns),
-            'order'    => DatatableUtil::getOrder($requestData, $orderColumns),
-            'limit'    => DatatableUtil::getLimit($requestData),
-            'offset'   => DatatableUtil::getOffset($requestData),
+            'searchs' => DatatableUtil::getSearchs($requestData, $searchColumns),
+            'order' => DatatableUtil::getOrder($requestData, $orderColumns),
+            'limit' => DatatableUtil::getLimit($requestData),
+            'offset' => DatatableUtil::getOffset($requestData),
         ];
     }
 
@@ -126,12 +127,14 @@ class BreweryService extends AbstractService
 
     /**
      * @param $name
+     *
      * @return Brewery|null
      */
     public function getBreweryByName($name)
     {
-        $name    = preg_replace('/\s+/', ' ', $name);
+        $name = preg_replace('/\s+/', ' ', $name);
         $brewery = $this->manager->getRepository(Brewery::class)->findOneByName($name);
+
         return $brewery;
     }
 }

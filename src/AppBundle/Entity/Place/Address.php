@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints;
 
 /**
- * Address
+ * Address.
  *
  * @ORM\Table(name="place_address", indexes={@ORM\Index(name="country_id", columns={"country_id"})})
  * @ORM\Entity
@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints;
 class Address
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", length=10, options={"unsigned":true})
      * @ORM\Id
@@ -108,7 +108,7 @@ class Address
     private $country;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -116,9 +116,9 @@ class Address
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -126,7 +126,7 @@ class Address
     }
 
     /**
-     * Set address
+     * Set address.
      *
      * @param string $address
      *
@@ -140,7 +140,7 @@ class Address
     }
 
     /**
-     * Get address
+     * Get address.
      *
      * @return string
      */
@@ -150,7 +150,7 @@ class Address
     }
 
     /**
-     * Set addressComplement
+     * Set addressComplement.
      *
      * @param string $addressComplement
      *
@@ -164,7 +164,7 @@ class Address
     }
 
     /**
-     * Get addressComplement
+     * Get addressComplement.
      *
      * @return string
      */
@@ -174,7 +174,7 @@ class Address
     }
 
     /**
-     * Set zipCode
+     * Set zipCode.
      *
      * @param string $zipCode
      *
@@ -188,7 +188,7 @@ class Address
     }
 
     /**
-     * Get zipCode
+     * Get zipCode.
      *
      * @return string
      */
@@ -198,7 +198,7 @@ class Address
     }
 
     /**
-     * Set city
+     * Set city.
      *
      * @param string $city
      *
@@ -212,7 +212,7 @@ class Address
     }
 
     /**
-     * Get city
+     * Get city.
      *
      * @return string
      */
@@ -222,7 +222,7 @@ class Address
     }
 
     /**
-     * Set latitude
+     * Set latitude.
      *
      * @param string $latitude
      *
@@ -236,7 +236,7 @@ class Address
     }
 
     /**
-     * Get latitude
+     * Get latitude.
      *
      * @return string
      */
@@ -246,7 +246,7 @@ class Address
     }
 
     /**
-     * Set longitude
+     * Set longitude.
      *
      * @param string $longitude
      *
@@ -260,7 +260,7 @@ class Address
     }
 
     /**
-     * Get longitude
+     * Get longitude.
      *
      * @return string
      */
@@ -270,7 +270,7 @@ class Address
     }
 
     /**
-     * Set createdDate
+     * Set createdDate.
      *
      * @param \DateTime $createdDate
      *
@@ -284,7 +284,7 @@ class Address
     }
 
     /**
-     * Get createdDate
+     * Get createdDate.
      *
      * @return \DateTime
      */
@@ -294,7 +294,7 @@ class Address
     }
 
     /**
-     * Set updatedDate
+     * Set updatedDate.
      *
      * @param \DateTime $updatedDate
      *
@@ -308,7 +308,7 @@ class Address
     }
 
     /**
-     * Get updatedDate
+     * Get updatedDate.
      *
      * @return \DateTime
      */
@@ -318,7 +318,7 @@ class Address
     }
 
     /**
-     * Set country
+     * Set country.
      *
      * @param \AppBundle\Entity\Country $country
      *
@@ -332,7 +332,7 @@ class Address
     }
 
     /**
-     * Get country
+     * Get country.
      *
      * @return \AppBundle\Entity\Country
      */

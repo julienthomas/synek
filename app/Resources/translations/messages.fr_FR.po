@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Language: fr_FR\n"
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
+"Language: fr_FR\n"
 "MIME-Version: 1.0\n"
-"X-Generator: Poedit 2.0.3\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.4\n"
 
 msgid "- Choose one -"
 msgstr "- Choisissez une valeur -"
@@ -17,8 +17,12 @@ msgstr "- Choisissez une valeur -"
 msgid "- Choose one or more -"
 msgstr "- Choisissez une ou plusieurs valeurs -"
 
-msgid "A valid file must have a .jpg or .png extension and it's size must be inferior or equal to 2mo."
-msgstr "Un fichier valide doit avoir une extension .jpg ou .png et sa taille doit être inférieure ou égale à 2 mo."
+msgid ""
+"A valid file must have a .jpg or .png extension and it's size must be "
+"inferior or equal to 2mo."
+msgstr ""
+"Un fichier valide doit avoir une extension .jpg ou .png et sa taille doit "
+"être inférieure ou égale à 2 mo."
 
 msgid "Add"
 msgstr "Ajouter"
@@ -114,7 +118,8 @@ msgid "Brewery information"
 msgstr "Informations brasserie"
 
 msgid "Brewery not found? You can add a new one by"
-msgstr "Vous ne trouvez pas la brasserie? vous pouvez en ajouter une nouvelle en"
+msgstr ""
+"Vous ne trouvez pas la brasserie? vous pouvez en ajouter une nouvelle en"
 
 msgid "Brewery successfully added."
 msgstr "Brasserie ajoutée."
@@ -209,14 +214,14 @@ msgstr "Nouvelle brasserie"
 msgid "New partner"
 msgstr "Nouveau partenaire"
 
+msgid "New shop"
+msgstr "Nouvelle boutique"
+
 msgid "New types"
 msgstr "Nouveaux types"
 
 msgid "Newest"
 msgstr "Plus récent"
-
-msgid "Newly imported shops"
-msgstr "Boutiques récemment importées"
 
 msgid "No result for this address."
 msgstr "Aucun résultat pour cette adresse."
@@ -226,6 +231,12 @@ msgstr "Propriétaire"
 
 msgid "Partner edition"
 msgstr "Edition du partenaire"
+
+msgid "Partner successfully added."
+msgstr "Partenaire ajouté."
+
+msgid "Partner successfully edited."
+msgstr "Partenaire modifié."
 
 msgid "Partners"
 msgstr "Partenaires"
@@ -299,6 +310,9 @@ msgstr "Boutiques"
 msgid "Shops list"
 msgstr "Liste des boutiques"
 
+msgid "Shops without owner"
+msgstr "Boutiques sans propriétaire"
+
 msgid "Some fields are invalids."
 msgstr "Certains champs sont invalides."
 
@@ -343,3 +357,6 @@ msgstr "Code postal"
 
 msgid "clicking here"
 msgstr "cliquant ici"
+
+#~ msgid "Newly imported shops"
+#~ msgstr "Boutiques récemment importées"

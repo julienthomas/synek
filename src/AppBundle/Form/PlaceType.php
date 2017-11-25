@@ -36,17 +36,17 @@ class PlaceType extends AbstractType
     private $addUser;
 
     /**
-     * @param Language $language
+     * @param Language    $language
      * @param ShopService $shopService
-     * @param bool $isShop
-     * @param bool $addUser
+     * @param bool        $isShop
+     * @param bool        $addUser
      */
     public function __construct(Language $language, ShopService $shopService = null, $isShop = false, $addUser = false)
     {
-        $this->language    = $language;
+        $this->language = $language;
         $this->shopService = $shopService;
-        $this->isShop      = $isShop;
-        $this->addUser     = $addUser;
+        $this->isShop = $isShop;
+        $this->addUser = $addUser;
     }
 
     /**
@@ -64,16 +64,16 @@ class PlaceType extends AbstractType
                 'email',
                 'email',
                 [
-                    'label'    => 'Email',
-                    'required' => false
+                    'label' => 'Email',
+                    'required' => false,
                 ]
             )
             ->add(
                 'phone',
                 'text',
                 [
-                    'label'    => 'Phone number',
-                    'required' => false
+                    'label' => 'Phone number',
+                    'required' => false,
                 ]
             )
             ->add(
@@ -84,16 +84,16 @@ class PlaceType extends AbstractType
                 'website',
                 'url',
                 [
-                    'label'    => 'Website',
-                    'required' => false
+                    'label' => 'Website',
+                    'required' => false,
                 ]
             )
             ->add(
                 'facebook',
                 'url',
                 [
-                    'label'    => 'Facebook',
-                    'required' => false
+                    'label' => 'Facebook',
+                    'required' => false,
                 ]
             );
 
@@ -103,19 +103,19 @@ class PlaceType extends AbstractType
                     'description',
                     'textarea',
                     [
-                        'label'    => 'Description',
-                        'required' => false
+                        'label' => 'Description',
+                        'required' => false,
                     ]
                 )
                 ->add(
                     'beers',
                     'entity',
                     [
-                        'class'         => Beer::class,
-                        'required'      => false,
-                        'attr'          => ['title' => '- Choose one or more -'],
-                        'multiple'      => true,
-                        'choice_label'  => 'name',
+                        'class' => Beer::class,
+                        'required' => false,
+                        'attr' => ['title' => '- Choose one or more -'],
+                        'multiple' => true,
+                        'choice_label' => 'name',
                         'query_builder' => function (EntityRepository $er) {
                             return $er->createQueryBuilder('beer')
                                 ->addSelect('brewery')
@@ -123,23 +123,23 @@ class PlaceType extends AbstractType
                                 ->addOrderBy('brewery.name')
                                 ->orderBy('beer.name');
                         },
-                        'group_by' => function($val) {
+                        'group_by' => function ($val) {
                             return $val->getBrewery()->getName();
                         },
-                        'choice_attr' => function($val) {
+                        'choice_attr' => function ($val) {
                             return ['data-tokens' => $val->getBrewery()->getName()];
-                        }
+                        },
                     ]
                 )
                 ->add(
                     'schedules',
                     'collection',
                     [
-                        'type'         => new ScheduleType(),
-                        'required'     => false,
-                        'allow_add'    => true,
+                        'type' => new ScheduleType(),
+                        'required' => false,
+                        'allow_add' => true,
                         'allow_delete' => true,
-                        'by_reference' => true
+                        'by_reference' => true,
                     ]
                 );
             if ($this->shopService) {
@@ -147,9 +147,9 @@ class PlaceType extends AbstractType
                     'pictures',
                     'collection',
                     [
-                        'type'         => new PictureType($this->shopService),
-                        'allow_add'    => true,
-                        'allow_delete' => true
+                        'type' => new PictureType($this->shopService),
+                        'allow_add' => true,
+                        'allow_delete' => true,
                     ]
                 );
             }
@@ -162,8 +162,8 @@ class PlaceType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class'         => 'AppBundle\Entity\Place',
-            'cascade_validation' => true
+            'data_class' => 'AppBundle\Entity\Place',
+            'cascade_validation' => true,
         ]);
     }
 

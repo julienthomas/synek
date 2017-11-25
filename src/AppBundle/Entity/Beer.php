@@ -6,10 +6,9 @@ use AppBundle\Util\EntityUtil;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Validator\Tests\Fixtures\Entity;
 
 /**
- * Beer
+ * Beer.
  *
  * @ORM\Table(name="beer", uniqueConstraints={@ORM\UniqueConstraint(name="name", columns={"name"})}, indexes={@ORM\Index(name="beer_type_id", columns={"beer_type_id"}), @ORM\Index(name="brewery_id", columns={"brewery_id"})})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\BeerRepository")
@@ -22,7 +21,7 @@ use Symfony\Component\Validator\Tests\Fixtures\Entity;
 class Beer
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", length=10, options={"unsigned":true})
      * @ORM\Id
@@ -91,7 +90,7 @@ class Beer
     private $brewery;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -99,9 +98,9 @@ class Beer
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -109,7 +108,7 @@ class Beer
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -123,7 +122,7 @@ class Beer
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -133,7 +132,7 @@ class Beer
     }
 
     /**
-     * Set alcoholDegree
+     * Set alcoholDegree.
      *
      * @param string $alcoholDegree
      *
@@ -147,7 +146,7 @@ class Beer
     }
 
     /**
-     * Get alcoholDegree
+     * Get alcoholDegree.
      *
      * @return string
      */
@@ -157,7 +156,7 @@ class Beer
     }
 
     /**
-     * Set createdDate
+     * Set createdDate.
      *
      * @param \DateTime $createdDate
      *
@@ -171,7 +170,7 @@ class Beer
     }
 
     /**
-     * Get createdDate
+     * Get createdDate.
      *
      * @return \DateTime
      */
@@ -181,7 +180,7 @@ class Beer
     }
 
     /**
-     * Set updatedDate
+     * Set updatedDate.
      *
      * @param \DateTime $updatedDate
      *
@@ -195,7 +194,7 @@ class Beer
     }
 
     /**
-     * Get updatedDate
+     * Get updatedDate.
      *
      * @return \DateTime
      */
@@ -205,7 +204,7 @@ class Beer
     }
 
     /**
-     * Set type
+     * Set type.
      *
      * @param \AppBundle\Entity\Beer\Type $type
      *
@@ -219,7 +218,7 @@ class Beer
     }
 
     /**
-     * Get type
+     * Get type.
      *
      * @return \AppBundle\Entity\Beer\Type
      */
@@ -229,7 +228,7 @@ class Beer
     }
 
     /**
-     * Set brewery
+     * Set brewery.
      *
      * @param \AppBundle\Entity\Brewery $brewery
      *
@@ -243,7 +242,7 @@ class Beer
     }
 
     /**
-     * Get brewery
+     * Get brewery.
      *
      * @return \AppBundle\Entity\Brewery
      */
