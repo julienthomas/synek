@@ -64,15 +64,13 @@ nav.navbar.navbar-default.navbar-static-top .nav-item a:hover {
 nav.navbar.navbar-default.navbar-static-top .nav-login {
   border-right: 1px solid #515151;
 }
-nav.navbar.navbar-default.navbar-static-top .nav-login a {
-  width: 100px;
-}
 nav.navbar.navbar-default.navbar-static-top .nav-contact {
   border-right: 1px solid #515151;
   border-left: 1px solid #515151;
 }
+nav.navbar.navbar-default.navbar-static-top .nav-login a,
 nav.navbar.navbar-default.navbar-static-top .nav-contact a {
-  width: 100px;
+  padding: 14px 15px;
 }
 nav.navbar.navbar-default.navbar-static-top .nav-user {
   height: 50px;

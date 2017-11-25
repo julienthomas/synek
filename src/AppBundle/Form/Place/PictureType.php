@@ -25,7 +25,7 @@ class PictureType extends AbstractType
     public function __construct(ShopService $shopService)
     {
         $this->shopService = $shopService;
-        $this->inError     = false;
+        $this->inError = false;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)

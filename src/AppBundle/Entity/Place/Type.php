@@ -5,18 +5,18 @@ namespace AppBundle\Entity\Place;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Type
+ * Type.
  *
  * @ORM\Table(name="place_type", uniqueConstraints={@ORM\UniqueConstraint(name="code", columns={"code"})})
  * @ORM\Entity
  */
 class Type
 {
-    const SHOP    = 'SHOP';
+    const SHOP = 'SHOP';
     const PARTNER = 'PARTNER';
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", length=10, options={"unsigned":true})
      * @ORM\Id
@@ -32,9 +32,9 @@ class Type
     private $code;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -42,7 +42,7 @@ class Type
     }
 
     /**
-     * Set code
+     * Set code.
      *
      * @param string $code
      *
@@ -56,7 +56,7 @@ class Type
     }
 
     /**
-     * Get code
+     * Get code.
      *
      * @return string
      */

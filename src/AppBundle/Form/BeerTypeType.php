@@ -28,12 +28,12 @@ class BeerTypeType extends AbstractType
     private $validator;
 
     /**
-     * @param EntityManager $manager
+     * @param EntityManager      $manager
      * @param ValidatorInterface $validator
      */
     public function __construct(EntityManager $manager, ValidatorInterface $validator)
     {
-        $this->manager   = $manager;
+        $this->manager = $manager;
         $this->validator = $validator;
     }
 
@@ -43,12 +43,12 @@ class BeerTypeType extends AbstractType
             ->add(
                 'translations',
                 'text',
-                ['label' => 'name']
+                ['label' => 'Name']
             );
         $builder
             ->get('translations')
             ->addModelTransformer(new BeerTypeTranslationTransformer($builder->getData(), $this->manager));
-        $builder->addEventListener(FormEvents::PRE_SUBMIT, function(FormEvent $event) {
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
             FormUtil::removeWhiteSpaces($event, 'translations');
         });
         $builder->addEventListener(FormEvents::POST_SUBMIT, [$this, 'verifTranslations']);

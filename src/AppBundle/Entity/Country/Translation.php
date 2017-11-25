@@ -5,7 +5,7 @@ namespace AppBundle\Entity\Country;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Translation
+ * Translation.
  *
  * @ORM\Table(name="country_translation")
  * @ORM\Entity
@@ -43,10 +43,8 @@ class Translation
      */
     private $language;
 
-
-
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -60,7 +58,7 @@ class Translation
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -70,7 +68,7 @@ class Translation
     }
 
     /**
-     * Set country
+     * Set country.
      *
      * @param \AppBundle\Entity\Country $country
      *
@@ -84,7 +82,7 @@ class Translation
     }
 
     /**
-     * Get country
+     * Get country.
      *
      * @return \AppBundle\Entity\Country
      */
@@ -94,7 +92,7 @@ class Translation
     }
 
     /**
-     * Set language
+     * Set language.
      *
      * @param \AppBundle\Entity\Language $language
      *
@@ -108,7 +106,7 @@ class Translation
     }
 
     /**
-     * Get language
+     * Get language.
      *
      * @return \AppBundle\Entity\Language
      */

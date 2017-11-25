@@ -9,6 +9,7 @@ class SecurityController extends Controller
 {
     /**
      * @Route("/login", name="security_login")
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function loginAction()
@@ -24,7 +25,7 @@ class SecurityController extends Controller
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('security/login.html.twig', array(
-            'lastUsername' => $lastUsername
+            'lastUsername' => $lastUsername,
         ));
     }
 

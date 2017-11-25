@@ -10,9 +10,9 @@ use Doctrine\ORM\EntityManager;
 
 class PartnerService extends AbstractService
 {
-    const DATATABLE_KEY_ID      = 'id';
-    const DATATABLE_KEY_NAME    = 'name';
-    const DATATABLE_KEY_EMAIL   = 'email';
+    const DATATABLE_KEY_ID = 'id';
+    const DATATABLE_KEY_NAME = 'name';
+    const DATATABLE_KEY_EMAIL = 'email';
     const DATATABLE_KEY_ADDRESS = 'address';
 
     /**
@@ -21,7 +21,7 @@ class PartnerService extends AbstractService
     private $twig;
 
     /**
-     * @param EntityManager $manager
+     * @param EntityManager     $manager
      * @param \Twig_Environment $twig
      */
     public function __construct(EntityManager $manager, \Twig_Environment $twig)
@@ -32,6 +32,7 @@ class PartnerService extends AbstractService
 
     /**
      * @param $requestData
+     *
      * @return array
      */
     public function getList($requestData)
@@ -46,30 +47,31 @@ class PartnerService extends AbstractService
         );
 
         $template = $this->twig->loadTemplate('admin/partner/datatable/items.html.twig');
-        $data     = [];
+        $data = [];
         foreach ($results['data'] as $place) {
             $data[] = [
                 $place[self::DATATABLE_KEY_NAME],
                 $place[self::DATATABLE_KEY_EMAIL],
                 $place[self::DATATABLE_KEY_ADDRESS],
-                $template->renderBlock('btns', ['id' => $place[self::DATATABLE_KEY_ID]])
+                $template->renderBlock('btns', ['id' => $place[self::DATATABLE_KEY_ID]]),
             ];
         }
 
         return [
-            'data'            => $data,
-            'recordsTotal'    => $results['recordsTotal'],
-            'recordsFiltered' => $results['recordsFiltered']
+            'data' => $data,
+            'recordsTotal' => $results['recordsTotal'],
+            'recordsFiltered' => $results['recordsFiltered'],
         ];
     }
 
     /**
      * @param $requestData
+     *
      * @return array
      */
     private function getListParams($requestData)
     {
-        $orderColumns  = [self::DATATABLE_KEY_NAME, self::DATATABLE_KEY_EMAIL, self::DATATABLE_KEY_ADDRESS];
+        $orderColumns = [self::DATATABLE_KEY_NAME, self::DATATABLE_KEY_EMAIL, self::DATATABLE_KEY_ADDRESS];
         $searchColumns = [
             ['name' => self::DATATABLE_KEY_NAME, 'searchType' => DatatableUtil::SEARCH_LIKE],
             ['name' => self::DATATABLE_KEY_EMAIL, 'searchType' => DatatableUtil::SEARCH_LIKE],
@@ -77,10 +79,10 @@ class PartnerService extends AbstractService
         ];
 
         return [
-            'searchs'  => DatatableUtil::getSearchs($requestData, $searchColumns),
-            'order'    => DatatableUtil::getOrder($requestData, $orderColumns),
-            'limit'    => DatatableUtil::getLimit($requestData),
-            'offset'   => DatatableUtil::getOffset($requestData),
+            'searchs' => DatatableUtil::getSearchs($requestData, $searchColumns),
+            'order' => DatatableUtil::getOrder($requestData, $orderColumns),
+            'limit' => DatatableUtil::getLimit($requestData),
+            'offset' => DatatableUtil::getOffset($requestData),
         ];
     }
 
@@ -89,13 +91,14 @@ class PartnerService extends AbstractService
      */
     public function initPartner()
     {
-        $place    = new Place();
-        $type     = $this->manager->getRepository(Type::class)->findOneByCode(Type::PARTNER);
+        $place = new Place();
+        $type = $this->manager->getRepository(Type::class)->findOneByCode(Type::PARTNER);
         $timezone = $this->manager->getRepository(Timezone::class)->findOneByName('Europe/paris');
         $place
             ->setTimezone($timezone)
             ->setEnabled(true)
             ->setType($type);
+
         return $place;
     }
 

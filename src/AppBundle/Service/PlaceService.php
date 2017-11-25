@@ -3,7 +3,6 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Beer;
-use AppBundle\Entity\Language;
 use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\Place;
 use AppBundle\Entity\Place\Type;
@@ -34,8 +33,8 @@ class PlaceService extends AbstractService
 
     /**
      * @param EntityManager $manager
-     * @param AssetsHelper $assetsHelper
-     * @param Router $router
+     * @param AssetsHelper  $assetsHelper
+     * @param Router        $router
      * @param $placeParameters
      */
     public function __construct(
@@ -52,6 +51,7 @@ class PlaceService extends AbstractService
 
     /**
      * @param $beerId
+     *
      * @return array
      */
     public function getHomeMapPlaces($beerId)
@@ -65,33 +65,35 @@ class PlaceService extends AbstractService
             $typeCode = $place->getType()->getCode();
             $marker = array_key_exists($typeCode, $markers) ? $markers[$typeCode] : $markers['DEFAULT'];
             $placeInfo = [
-                'name'              => $place->getName(),
-                'address'           => $address->getAddress(),
+                'name' => $place->getName(),
+                'address' => $address->getAddress(),
                 'addressComplement' => $address->getAddressComplement(),
-                'zipCode'           => $address->getZipCode(),
-                'city'              => $address->getCity(),
-                'latitude'          => $address->getLatitude(),
-                'longitude'         => $address->getLongitude(),
-                'website'           => $place->getWebsite(),
-                'facebook'          => $place->getFacebook(),
-                'marker'            => $this->assetsHelper->getUrl($marker)
+                'zipCode' => $address->getZipCode(),
+                'city' => $address->getCity(),
+                'latitude' => $address->getLatitude(),
+                'longitude' => $address->getLongitude(),
+                'website' => $place->getWebsite(),
+                'facebook' => $place->getFacebook(),
+                'marker' => $this->assetsHelper->getUrl($marker),
             ];
-            if ($typeCode === Type::SHOP) {
+            if (Type::SHOP === $typeCode) {
                 $placeInfo += [
-                    'phone'       => $place->getPhone(),
-                    'email'       => $place->getEmail(),
+                    'phone' => $place->getPhone(),
+                    'email' => $place->getEmail(),
                     'description' => $place->getDescription(),
-                    'route'       => $this->router->generate('shop_information', ['id' => $place->getId()]),
-                    'beers'       => $this->buildBeersArray($place->getBeers())
+                    'route' => $this->router->generate('shop_information', ['id' => $place->getId()]),
+                    'beers' => $this->buildBeersArray($place->getBeers()),
                 ];
             }
             $data[] = $placeInfo;
         }
+
         return $data;
     }
 
     /**
      * @param $beers
+     *
      * @return array
      */
     public function buildBeersArray($beers)
@@ -100,10 +102,11 @@ class PlaceService extends AbstractService
         /** @var Beer $beer */
         foreach ($beers as $beer) {
             $data[] = [
-                'name'    => $beer->getName(),
-                'brewery' => $beer->getBrewery()->getName()
+                'name' => $beer->getName(),
+                'brewery' => $beer->getBrewery()->getName(),
             ];
         }
+
         return $data;
     }
 }

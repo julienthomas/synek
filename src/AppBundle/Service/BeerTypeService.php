@@ -7,11 +7,9 @@ use AppBundle\Form\BeerTypeType;
 use AppBundle\Util\DatatableUtil;
 use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\Beer\Type;
-use AppBundle\Entity\Beer\Type\Translation;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class BeerTypeService extends AbstractService
 {
@@ -35,16 +33,16 @@ class BeerTypeService extends AbstractService
      */
     private $beerTypeForm;
 
-    const DATATABLE_KEY_ID          = 'id';
-    const DATATABLE_KEY_NAME        = 'name';
+    const DATATABLE_KEY_ID = 'id';
+    const DATATABLE_KEY_NAME = 'name';
     const DATATABLE_KEY_BEER_NUMBER = 'beer_number';
 
     /**
-     * @param EntityManager $manager
-     * @param \Twig_Environment $twig
-     * @param Translator $translator
+     * @param EntityManager        $manager
+     * @param \Twig_Environment    $twig
+     * @param Translator           $translator
      * @param FormFactoryInterface $formFactory
-     * @param BeerTypeType $beerTypeForm
+     * @param BeerTypeType         $beerTypeForm
      */
     public function __construct(
         EntityManager $manager,
@@ -54,15 +52,16 @@ class BeerTypeService extends AbstractService
         BeerTypeType $beerTypeForm
     ) {
         parent::__construct($manager);
-        $this->twig         = $twig;
-        $this->translator   = $translator;
-        $this->formFactory  = $formFactory;
+        $this->twig = $twig;
+        $this->translator = $translator;
+        $this->formFactory = $formFactory;
         $this->beerTypeForm = $beerTypeForm;
     }
 
     /**
      * @param $requestData
      * @param Language $language
+     *
      * @return array
      */
     public function getList($requestData, Language $language)
@@ -78,39 +77,40 @@ class BeerTypeService extends AbstractService
         );
 
         $template = $this->twig->loadTemplate('admin/beer_type/datatable/items.html.twig');
-        $data     = [];
+        $data = [];
         foreach ($results['data'] as $type) {
             $data[] = [
                 $type[self::DATATABLE_KEY_NAME],
                 $type[self::DATATABLE_KEY_BEER_NUMBER],
-                $template->renderBlock('btns', ['id' => $type[self::DATATABLE_KEY_ID]])
+                $template->renderBlock('btns', ['id' => $type[self::DATATABLE_KEY_ID]]),
             ];
         }
 
         return [
-            'data'            => $data,
-            'recordsTotal'    => $results['recordsTotal'],
-            'recordsFiltered' => $results['recordsFiltered']
+            'data' => $data,
+            'recordsTotal' => $results['recordsTotal'],
+            'recordsFiltered' => $results['recordsFiltered'],
         ];
     }
 
     /**
      * @param $requestData
+     *
      * @return array
      */
     private function getListParams($requestData)
     {
-        $orderColumns  = [self::DATATABLE_KEY_NAME, self::DATATABLE_KEY_BEER_NUMBER];
+        $orderColumns = [self::DATATABLE_KEY_NAME, self::DATATABLE_KEY_BEER_NUMBER];
         $searchColumns = [
             ['name' => self::DATATABLE_KEY_NAME, 'searchType' => DatatableUtil::SEARCH_LIKE],
-            ['name' => self::DATATABLE_KEY_BEER_NUMBER, 'searchType' => DatatableUtil::SEARCH_EQUAL]
+            ['name' => self::DATATABLE_KEY_BEER_NUMBER, 'searchType' => DatatableUtil::SEARCH_EQUAL],
         ];
 
         return [
-            'searchs'  => DatatableUtil::getSearchs($requestData, $searchColumns),
-            'order'    => DatatableUtil::getOrder($requestData, $orderColumns),
-            'limit'    => DatatableUtil::getLimit($requestData),
-            'offset'   => DatatableUtil::getOffset($requestData),
+            'searchs' => DatatableUtil::getSearchs($requestData, $searchColumns),
+            'order' => DatatableUtil::getOrder($requestData, $orderColumns),
+            'limit' => DatatableUtil::getLimit($requestData),
+            'offset' => DatatableUtil::getOffset($requestData),
         ];
     }
 
@@ -151,26 +151,29 @@ class BeerTypeService extends AbstractService
 
     /**
      * @param UploadedFile $file
+     *
      * @return array|bool
      */
     public function parseFile(UploadedFile $file)
     {
-        if ($file->getClientMimeType() !== 'text/csv') {
+        if ('text/csv' !== $file->getClientMimeType()) {
             return false;
         }
         $csv = array_map('str_getcsv', file($file));
         foreach ($csv as $index => $line) {
             $csv[$index] = explode(';', $line[0])[0];
         }
-        if ($csv[0] !== 'name') {
+        if ('name' !== $csv[0]) {
             return false;
         }
         array_splice($csv, 0, 1);
+
         return $csv;
     }
 
     /**
      * @param $types
+     *
      * @return array
      */
     public function importTypes($types)
@@ -188,22 +191,25 @@ class BeerTypeService extends AbstractService
                 $this->saveType($type);
             }
         }
+
         return $data;
     }
 
     /**
      * @param Language $language
      * @param $name
+     *
      * @return Type|null
      */
     public function getTypeByName(Language $language, $name)
     {
-        $name        = preg_replace('/\s+/', ' ', $name);
+        $name = preg_replace('/\s+/', ' ', $name);
         $translation = $this->manager->getRepository(Type\Translation::class)
             ->findOneBy(['name' => $name, 'language' => $language]);
         if ($translation) {
             return $translation->getType();
         }
+
         return null;
     }
 }

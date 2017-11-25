@@ -43,10 +43,10 @@ class BreweryType extends AbstractType
                 'country',
                 'entity',
                 [
-                    'label'         => _('Country'),
-                    'empty_value'   => '- ' . _('Choose one') . ' -',
-                    'class'         => 'AppBundle\Entity\Country',
-                    'choice_label'  => 'translations.first.name',
+                    'label' => 'Country',
+                    'empty_value' => '- Choose one -',
+                    'class' => 'AppBundle\Entity\Country',
+                    'choice_label' => 'translations.first.name',
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('country')
                             ->addSelect('translations')
@@ -58,7 +58,7 @@ class BreweryType extends AbstractType
                     },
                 ]
             );
-        $builder->addEventListener(FormEvents::PRE_SUBMIT, function(FormEvent $event) {
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
             FormUtil::removeWhiteSpaces($event, 'name');
         });
     }

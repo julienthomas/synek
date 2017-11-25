@@ -15,7 +15,9 @@ class BreweryController extends Controller
     /**
      * @Route("/auth/brewery/create", name="auth_brewery_create")
      * @Method("POST")
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function createAction(Request $request)
@@ -33,9 +35,10 @@ class BreweryController extends Controller
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 $breweryService->saveBrewery($brewery);
+
                 return new JsonResponse([
                     'id' => $brewery->getId(),
-                    'name' => $brewery->getName()
+                    'name' => $brewery->getName(),
                 ], Response::HTTP_CREATED);
             } else {
                 $errors = [];
@@ -43,9 +46,11 @@ class BreweryController extends Controller
                 foreach ($formErrors as $formError) {
                     $errors[$formError->getOrigin()->getName()] = $formError->getMessage();
                 }
+
                 return new JsonResponse($errors, Response::HTTP_BAD_REQUEST);
             }
         }
+
         return new JsonResponse([], Response::HTTP_EXPECTATION_FAILED);
     }
 }

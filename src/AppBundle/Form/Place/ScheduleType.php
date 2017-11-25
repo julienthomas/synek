@@ -20,15 +20,15 @@ class ScheduleType extends AbstractType
                 'openingTime',
                 'time',
                 [
-                    'widget'   => 'single_text',
-                    'required' => false
+                    'widget' => 'single_text',
+                    'required' => false,
                 ]
             )->add(
                 'closureTime',
                 'time',
                 [
-                    'widget'   => 'single_text',
-                    'required' => false
+                    'widget' => 'single_text',
+                    'required' => false,
                 ]
             );
     }

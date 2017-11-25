@@ -14,17 +14,16 @@ use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\Place;
-use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Acl\Exception\Exception;
 
 class ShopService extends AbstractService
 {
-    const DATATABLE_KEY_ID      = 'id';
-    const DATATABLE_KEY_NAME    = 'name';
-    const DATATABLE_KEY_EMAIL   = 'email';
+    const DATATABLE_KEY_ID = 'id';
+    const DATATABLE_KEY_NAME = 'name';
+    const DATATABLE_KEY_EMAIL = 'email';
     const DATATABLE_KEY_ADDRESS = 'address';
-    const PRESTASHOP_MANAGER    = 'prestashop';
+    const PRESTASHOP_MANAGER = 'prestashop';
 
     /**
      * @var \Twig_Environment
@@ -40,7 +39,7 @@ class ShopService extends AbstractService
     {
         parent::__construct($manager);
         $this->prestashopManager = $registry->getManager(self::PRESTASHOP_MANAGER);
-        $this->twig              = $twig;
+        $this->twig = $twig;
     }
 
     public function getNewList($requestData)
@@ -73,35 +72,37 @@ class ShopService extends AbstractService
 
     /**
      * @param $results
+     *
      * @return array
      */
     private function buildDatatableData($results)
     {
         $template = $this->twig->loadTemplate('admin/shop/datatable/items.html.twig');
-        $data     = [];
+        $data = [];
         foreach ($results['data'] as $place) {
             $data[] = [
                 $place[self::DATATABLE_KEY_NAME],
                 $place[self::DATATABLE_KEY_EMAIL],
                 $place[self::DATATABLE_KEY_ADDRESS],
-                $template->renderBlock('btns', ['id' => $place[self::DATATABLE_KEY_ID]])
+                $template->renderBlock('btns', ['id' => $place[self::DATATABLE_KEY_ID]]),
             ];
         }
 
         return [
-            'data'            => $data,
-            'recordsTotal'    => $results['recordsTotal'],
-            'recordsFiltered' => $results['recordsFiltered']
+            'data' => $data,
+            'recordsTotal' => $results['recordsTotal'],
+            'recordsFiltered' => $results['recordsFiltered'],
         ];
     }
 
     /**
      * @param $requestData
+     *
      * @return array
      */
     private function getListParams($requestData)
     {
-        $orderColumns  = [self::DATATABLE_KEY_NAME, self::DATATABLE_KEY_EMAIL, self::DATATABLE_KEY_ADDRESS];
+        $orderColumns = [self::DATATABLE_KEY_NAME, self::DATATABLE_KEY_EMAIL, self::DATATABLE_KEY_ADDRESS];
         $searchColumns = [
             ['name' => self::DATATABLE_KEY_NAME, 'searchType' => DatatableUtil::SEARCH_LIKE],
             ['name' => self::DATATABLE_KEY_EMAIL, 'searchType' => DatatableUtil::SEARCH_LIKE],
@@ -109,21 +110,22 @@ class ShopService extends AbstractService
         ];
 
         return [
-            'searchs'  => DatatableUtil::getSearchs($requestData, $searchColumns),
-            'order'    => DatatableUtil::getOrder($requestData, $orderColumns),
-            'limit'    => DatatableUtil::getLimit($requestData),
-            'offset'   => DatatableUtil::getOffset($requestData),
+            'searchs' => DatatableUtil::getSearchs($requestData, $searchColumns),
+            'order' => DatatableUtil::getOrder($requestData, $orderColumns),
+            'limit' => DatatableUtil::getLimit($requestData),
+            'offset' => DatatableUtil::getOffset($requestData),
         ];
     }
 
     /**
      * @return int the number of imported shops
+     *
      * @throws \Exception
      */
     public function importPrestashopShops()
     {
         $shops = $this->getPrestashopShops();
-        if (count($shops) === 0) {
+        if (0 === count($shops)) {
             return 0;
         }
         $countriesIds = [];
@@ -142,7 +144,7 @@ class ShopService extends AbstractService
         $createdAddresses = [];
         foreach ($shops as $shop) {
             if (!array_key_exists($shop['country_id'], $countries)) {
-                throw new \Exception("Missing country");
+                throw new \Exception('Missing country');
             }
             foreach ($shop as $key => $data) {
                 if (empty($data)) {
@@ -150,7 +152,7 @@ class ShopService extends AbstractService
                 }
             }
             $website = preg_match("/^https?:\/\//", $shop['link']) ? $shop['link'] : "http://{$shop['link']}";
-            $place   = new Place();
+            $place = new Place();
             $address = new Address();
             $address
                 ->setAddress($shop['address1'])
@@ -186,6 +188,7 @@ class ShopService extends AbstractService
 
     /**
      * @return array
+     *
      * @throws \Doctrine\DBAL\DBALException
      */
     private function getPrestashopShops()
@@ -226,6 +229,7 @@ class ShopService extends AbstractService
 
     /**
      * @param UploadedFile $file
+     *
      * @return null|string
      */
     public function uploadImage(UploadedFile $file)
@@ -237,7 +241,7 @@ class ShopService extends AbstractService
         if (!in_array($mimeType, ['image/jpeg', 'image/png'])) {
             return null;
         }
-        $fileName = str_replace('.', null, uniqid('', true)) . ".{$file->getClientOriginalExtension()}";
+        $fileName = str_replace('.', null, uniqid('', true)).".{$file->getClientOriginalExtension()}";
         if (!file_exists($serverPath) || !is_dir($serverPath)) {
             try {
                 mkdir($serverPath, 0755, true);
@@ -252,6 +256,7 @@ class ShopService extends AbstractService
 
     /**
      * @param $path
+     *
      * @return bool
      */
     public function verifFile($path)
@@ -261,16 +266,16 @@ class ShopService extends AbstractService
             return true;
         }
         $mimeType = mime_content_type($serverPath);
+
         return in_array($mimeType, ['image/jpeg', 'image/png']);
     }
-
 
     /**
      * @param Place $place
      */
     public function saveShop(Place $place)
     {
-        $address  = $place->getAddress();
+        $address = $place->getAddress();
         $pictures = $place->getPictures();
         $schedules = $place->getSchedules();
 
@@ -312,7 +317,7 @@ class ShopService extends AbstractService
      */
     private function removeUnused(Place $place)
     {
-        $pictures  = $this->manager->getRepository(Picture::class)->findByPlace($place);
+        $pictures = $this->manager->getRepository(Picture::class)->findByPlace($place);
         $schedules = $this->manager->getRepository(Schedule::class)->findByPlace($place);
 
         $remove = [];
@@ -338,6 +343,7 @@ class ShopService extends AbstractService
 
     /**
      * @param Place $place
+     *
      * @return array
      */
     public function getCurrentPictures(Place $place)
@@ -349,6 +355,7 @@ class ShopService extends AbstractService
                 $data[] = $picture->getFile();
             }
         }
+
         return $data;
     }
 
@@ -380,6 +387,7 @@ class ShopService extends AbstractService
 
     /**
      * @param $beers
+     *
      * @return array
      */
     public function buildBeersArray($beers)
@@ -389,11 +397,13 @@ class ShopService extends AbstractService
         foreach ($beers as $beer) {
             $data[$beer->getBrewery()->getName()][] = $beer;
         }
+
         return $data;
     }
 
     /**
      * @param $schedules
+     *
      * @return array
      */
     public function buildScheduleArray($schedules)
@@ -403,9 +413,26 @@ class ShopService extends AbstractService
         foreach ($schedules as $schedule) {
             $data[$schedule->getDay()][] = [
                 'opening' => $schedule->getOpeningTime(),
-                'closure' => $schedule->getClosureTime()
+                'closure' => $schedule->getClosureTime(),
             ];
         }
+
         return $data;
+    }
+
+    /**
+     * @return Place
+     */
+    public function initShop()
+    {
+        $place = new Place();
+        $type = $this->manager->getRepository(Type::class)->findOneByCode(Type::SHOP);
+        $timezone = $this->manager->getRepository(Timezone::class)->findOneByName('Europe/paris');
+        $place
+            ->setTimezone($timezone)
+            ->setEnabled(true)
+            ->setType($type);
+
+        return $place;
     }
 }

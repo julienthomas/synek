@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * Brewery
+ * Brewery.
  *
  * @ORM\Table(name="brewery", indexes={@ORM\Index(name="country_id", columns={"country_id"})}, uniqueConstraints={@ORM\UniqueConstraint(name="name", columns={"name"})})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\BreweryRepository")
@@ -21,7 +21,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Brewery
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", length=10, options={"unsigned":true})
      * @ORM\Id
@@ -74,18 +74,18 @@ class Brewery
     private $beers;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
         $this->createdDate = new \DateTime('now', new \DateTimeZone(EntityUtil::DEFAULT_TIMEZONE));
-        $this->beers       = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->beers = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -93,7 +93,7 @@ class Brewery
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -107,7 +107,7 @@ class Brewery
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -117,7 +117,7 @@ class Brewery
     }
 
     /**
-     * Set createdDate
+     * Set createdDate.
      *
      * @param \DateTime $createdDate
      *
@@ -131,7 +131,7 @@ class Brewery
     }
 
     /**
-     * Get createdDate
+     * Get createdDate.
      *
      * @return \DateTime
      */
@@ -141,7 +141,7 @@ class Brewery
     }
 
     /**
-     * Set updatedDate
+     * Set updatedDate.
      *
      * @param \DateTime $updatedDate
      *
@@ -155,7 +155,7 @@ class Brewery
     }
 
     /**
-     * Set country
+     * Set country.
      *
      * @param \AppBundle\Entity\Country $country
      *
@@ -169,7 +169,7 @@ class Brewery
     }
 
     /**
-     * Get country
+     * Get country.
      *
      * @return \AppBundle\Entity\Country
      */
@@ -179,7 +179,7 @@ class Brewery
     }
 
     /**
-     * Add beer
+     * Add beer.
      *
      * @param \AppBundle\Entity\Beer $beer
      *
@@ -193,7 +193,7 @@ class Brewery
     }
 
     /**
-     * Remove beer
+     * Remove beer.
      *
      * @param \AppBundle\Entity\Beer $beer
      */
@@ -203,7 +203,7 @@ class Brewery
     }
 
     /**
-     * Get beers
+     * Get beers.
      *
      * @return \Doctrine\Common\Collections\Collection
      */

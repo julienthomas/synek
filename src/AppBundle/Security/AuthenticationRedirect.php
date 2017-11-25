@@ -34,16 +34,17 @@ class AuthenticationRedirect implements AuthenticationSuccessHandlerInterface
      */
     public function __construct(Router $router, $adminHomeRoute, $userHomeRoute)
     {
-        $this->router         = $router;
+        $this->router = $router;
         $this->adminHomeRoute = $adminHomeRoute;
-        $this->userHomeRoute  = $userHomeRoute;
+        $this->userHomeRoute = $userHomeRoute;
     }
 
     /**
-     * Redirect the authenticated user depending on his roles
+     * Redirect the authenticated user depending on his roles.
      *
-     * @param Request $request
+     * @param Request        $request
      * @param TokenInterface $token
+     *
      * @return Response
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
@@ -60,6 +61,7 @@ class AuthenticationRedirect implements AuthenticationSuccessHandlerInterface
         } else {
             return new Response(Response::HTTP_FORBIDDEN);
         }
+
         return new RedirectResponse($this->router->generate($route));
     }
 }

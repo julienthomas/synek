@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints;
 
 /**
- * Place
+ * Place.
  *
  * @ORM\Table(name="place", uniqueConstraints={@ORM\UniqueConstraint(name="place_address_id", columns={"place_address_id"}), @ORM\UniqueConstraint(name="mycollectionplaces_reference_id", columns={"mycollectionplaces_reference_id"})}, indexes={@ORM\Index(name="place_type_id", columns={"place_type_id"}), @ORM\Index(name="timezone_id", columns={"timezone_id"})})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PlaceRepository")
@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints;
 class Place
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", length=10, options={"unsigned":true})
      * @ORM\Id
@@ -76,14 +76,14 @@ class Place
     private $description;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="enabled", type="boolean", nullable=false)
      */
     private $enabled;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="mycollectionplaces_reference_id", type="integer", nullable=true, options={"unsigned":true})
      */
@@ -177,21 +177,21 @@ class Place
     private $user;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
         $this->createdDate = new \DateTime('now', new \DateTimeZone(EntityUtil::DEFAULT_TIMEZONE));
-        $this->pictures    = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->schedules   = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->events      = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->beers       = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->pictures = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->schedules = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->events = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->beers = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -199,7 +199,7 @@ class Place
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -213,7 +213,7 @@ class Place
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -223,7 +223,7 @@ class Place
     }
 
     /**
-     * Set email
+     * Set email.
      *
      * @param string $email
      *
@@ -237,7 +237,7 @@ class Place
     }
 
     /**
-     * Get email
+     * Get email.
      *
      * @return string
      */
@@ -247,7 +247,7 @@ class Place
     }
 
     /**
-     * Set phone
+     * Set phone.
      *
      * @param string $phone
      *
@@ -261,7 +261,7 @@ class Place
     }
 
     /**
-     * Get phone
+     * Get phone.
      *
      * @return string
      */
@@ -271,7 +271,7 @@ class Place
     }
 
     /**
-     * Set website
+     * Set website.
      *
      * @param string $website
      *
@@ -285,7 +285,7 @@ class Place
     }
 
     /**
-     * Get website
+     * Get website.
      *
      * @return string
      */
@@ -295,7 +295,7 @@ class Place
     }
 
     /**
-     * Set facebook
+     * Set facebook.
      *
      * @param string $facebook
      *
@@ -309,7 +309,7 @@ class Place
     }
 
     /**
-     * Get webSite
+     * Get webSite.
      *
      * @return string
      */
@@ -319,7 +319,7 @@ class Place
     }
 
     /**
-     * Set description
+     * Set description.
      *
      * @param string $description
      *
@@ -333,7 +333,7 @@ class Place
     }
 
     /**
-     * Get description
+     * Get description.
      *
      * @return string
      */
@@ -343,9 +343,9 @@ class Place
     }
 
     /**
-     * Set enabled
+     * Set enabled.
      *
-     * @param boolean $enabled
+     * @param bool $enabled
      *
      * @return Place
      */
@@ -357,9 +357,9 @@ class Place
     }
 
     /**
-     * Get enabled
+     * Get enabled.
      *
-     * @return boolean
+     * @return bool
      */
     public function getEnabled()
     {
@@ -367,9 +367,9 @@ class Place
     }
 
     /**
-     * Set mycollectionplacesReferenceId
+     * Set mycollectionplacesReferenceId.
      *
-     * @param integer $mycollectionplacesReferenceId
+     * @param int $mycollectionplacesReferenceId
      *
      * @return Place
      */
@@ -381,9 +381,9 @@ class Place
     }
 
     /**
-     * Get mycollectionplacesReferenceId
+     * Get mycollectionplacesReferenceId.
      *
-     * @return integer
+     * @return int
      */
     public function getMycollectionplacesReferenceId()
     {
@@ -391,7 +391,7 @@ class Place
     }
 
     /**
-     * Set createdDate
+     * Set createdDate.
      *
      * @param \DateTime $createdDate
      *
@@ -405,7 +405,7 @@ class Place
     }
 
     /**
-     * Get createdDate
+     * Get createdDate.
      *
      * @return \DateTime
      */
@@ -415,7 +415,7 @@ class Place
     }
 
     /**
-     * Set updatedDate
+     * Set updatedDate.
      *
      * @param \DateTime $updatedDate
      *
@@ -429,7 +429,7 @@ class Place
     }
 
     /**
-     * Get updatedDate
+     * Get updatedDate.
      *
      * @return \DateTime
      */
@@ -439,7 +439,7 @@ class Place
     }
 
     /**
-     * Add picture
+     * Add picture.
      *
      * @param \AppBundle\Entity\Place\Picture $picture
      *
@@ -453,7 +453,7 @@ class Place
     }
 
     /**
-     * Remove picture
+     * Remove picture.
      *
      * @param \AppBundle\Entity\Place\Picture $picture
      */
@@ -463,7 +463,7 @@ class Place
     }
 
     /**
-     * Get pictures
+     * Get pictures.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -473,7 +473,7 @@ class Place
     }
 
     /**
-     * Clear pictures
+     * Clear pictures.
      *
      * @return Place
      */
@@ -495,7 +495,7 @@ class Place
     }
 
     /**
-     * Add schedule
+     * Add schedule.
      *
      * @param \AppBundle\Entity\Place\Schedule $schedule
      *
@@ -509,7 +509,7 @@ class Place
     }
 
     /**
-     * Remove schedule
+     * Remove schedule.
      *
      * @param \AppBundle\Entity\Place\Schedule $schedule
      */
@@ -519,7 +519,7 @@ class Place
     }
 
     /**
-     * Get schedules
+     * Get schedules.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -529,7 +529,7 @@ class Place
     }
 
     /**
-     * Clear schedules
+     * Clear schedules.
      *
      * @return Place
      */
@@ -551,7 +551,7 @@ class Place
     }
 
     /**
-     * Add event
+     * Add event.
      *
      * @param \AppBundle\Entity\Place\Event $event
      *
@@ -565,7 +565,7 @@ class Place
     }
 
     /**
-     * Remove event
+     * Remove event.
      *
      * @param \AppBundle\Entity\Place\Event $event
      */
@@ -575,7 +575,7 @@ class Place
     }
 
     /**
-     * Get events
+     * Get events.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -585,7 +585,7 @@ class Place
     }
 
     /**
-     * Set address
+     * Set address.
      *
      * @param \AppBundle\Entity\Place\Address $address | null
      *
@@ -599,7 +599,7 @@ class Place
     }
 
     /**
-     * Get address
+     * Get address.
      *
      * @return \AppBundle\Entity\Place\Address
      */
@@ -609,7 +609,7 @@ class Place
     }
 
     /**
-     * Set timezone
+     * Set timezone.
      *
      * @param \AppBundle\Entity\Timezone $timezone
      *
@@ -623,7 +623,7 @@ class Place
     }
 
     /**
-     * Get timezone
+     * Get timezone.
      *
      * @return \AppBundle\Entity\Timezone
      */
@@ -633,7 +633,7 @@ class Place
     }
 
     /**
-     * Set type
+     * Set type.
      *
      * @param \AppBundle\Entity\Place\Type $type
      *
@@ -647,7 +647,7 @@ class Place
     }
 
     /**
-     * Get type
+     * Get type.
      *
      * @return \AppBundle\Entity\Place\Type
      */
@@ -657,7 +657,7 @@ class Place
     }
 
     /**
-     * Add beer
+     * Add beer.
      *
      * @param \AppBundle\Entity\Beer $beer
      *
@@ -671,7 +671,7 @@ class Place
     }
 
     /**
-     * Remove beer
+     * Remove beer.
      *
      * @param \AppBundle\Entity\Beer $beer
      */
@@ -681,7 +681,7 @@ class Place
     }
 
     /**
-     * Get beers
+     * Get beers.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -691,7 +691,7 @@ class Place
     }
 
     /**
-     * Get user
+     * Get user.
      *
      * @return \AppBundle\Entity\User
      */
@@ -701,7 +701,7 @@ class Place
     }
 
     /**
-     * Set user
+     * Set user.
      *
      * @param \AppBundle\Entity\User $user
      *

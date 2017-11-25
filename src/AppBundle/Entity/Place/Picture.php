@@ -6,7 +6,7 @@ use AppBundle\Util\EntityUtil;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Picture
+ * Picture.
  *
  * @ORM\Table(name="place_picture", indexes={@ORM\Index(name="place_id", columns={"place_id"})})
  * @ORM\Entity
@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Picture
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", length=10, options={"unsigned":true})
      * @ORM\Id
@@ -61,7 +61,7 @@ class Picture
     private $place;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -69,9 +69,9 @@ class Picture
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -79,7 +79,7 @@ class Picture
     }
 
     /**
-     * Set file
+     * Set file.
      *
      * @param string $file
      *
@@ -93,7 +93,7 @@ class Picture
     }
 
     /**
-     * Get file
+     * Get file.
      *
      * @return string
      */
@@ -103,7 +103,7 @@ class Picture
     }
 
     /**
-     * Set description
+     * Set description.
      *
      * @param string $description
      *
@@ -117,7 +117,7 @@ class Picture
     }
 
     /**
-     * Get description
+     * Get description.
      *
      * @return string
      */
@@ -127,7 +127,7 @@ class Picture
     }
 
     /**
-     * Set createdDate
+     * Set createdDate.
      *
      * @param \DateTime $createdDate
      *
@@ -141,7 +141,7 @@ class Picture
     }
 
     /**
-     * Get createdDate
+     * Get createdDate.
      *
      * @return \DateTime
      */
@@ -151,7 +151,7 @@ class Picture
     }
 
     /**
-     * Set updatedDate
+     * Set updatedDate.
      *
      * @param \DateTime $updatedDate
      *
@@ -165,7 +165,7 @@ class Picture
     }
 
     /**
-     * Get updatedDate
+     * Get updatedDate.
      *
      * @return \DateTime
      */
@@ -175,7 +175,7 @@ class Picture
     }
 
     /**
-     * Set place
+     * Set place.
      *
      * @param \AppBundle\Entity\Place $place
      *
@@ -189,7 +189,7 @@ class Picture
     }
 
     /**
-     * Get place
+     * Get place.
      *
      * @return \AppBundle\Entity\Place
      */

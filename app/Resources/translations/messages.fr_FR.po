@@ -1,0 +1,362 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.4\n"
+
+msgid "- Choose one -"
+msgstr "- Choisissez une valeur -"
+
+msgid "- Choose one or more -"
+msgstr "- Choisissez une ou plusieurs valeurs -"
+
+msgid ""
+"A valid file must have a .jpg or .png extension and it's size must be "
+"inferior or equal to 2mo."
+msgstr ""
+"Un fichier valide doit avoir une extension .jpg ou .png et sa taille doit "
+"être inférieure ou égale à 2 mo."
+
+msgid "Add"
+msgstr "Ajouter"
+
+msgid "Add a beer"
+msgstr "Ajouter une bière"
+
+msgid "Add a beer type"
+msgstr "Ajouter un type de bière"
+
+msgid "Add a brewery"
+msgstr "Ajouter une brasserie"
+
+msgid "Add a partner"
+msgstr "Ajouter un partenaire"
+
+msgid "Add a picture"
+msgstr "Ajouter une photo"
+
+msgid "Address"
+msgstr "Adresse"
+
+msgid "Address Complement"
+msgstr "Complément d'adresse"
+
+msgid "Alcohol degree"
+msgstr "Degré d'alcool"
+
+msgid "All beers"
+msgstr "Toutes les bières"
+
+msgid "All breweries"
+msgstr "Toutes les brasseries"
+
+msgid "Available beers"
+msgstr "Bières disponibles"
+
+msgid "Back to map"
+msgstr "Retour à la carte"
+
+msgid "Back to professional space"
+msgstr "Retour à l'espace profesionnel"
+
+msgid "Back to public space"
+msgstr "Retour à l'espace public"
+
+msgid "Beer edition"
+msgstr "Edition de la bière"
+
+msgid "Beer information"
+msgstr "Informations bière"
+
+msgid "Beer not found? You can add a new one by"
+msgstr "Vous ne trouvez pas la bière? vous pouvez en ajouter une nouvelle en"
+
+msgid "Beer number"
+msgstr "Nombre de bières"
+
+msgid "Beer successfully added."
+msgstr "Bière ajoutée."
+
+msgid "Beer successfully edited."
+msgstr "Bière modifiée."
+
+msgid "Beer type edition"
+msgstr "Edition du type de bière"
+
+msgid "Beer types"
+msgstr "Types de bières"
+
+msgid "Beer types list"
+msgstr "List des types de bières"
+
+msgid "Beers"
+msgstr "Bières"
+
+msgid "Beers list"
+msgstr "Liste des bières"
+
+msgid "Breweries"
+msgstr "Brasseries"
+
+msgid "Breweries list"
+msgstr "Liste des brasseries"
+
+msgid "Brewery"
+msgstr "Brasserie"
+
+msgid "Brewery edition"
+msgstr "Edition de la brasserie"
+
+msgid "Brewery information"
+msgstr "Informations brasserie"
+
+msgid "Brewery not found? You can add a new one by"
+msgstr ""
+"Vous ne trouvez pas la brasserie? vous pouvez en ajouter une nouvelle en"
+
+msgid "Brewery successfully added."
+msgstr "Brasserie ajoutée."
+
+msgid "Brewery successfully edited."
+msgstr "Brasserie modifiée."
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "City"
+msgstr "Ville"
+
+msgid "Close"
+msgstr "Fermer"
+
+msgid "Closed"
+msgstr "Fermé"
+
+msgid "Contact us"
+msgstr "Contactez nous"
+
+msgid "Country"
+msgstr "Pays"
+
+msgid "Dashboard"
+msgstr "Tableau de bord"
+
+msgid "Degree"
+msgstr "Degré"
+
+msgid "Description"
+msgstr "Description"
+
+msgid "Edit"
+msgstr "Modifier"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Error during file import"
+msgstr "Erreur durant l'importation du fichier"
+
+msgid "Error during location retrieval."
+msgstr "Erreur durant la récupération de la localisation."
+
+msgid "Facebook"
+msgstr "Facebook"
+
+msgid "Filling place"
+msgstr "Lieu de remplissage"
+
+msgid "Filter beers by brewery"
+msgstr "Filtrer les bières par brasserie"
+
+msgid "Import beer types"
+msgstr "Importer des types de bières"
+
+msgid "Information"
+msgstr "Informations"
+
+msgid "List"
+msgstr "Liste"
+
+msgid "Locate"
+msgstr "Localiser"
+
+msgid "Locate me"
+msgstr "Localisez moi"
+
+msgid "Log in"
+msgstr "Connexion"
+
+msgid "Login"
+msgstr "Identifiant"
+
+msgid "Logout"
+msgstr "Deconnection"
+
+msgid "Name"
+msgstr "Nom"
+
+msgid "New beer"
+msgstr "Nouvelle bière"
+
+msgid "New beer type"
+msgstr "Nouveau type de bière"
+
+msgid "New brewery"
+msgstr "Nouvelle brasserie"
+
+msgid "New partner"
+msgstr "Nouveau partenaire"
+
+msgid "New shop"
+msgstr "Nouvelle boutique"
+
+msgid "New types"
+msgstr "Nouveaux types"
+
+msgid "Newest"
+msgstr "Plus récent"
+
+msgid "No result for this address."
+msgstr "Aucun résultat pour cette adresse."
+
+msgid "Owner"
+msgstr "Propriétaire"
+
+msgid "Partner edition"
+msgstr "Edition du partenaire"
+
+msgid "Partner successfully added."
+msgstr "Partenaire ajouté."
+
+msgid "Partner successfully edited."
+msgstr "Partenaire modifié."
+
+msgid "Partners"
+msgstr "Partenaires"
+
+msgid "Partners list"
+msgstr "Liste des partenaires"
+
+msgid "Password"
+msgstr "Mot de passe"
+
+msgid "Phone number"
+msgstr "Numéro de téléphone"
+
+msgid "Pictures"
+msgstr "Photos"
+
+msgid "Please sign in"
+msgstr "Veuillez vous connecter"
+
+msgid "Schedules"
+msgstr "Horaires"
+
+msgid "Search"
+msgstr "Rechercher"
+
+msgid "Search a beer"
+msgstr "Rechercher une bière"
+
+msgid "Search address"
+msgstr "Rechercher une adresse"
+
+msgid "Search brewery"
+msgstr "Rechercher une brasserie"
+
+msgid "Search country"
+msgstr "Rechercher un pays"
+
+msgid "Search degree"
+msgstr "Rechercher un degré"
+
+msgid "Search email"
+msgstr "Rechercher un email"
+
+msgid "Search name"
+msgstr "Rechercher un nom"
+
+msgid "Search number"
+msgstr "Rechercher un nombre"
+
+msgid "Search type"
+msgstr "Rechercher un type"
+
+msgid "See"
+msgstr "Voir"
+
+msgid "Send"
+msgstr "Envoyer"
+
+msgid "Shop edition"
+msgstr "Edition de la boutique"
+
+msgid "Shop information"
+msgstr "Informations boutique"
+
+msgid "Shop successfully edited."
+msgstr "Boutique modifiée."
+
+msgid "Shops"
+msgstr "Boutiques"
+
+msgid "Shops list"
+msgstr "Liste des boutiques"
+
+msgid "Shops without owner"
+msgstr "Boutiques sans propriétaire"
+
+msgid "Some fields are invalids."
+msgstr "Certains champs sont invalides."
+
+msgid "Synek shop"
+msgstr "Boutique Synek"
+
+msgid "Take away"
+msgstr "Horaires de retrait"
+
+msgid "There are multiple locations possibilities for this address:"
+msgstr "Il y a plusieurs localisations pour cette adresse:"
+
+msgid "This file is invalid"
+msgstr "Ce fichier n'est pas valide"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Type information"
+msgstr "Informations type"
+
+msgid "Type not found? You can add a new one by"
+msgstr "Vous ne trouvez pas le type? vous pouvez en ajouter un nouveau en"
+
+msgid "Type successfully added."
+msgstr "Type ajouté."
+
+msgid "Type successfully edited."
+msgstr "Type modifié."
+
+msgid "Website"
+msgstr "Site web"
+
+msgid "Welcome %s"
+msgstr "Bienvenue %s"
+
+msgid "You can upload up to 3 images."
+msgstr "Vous pouvez ajouter jusqu'à 3 photos."
+
+msgid "Zip code"
+msgstr "Code postal"
+
+msgid "clicking here"
+msgstr "cliquant ici"
+
+#~ msgid "Newly imported shops"
+#~ msgstr "Boutiques récemment importées"

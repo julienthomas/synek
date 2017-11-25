@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 /**
- * User
+ * User.
  *
  * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="email", columns={"email"})})
  * @ORM\Entity
@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 class User implements AdvancedUserInterface, \Serializable
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", length=10, options={"unsigned":true})
      * @ORM\Id
@@ -106,18 +106,18 @@ class User implements AdvancedUserInterface, \Serializable
     private $roles;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
         $this->createdDate = new \DateTime('now', new \DateTimeZone(EntityUtil::DEFAULT_TIMEZONE));
-        $this->roles       = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -125,7 +125,7 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Set firstName
+     * Set firstName.
      *
      * @param string $firstName
      *
@@ -139,7 +139,7 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Get firstName
+     * Get firstName.
      *
      * @return string
      */
@@ -149,7 +149,7 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Set lastName
+     * Set lastName.
      *
      * @param string $lastName
      *
@@ -163,7 +163,7 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Get lastName
+     * Get lastName.
      *
      * @return string
      */
@@ -173,7 +173,7 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Set phone
+     * Set phone.
      *
      * @param string $phone
      *
@@ -187,7 +187,7 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Get phone
+     * Get phone.
      *
      * @return string
      */
@@ -197,7 +197,7 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Set email
+     * Set email.
      *
      * @param string $email
      *
@@ -211,7 +211,7 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Get email
+     * Get email.
      *
      * @return string
      */
@@ -221,7 +221,7 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Set salt
+     * Set salt.
      *
      * @param string $salt
      *
@@ -235,7 +235,7 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Get salt
+     * Get salt.
      *
      * @return string
      */
@@ -245,7 +245,7 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Set password
+     * Set password.
      *
      * @param string $password
      *
@@ -259,7 +259,7 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Get password
+     * Get password.
      *
      * @return string
      */
@@ -269,7 +269,7 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Set createdDate
+     * Set createdDate.
      *
      * @param \DateTime $createdDate
      *
@@ -283,7 +283,7 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Get createdDate
+     * Get createdDate.
      *
      * @return \DateTime
      */
@@ -293,7 +293,7 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Set updatedDate
+     * Set updatedDate.
      *
      * @param \DateTime $updatedDate
      *
@@ -307,7 +307,7 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Get updatedDate
+     * Get updatedDate.
      *
      * @return \DateTime
      */
@@ -317,7 +317,7 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Get place
+     * Get place.
      *
      * @return Place
      */
@@ -327,7 +327,7 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Set place
+     * Set place.
      *
      * @param $place
      *
@@ -341,7 +341,7 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Add role
+     * Add role.
      *
      * @param \AppBundle\Entity\Role $role
      *
@@ -355,7 +355,7 @@ class User implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Remove role
+     * Remove role.
      *
      * @param \AppBundle\Entity\Role $role
      */
@@ -446,6 +446,7 @@ class User implements AdvancedUserInterface, \Serializable
         foreach ($this->roles as $role) {
             $data[] = $role->getCode();
         }
+
         return $data;
     }
 
@@ -471,8 +472,10 @@ class User implements AdvancedUserInterface, \Serializable
 
     /**
      * (PHP 5 &gt;= 5.1.0)<br/>
-     * String representation of object
-     * @link http://php.net/manual/en/serializable.serialize.php
+     * String representation of object.
+     *
+     * @see http://php.net/manual/en/serializable.serialize.php
+     *
      * @return string the string representation of the object or null
      */
     public function serialize()
@@ -481,18 +484,19 @@ class User implements AdvancedUserInterface, \Serializable
             $this->id,
             $this->email,
             $this->password,
-            $this->salt
+            $this->salt,
         ]);
     }
 
     /**
      * (PHP 5 &gt;= 5.1.0)<br/>
-     * Constructs the object
-     * @link http://php.net/manual/en/serializable.unserialize.php
+     * Constructs the object.
+     *
+     * @see http://php.net/manual/en/serializable.unserialize.php
+     *
      * @param string $serialized <p>
-     * The string representation of the object.
-     * </p>
-     * @return void
+     *                           The string representation of the object.
+     *                           </p>
      */
     public function unserialize($serialized)
     {

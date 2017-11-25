@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Country
+ * Country.
  *
  * @ORM\Table(name="country", uniqueConstraints={@ORM\UniqueConstraint(name="iso_code", columns={"iso_code"})})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CountryRepository")
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Country
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", length=10, options={"unsigned":true})
      * @ORM\Id
@@ -29,14 +29,14 @@ class Country
     private $isoCode;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="enabled", type="boolean", nullable=false)
      */
     private $enabled;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="need_zip_code", type="boolean", nullable=false)
      */
@@ -57,18 +57,17 @@ class Country
     private $translations;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
         $this->translations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -76,7 +75,7 @@ class Country
     }
 
     /**
-     * Set isoCode
+     * Set isoCode.
      *
      * @param string $isoCode
      *
@@ -90,7 +89,7 @@ class Country
     }
 
     /**
-     * Get isoCode
+     * Get isoCode.
      *
      * @return string
      */
@@ -100,9 +99,9 @@ class Country
     }
 
     /**
-     * Set enabled
+     * Set enabled.
      *
-     * @param boolean $enabled
+     * @param bool $enabled
      *
      * @return Country
      */
@@ -114,9 +113,9 @@ class Country
     }
 
     /**
-     * Get enabled
+     * Get enabled.
      *
-     * @return boolean
+     * @return bool
      */
     public function getEnabled()
     {
@@ -124,9 +123,9 @@ class Country
     }
 
     /**
-     * Set needZipCode
+     * Set needZipCode.
      *
-     * @param boolean $needZipCode
+     * @param bool $needZipCode
      *
      * @return Country
      */
@@ -138,9 +137,9 @@ class Country
     }
 
     /**
-     * Get needZipCode
+     * Get needZipCode.
      *
-     * @return boolean
+     * @return bool
      */
     public function getNeedZipCode()
     {
@@ -148,7 +147,7 @@ class Country
     }
 
     /**
-     * Set zipCodeFormat
+     * Set zipCodeFormat.
      *
      * @param string $zipCodeFormat
      *
@@ -162,7 +161,7 @@ class Country
     }
 
     /**
-     * Get zipCodeFormat
+     * Get zipCodeFormat.
      *
      * @return string
      */
@@ -172,7 +171,7 @@ class Country
     }
 
     /**
-     * Add translation
+     * Add translation.
      *
      * @param \AppBundle\Entity\Country\Translation $translation
      *
@@ -186,7 +185,7 @@ class Country
     }
 
     /**
-     * Remove translation
+     * Remove translation.
      *
      * @param \AppBundle\Entity\Country\Translation $translation
      */
@@ -196,7 +195,7 @@ class Country
     }
 
     /**
-     * Get translations
+     * Get translations.
      *
      * @return \Doctrine\Common\Collections\Collection
      */

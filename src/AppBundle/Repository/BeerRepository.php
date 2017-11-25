@@ -16,6 +16,7 @@ class BeerRepository extends EntityRepository
      * @param $limit
      * @param $offset
      * @param Language $language
+     *
      * @return array
      */
     public function getDatatableList($searchs, $order, $limit, $offset, Language $language)
@@ -38,20 +39,20 @@ class BeerRepository extends EntityRepository
             ->where('type_translation_language.locale = :locale')
             ->setParameter('locale', $language->getLocale());
 
-        if ($order !== null) {
+        if (null !== $order) {
             $qb->orderBy($order['col'], $order['dir']);
         }
 
-        if ($offset !== null && $limit !== null) {
+        if (null !== $offset && null !== $limit) {
             $qb->setFirstResult($offset);
         }
-        if ($limit !== null) {
+        if (null !== $limit) {
             $qb->setMaxResults($limit);
         }
-        if ($searchs !== null) {
+        if (null !== $searchs) {
             foreach ($searchs as $search) {
-                $expr       = $search['expr'];
-                $paramKey   = $search['param']['key'];
+                $expr = $search['expr'];
+                $paramKey = $search['param']['key'];
                 $paramValue = $search['param']['value'];
 
                 $qb
@@ -59,6 +60,7 @@ class BeerRepository extends EntityRepository
                     ->setParameter($paramKey, $paramValue);
             }
         }
+
         return DatatableUtil::getQbData($this->_em, $qb, 'beer.id', $searchs);
     }
 
@@ -76,6 +78,7 @@ class BeerRepository extends EntityRepository
 
         $query = $qb->getQuery();
         $query->useQueryCache(true);
+
         return $query->getResult();
     }
 
@@ -89,11 +92,13 @@ class BeerRepository extends EntityRepository
             ->from('AppBundle:Beer', 'beer');
         $query = $qb->getQuery();
         $query->useQueryCache(true);
+
         return $query->getSingleScalarResult();
     }
 
     /**
      * @return Beer|mixed
+     *
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function getNewestBeer()
@@ -105,6 +110,7 @@ class BeerRepository extends EntityRepository
             ->setMaxResults(1);
         $query = $qb->getQuery();
         $query->useQueryCache(true);
+
         return $query->getOneOrNullResult();
     }
 }

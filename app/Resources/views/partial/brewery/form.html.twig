@@ -5,7 +5,11 @@
         {% endif %}
         <div class="col-lg-12">
             <h3 class="page-header">
-                {{ 'Brewery information' }}
+                {% if isEmbedded is not defined %}
+                    {{ 'Information'|trans }}
+                {% else %}
+                    {{ 'Brewery information'|trans }}
+                {% endif %}
                 <div class="panel-action">
                     {% if isEmbedded is not defined %}
                         <a href="{{ path('admin_brewery') }}" class="btn btn-danger"><i class="fa fa-times"></i> {{ 'Cancel'|trans }}</a>

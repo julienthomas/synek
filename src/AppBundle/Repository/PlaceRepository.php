@@ -7,9 +7,7 @@ use AppBundle\Entity\Place;
 use AppBundle\Entity\Place\Type;
 use AppBundle\Service\PlaceService;
 use AppBundle\Util\DatatableUtil;
-use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\Expr;
 
 class PlaceRepository extends EntityRepository
@@ -19,6 +17,7 @@ class PlaceRepository extends EntityRepository
      * @param $order
      * @param $limit
      * @param $offset
+     *
      * @return array
      */
     public function getNewShopsDatatableList($searchs, $order, $limit, $offset)
@@ -38,6 +37,7 @@ class PlaceRepository extends EntityRepository
      * @param $order
      * @param $limit
      * @param $offset
+     *
      * @return array
      */
     public function getShopsDatatableList($searchs, $order, $limit, $offset)
@@ -55,6 +55,7 @@ class PlaceRepository extends EntityRepository
      * @param $order
      * @param $limit
      * @param $offset
+     *
      * @return array
      */
     public function getPartnersDatatableList($searchs, $order, $limit, $offset)
@@ -72,6 +73,7 @@ class PlaceRepository extends EntityRepository
      * @param $order
      * @param $limit
      * @param $offset
+     *
      * @return \Doctrine\ORM\QueryBuilder
      */
     private function getPlacesDatatableListQuery($searchs, $order, $limit, $offset)
@@ -89,20 +91,20 @@ class PlaceRepository extends EntityRepository
             ->innerJoin('place.type', 'type')
             ->innerJoin('place.address', 'placeAddress');
 
-        if ($order !== null) {
+        if (null !== $order) {
             $qb->orderBy($order['col'], $order['dir']);
         }
 
-        if ($offset !== null && $limit !== null) {
+        if (null !== $offset && null !== $limit) {
             $qb->setFirstResult($offset);
         }
-        if ($limit !== null) {
+        if (null !== $limit) {
             $qb->setMaxResults($limit);
         }
-        if ($searchs !== null) {
+        if (null !== $searchs) {
             foreach ($searchs as $search) {
-                $expr       = $search['expr'];
-                $paramKey   = $search['param']['key'];
+                $expr = $search['expr'];
+                $paramKey = $search['param']['key'];
                 $paramValue = $search['param']['value'];
 
                 $qb
@@ -110,11 +112,13 @@ class PlaceRepository extends EntityRepository
                     ->setParameter($paramKey, $paramValue);
             }
         }
+
         return $qb;
     }
 
     /**
      * @param $beerId
+     *
      * @return array
      */
     public function getHomeMapPlaces($beerId)
@@ -137,6 +141,7 @@ class PlaceRepository extends EntityRepository
 
         $query = $qb->getQuery();
         $query->useQueryCache(true);
+
         return $query->getResult();
     }
 
@@ -154,13 +159,16 @@ class PlaceRepository extends EntityRepository
 
         $query = $qb->getQuery();
         $query->useQueryCache(true);
+
         return $query->getResult();
     }
 
     /**
      * @param $placeId
      * @param \AppBundle\Entity\Language $language
+     *
      * @return \AppBundle\Entity\Place|null
+     *
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function getShopInformation($placeId, Language $language = null)
@@ -182,12 +190,13 @@ class PlaceRepository extends EntityRepository
             ->where('place.id = :id')
             ->orderBy('beers.name')
             ->setParameters([
-                'id'       => $placeId,
-                'language' => $language
+                'id' => $placeId,
+                'language' => $language,
             ]);
 
         $query = $qb->getQuery();
         $query->useQueryCache(true);
+
         return $query->getOneOrNullResult();
     }
 
@@ -225,7 +234,9 @@ class PlaceRepository extends EntityRepository
 
     /**
      * @param $typeCode
+     *
      * @return Place|null
+     *
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     private function getNewestPlace($typeCode)
@@ -241,11 +252,13 @@ class PlaceRepository extends EntityRepository
             ->setParameter('typeCode', $typeCode);
         $query = $qb->getQuery();
         $query->useQueryCache(true);
+
         return $query->getOneOrNullResult();
     }
 
     /**
      * @param $typeCode
+     *
      * @return mixed
      */
     private function getPlacesCount($typeCode)
@@ -258,6 +271,7 @@ class PlaceRepository extends EntityRepository
             ->setParameter('typeCode', $typeCode);
         $query = $qb->getQuery();
         $query->useQueryCache(true);
+
         return $query->getSingleScalarResult();
     }
 }

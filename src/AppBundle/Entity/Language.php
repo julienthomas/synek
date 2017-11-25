@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Language
+ * Language.
  *
  * @ORM\Table(name="language")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Language
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", length=10, options={"unsigned":true})
      * @ORM\Id
@@ -43,14 +43,14 @@ class Language
     private $datetimeFormat;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="rtl", type="boolean", nullable=false, options={"default":0})
      */
     private $rtl = '0';
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="enabled", type="boolean", nullable=false, options={"default":0})
      */
@@ -64,18 +64,17 @@ class Language
     private $translations;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
         $this->translations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -83,7 +82,7 @@ class Language
     }
 
     /**
-     * Set locale
+     * Set locale.
      *
      * @param string $locale
      *
@@ -97,7 +96,7 @@ class Language
     }
 
     /**
-     * Get locale
+     * Get locale.
      *
      * @return string
      */
@@ -107,7 +106,7 @@ class Language
     }
 
     /**
-     * Set dateFormat
+     * Set dateFormat.
      *
      * @param string $dateFormat
      *
@@ -121,7 +120,7 @@ class Language
     }
 
     /**
-     * Get dateFormat
+     * Get dateFormat.
      *
      * @return string
      */
@@ -131,7 +130,7 @@ class Language
     }
 
     /**
-     * Set datetimeFormat
+     * Set datetimeFormat.
      *
      * @param string $datetimeFormat
      *
@@ -145,7 +144,7 @@ class Language
     }
 
     /**
-     * Get datetimeFormat
+     * Get datetimeFormat.
      *
      * @return string
      */
@@ -155,9 +154,9 @@ class Language
     }
 
     /**
-     * Set rtl
+     * Set rtl.
      *
-     * @param boolean $rtl
+     * @param bool $rtl
      *
      * @return Language
      */
@@ -169,9 +168,9 @@ class Language
     }
 
     /**
-     * Get rtl
+     * Get rtl.
      *
-     * @return boolean
+     * @return bool
      */
     public function getRtl()
     {
@@ -179,9 +178,9 @@ class Language
     }
 
     /**
-     * Set enabled
+     * Set enabled.
      *
-     * @param boolean $enabled
+     * @param bool $enabled
      *
      * @return Language
      */
@@ -193,9 +192,9 @@ class Language
     }
 
     /**
-     * Get enabled
+     * Get enabled.
      *
-     * @return boolean
+     * @return bool
      */
     public function getEnabled()
     {
@@ -203,7 +202,7 @@ class Language
     }
 
     /**
-     * Add translation
+     * Add translation.
      *
      * @param \AppBundle\Entity\Language\Translation $translation
      *
@@ -217,7 +216,7 @@ class Language
     }
 
     /**
-     * Remove translation
+     * Remove translation.
      *
      * @param \AppBundle\Entity\Language\Translation $translation
      */
@@ -227,7 +226,7 @@ class Language
     }
 
     /**
-     * Get translations
+     * Get translations.
      *
      * @return \Doctrine\Common\Collections\Collection
      */

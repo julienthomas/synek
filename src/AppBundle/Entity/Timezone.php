@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Timezone
+ * Timezone.
  *
  * @ORM\Table(name="timezone", uniqueConstraints={@ORM\UniqueConstraint(name="name", columns={"name"})})
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Timezone
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", length=10, options={"unsigned":true})
      * @ORM\Id
@@ -29,9 +29,9 @@ class Timezone
     private $name;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -39,7 +39,7 @@ class Timezone
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -53,7 +53,7 @@ class Timezone
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */

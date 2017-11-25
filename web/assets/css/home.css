@@ -17,6 +17,9 @@
   border-right: 0;
   transition: transform .5s ease;
 }
+.home-wrapper .home-overflow .place-info .place-name {
+  margin-top: 20px;
+}
 .home-wrapper .home-overflow .place-info.init {
   left: 100%;
   overflow: hidden;
@@ -60,4 +63,14 @@
 }
 .home-map .map-legend {
   display: block;
+}
+@media (max-width: 1220px) {
+  .home-wrapper .home-overflow .place-info .place-info-link {
+    float: none !important;
+  }
+}
+@media (max-width: 328px) {
+  .home-wrapper .home-overflow .place-info .place-info-link {
+    margin-top: 15px;
+  }
 }

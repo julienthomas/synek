@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints;
 
 /**
- * Schedule
+ * Schedule.
  *
  * @ORM\Table(name="place_schedule", indexes={@ORM\Index(name="place_id", columns={"place_id"})})
  * @ORM\Entity
@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints;
 class Schedule
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", length=10, options={"unsigned":true})
      * @ORM\Id
@@ -24,7 +24,7 @@ class Schedule
     private $id;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="day", type="integer", length=1, nullable=false, options={"unsigned":true})
      * @Constraints\NotBlank(
@@ -78,7 +78,7 @@ class Schedule
     private $place;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -86,9 +86,9 @@ class Schedule
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -96,9 +96,9 @@ class Schedule
     }
 
     /**
-     * Set day
+     * Set day.
      *
-     * @param boolean $day
+     * @param bool $day
      *
      * @return Schedule
      */
@@ -110,9 +110,9 @@ class Schedule
     }
 
     /**
-     * Get day
+     * Get day.
      *
-     * @return boolean
+     * @return bool
      */
     public function getDay()
     {
@@ -120,7 +120,7 @@ class Schedule
     }
 
     /**
-     * Set openingTime
+     * Set openingTime.
      *
      * @param \DateTime $openingTime
      *
@@ -134,7 +134,7 @@ class Schedule
     }
 
     /**
-     * Get openingTime
+     * Get openingTime.
      *
      * @return \DateTime
      */
@@ -144,7 +144,7 @@ class Schedule
     }
 
     /**
-     * Set closureTime
+     * Set closureTime.
      *
      * @param \DateTime $closureTime
      *
@@ -158,7 +158,7 @@ class Schedule
     }
 
     /**
-     * Get closureTime
+     * Get closureTime.
      *
      * @return \DateTime
      */
@@ -168,7 +168,7 @@ class Schedule
     }
 
     /**
-     * Set createdDate
+     * Set createdDate.
      *
      * @param \DateTime $createdDate
      *
@@ -182,7 +182,7 @@ class Schedule
     }
 
     /**
-     * Get createdDate
+     * Get createdDate.
      *
      * @return \DateTime
      */
@@ -192,7 +192,7 @@ class Schedule
     }
 
     /**
-     * Set updatedDate
+     * Set updatedDate.
      *
      * @param \DateTime $updatedDate
      *
@@ -206,7 +206,7 @@ class Schedule
     }
 
     /**
-     * Get updatedDate
+     * Get updatedDate.
      *
      * @return \DateTime
      */
@@ -216,7 +216,7 @@ class Schedule
     }
 
     /**
-     * Set place
+     * Set place.
      *
      * @param \AppBundle\Entity\Place $place
      *
@@ -230,7 +230,7 @@ class Schedule
     }
 
     /**
-     * Get place
+     * Get place.
      *
      * @return \AppBundle\Entity\Place
      */

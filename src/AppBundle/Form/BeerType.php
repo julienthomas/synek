@@ -42,10 +42,10 @@ class BeerType extends AbstractType
                 'type',
                 'entity',
                 [
-                    'label'         => 'Type',
-                    'empty_value'   => '- Choose one -',
-                    'class'         => Type::class,
-                    'choice_label'  => 'translations.first.name',
+                    'label' => 'Type',
+                    'empty_value' => '- Choose one -',
+                    'class' => Type::class,
+                    'choice_label' => 'translations.first.name',
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('type')
                             ->addSelect('translations')
@@ -63,17 +63,17 @@ class BeerType extends AbstractType
                 [
                     'label' => 'Alcohol degree',
                     'scale' => 1,
-                    'attr'  => ['min' => 0, 'max' => 100]
+                    'attr' => ['min' => 0, 'max' => 100],
                 ]
             )
             ->add(
                 'brewery',
                 'entity',
                 [
-                    'label'         => 'Brewery',
-                    'empty_value'   => '- Choose one -',
-                    'class'         => Brewery::class,
-                    'choice_label'  => 'name',
+                    'label' => 'Brewery',
+                    'empty_value' => '- Choose one -',
+                    'class' => Brewery::class,
+                    'choice_label' => 'name',
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('brewery')
                             ->orderBy('brewery.name', 'ASC');

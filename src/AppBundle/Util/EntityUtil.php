@@ -4,5 +4,5 @@ namespace AppBundle\Util;
 
 class EntityUtil
 {
-    const DEFAULT_TIMEZONE  = 'UTC';
+    const DEFAULT_TIMEZONE = 'UTC';
 }

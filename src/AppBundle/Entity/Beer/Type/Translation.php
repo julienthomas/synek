@@ -7,7 +7,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints;
 
 /**
- * Translation
+ * Translation.
  *
  * @ORM\Table(name="beer_type_translation", uniqueConstraints={@ORM\UniqueConstraint(columns={"language_id", "name"})})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Beer\Type\TranslationRepository")
@@ -52,9 +52,8 @@ class Translation
      */
     private $language;
 
-
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -68,7 +67,7 @@ class Translation
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -78,7 +77,7 @@ class Translation
     }
 
     /**
-     * Set type
+     * Set type.
      *
      * @param \AppBundle\Entity\Beer\Type $type
      *
@@ -92,7 +91,7 @@ class Translation
     }
 
     /**
-     * Get type
+     * Get type.
      *
      * @return \AppBundle\Entity\Beer\Type
      */
@@ -102,7 +101,7 @@ class Translation
     }
 
     /**
-     * Set language
+     * Set language.
      *
      * @param \AppBundle\Entity\Language $language
      *
@@ -116,7 +115,7 @@ class Translation
     }
 
     /**
-     * Get language
+     * Get language.
      *
      * @return \AppBundle\Entity\Language
      */
