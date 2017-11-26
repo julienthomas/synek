@@ -46,14 +46,17 @@ div.banner {
   #page-wrapper {
     background-color: @wrapper_background_color;
     .flash-messages {
+      z-index: 1000;
       padding-top: 20px;
+      position: absolute;
+      left: 280px;
+      right: 30px;
       .flash-message:last-child {
         margin-bottom: 0;
       }
     }
   }
 }
-
 
 nav.navbar.navbar-default.navbar-static-top {
   background-color: @body_background_color;

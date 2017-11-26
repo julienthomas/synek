@@ -103,3 +103,11 @@ services:
             - '@mailer'
             - '@kernel'
             - '%mail%'
+
+    synek.service.password:
+        class: AppBundle\Service\PasswordService
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - '@form.factory'
+            - '@security.encoder_factory'
+            - '@translator.default'

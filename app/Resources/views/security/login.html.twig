@@ -25,13 +25,14 @@
                                 <div class="form-group">
                                     <label for="password">{{ 'Password'|trans }}</label>
                                     <input type="password" class="form-control" id="password" name="_password" />
+                                    <a href="{{ path('password_forgotten') }}">{{ 'Reset password' }}</a>
                                 </div>
                                 <div class="checkbox">
                                     <label>
                                         <input type="checkbox" id="remember_me" name="_remember_me" />Remember Me
                                     </label>
                                 </div>
-                                <button type="submit" class="btn btn-success btn-login">{{ 'Login'|trans }}</button>
+                                <button type="submit" class="btn btn-success btn-login">{{ 'Log in'|trans }}</button>
                                 <a href="{{ path('home') }}" class="btn btn-danger btn-login">{{ 'Cancel'|trans }}</a>
                             </fieldset>
                         </form>

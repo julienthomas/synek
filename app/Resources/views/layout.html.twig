@@ -25,11 +25,13 @@
                         <img src="{{ asset('assets/img/synek.png') }}" />
                     </a>
                 </div>
-                {% if app.user %}
-                    <div class="pull-left nav-user">
-                        <span>{{ 'Welcome %s'|trans|format(app.user.userName) }}</span>
-                    </div>
-                {% endif %}
+                {% block current_user %}
+                    {% if app.user %}
+                        <div class="pull-left nav-user">
+                            <span>{{ 'Welcome %s'|trans|format(app.user.userName) }}</span>
+                        </div>
+                    {% endif %}
+                {% endblock current_user %}
             </div>
             <div class="clearfix">
                 <div class="pull-right nav-item nav-login">

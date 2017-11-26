@@ -4,7 +4,7 @@ body {
   background-color: #333333;
 }
 .panel {
-  border-color: #c0c0c0;
+  border-color: #C0C0C0;
 }
 .page-header {
   border-bottom-color: #D4D4D4;
@@ -34,10 +34,14 @@ div.banner div.container img {
   height: 100%;
 }
 #wrapper #page-wrapper {
-  background-color: #eff1f2;
+  background-color: #EFF1F2;
 }
 #wrapper #page-wrapper .flash-messages {
+  z-index: 1000;
   padding-top: 20px;
+  position: absolute;
+  left: 280px;
+  right: 30px;
 }
 #wrapper #page-wrapper .flash-messages .flash-message:last-child {
   margin-bottom: 0;
@@ -59,7 +63,7 @@ nav.navbar.navbar-default.navbar-static-top .nav-item a {
   cursor: pointer;
 }
 nav.navbar.navbar-default.navbar-static-top .nav-item a:hover {
-  background-color: #2b2b2b;
+  background-color: #2B2B2B;
 }
 nav.navbar.navbar-default.navbar-static-top .nav-login {
   border-right: 1px solid #515151;
@@ -135,7 +139,7 @@ div.form-nav div.panel ul.nav li a {
   text-decoration: none;
 }
 div.form-nav div.panel ul.nav li.active a {
-  background-color: #eff1f2;
+  background-color: #EFF1F2;
 }
 div.form-nav div.panel ul.nav li:not(:last-child) {
   border-bottom: 1px solid #C0C0C0;
@@ -208,7 +212,8 @@ div.form-nav div.panel ul.nav li:not(:last-child) {
   -o-animation: rotating 2s linear infinite;
   animation: rotating 2s linear infinite;
 }
-@-webkit-keyframes rotating /* Safari and Chrome */ {
+@-webkit-keyframes rotating {
+  /* Safari and Chrome */
   from {
     -webkit-transform: rotate(0deg);
     -o-transform: rotate(0deg);
