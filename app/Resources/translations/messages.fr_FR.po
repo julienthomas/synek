@@ -277,6 +277,9 @@ msgstr "Veuillez vous connecter"
 msgid "Repeat Password"
 msgstr "Répéter le mot de passe"
 
+msgid "Reset password"
+msgstr "Réinitialisez votre mot de passe"
+
 msgid "Reset your password"
 msgstr "Réinitialisez votre mot de passe"
 
