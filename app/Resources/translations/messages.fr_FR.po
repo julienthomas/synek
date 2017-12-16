@@ -178,17 +178,18 @@ msgstr "Lieu de remplissage"
 msgid "Filter beers by brewery"
 msgstr "Filtrer les bières par brasserie"
 
+msgid ""
+"Following your request, you can reset your password by clicking on the "
+"following link:"
+msgstr ""
+"Suite à votre demande, vous pouvez réinitialiser votre mot de passe en "
+"cliquant sur le lien suivant:"
+
 msgid "Forgotten password"
 msgstr "Mot de passe oublié"
 
-msgid ""
-"Hello.<br/><br/>\n"
-"Following your request, you can reset your password by clicking on the "
-"following link:<br/>\n"
-msgstr ""
-"Bonjour.<br/><br/>\n"
-"Suite à votre demande, vous pouvez réinitialiser votre mot de passe en "
-"cliquant sur le lien suivant:<br/>\n"
+msgid "Hello."
+msgstr "Bonjour."
 
 msgid "Import beer types"
 msgstr "Importer des types de bières"
@@ -322,6 +323,9 @@ msgstr "Rechercher un type"
 msgid "See"
 msgstr "Voir"
 
+msgid "See you soon!"
+msgstr "A bientôt!"
+
 msgid "Send"
 msgstr "Envoyer"
 
@@ -367,18 +371,14 @@ msgstr "Il y a plusieurs localisations pour cette adresse:"
 msgid "This file is invalid"
 msgstr "Ce fichier n'est pas valide"
 
-msgid ""
-"This link will expire in the next 24 hours.<br/><br/>\n"
-"See you soon!\n"
-msgstr ""
-"Ce lien expirera dans les prochaines 24h.<br/><br/>\n"
-"A bientôt!\n"
+msgid "This link is not valid."
+msgstr "Ce lien n'est pas valide."
+
+msgid "This link will expire in the next 24 hours."
+msgstr "Ce lien expirera dans les prochaines 24h."
 
 msgid "This login doesn't match any account."
 msgstr "Cet identifiant ne correspond à aucun compte."
-
-msgid "This token is not valid."
-msgstr "Ce jeton n'est pas valide."
 
 msgid "Type"
 msgstr "Type"

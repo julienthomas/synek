@@ -89,6 +89,7 @@ class TokenService extends AbstractService
         $mailBody = $this->templating->render('mail/password_reset.html.twig', [
             'route' => $this->router->generate('password_reset', ['token' => $token->getToken()], true),
         ]);
+
         $to = $admin ? $admin->getEmail() : $user->getEmail();
         $this->mailService->send($subject, $mailBody, $to);
 

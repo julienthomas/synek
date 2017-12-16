@@ -55,7 +55,7 @@ class PasswordController extends Controller
         $passwordService = $this->get('synek.service.password');
         $token = $this->get('synek.service.token')->findToken($token);
         if (null === $token) {
-            $msg = $this->get('translator')->trans('This token is not valid.');
+            $msg = $this->get('translator')->trans('This link is not valid.');
             $this->get('session')->getFlashBag()->add('error', $msg);
 
             return $this->redirectToRoute('home');
