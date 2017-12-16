@@ -58,11 +58,25 @@ class TokenService extends AbstractService
         $this->tokenParameters = $tokenParameters;
     }
 
-    public function createAndSend(Admin $admin = null, User $user = null)
+    /**
+     * @param string $login
+     *
+     * @return bool
+     */
+    public function createAndSend($login)
     {
+        $user = null;
+        $admin = $this->manager->getRepository(Admin::class)->findOneByLogin($login);
+        if (null === $admin) {
+            $user = $this->manager->getRepository(User::class)->findOneByEmail($login);
+            if (null === $user) {
+                return false;
+            }
+        }
+
         $token = new Token();
         $now = new \DateTime('now', new \DateTimeZone('UTC'));
-        $tokenPrefix = $admin ? $admin->getLogin() : $user->getEmail();
+        $tokenPrefix = $admin ? $admin->getEmail() : $user->getEmail();
         $token
             ->setToken(hash('sha256', $tokenPrefix.uniqid(null, true)))
             ->setAdmin($admin)
@@ -72,10 +86,48 @@ class TokenService extends AbstractService
         $this->persistAndFlush($token);
 
         $subject = "[{$this->translator->trans('SYNEK partners')}] {$this->translator->trans('Reset your password')}";
-        $mailBody = $this->templating->render('mail/password_reset.html.twig', ['route' => 'mabiROUTE lol']);
+        $mailBody = $this->templating->render('mail/password_reset.html.twig', [
+            'route' => $this->router->generate('password_reset', ['token' => $token->getToken()], true),
+        ]);
+
         $to = $admin ? $admin->getEmail() : $user->getEmail();
         $this->mailService->send($subject, $mailBody, $to);
 
+        return true;
+    }
+
+    /**
+     * @param string $token
+     *
+     * @return Token|null
+     */
+    public function findToken($token)
+    {
+        /** @var Token $token */
+        $token = $this->manager->getRepository(Token::class)->findOneBy([
+            'token' => $token,
+            'enabled' => true,
+        ]);
+        if (null === $token) {
+            return null;
+        }
+
+        $now = new \DateTime('now', new \DateTimeZone('UTC'));
+        $tokenMaxDate = clone $token->getCreatedDate();
+        $tokenMaxDate->modify(sprintf('+%d seconds', $token->getTtl()));
+        if ($now > $tokenMaxDate) {
+            return null;
+        }
+
         return $token;
+    }
+
+    /**
+     * @param Token $token
+     */
+    public function invalidateToken(Token $token)
+    {
+        $token->setEnabled(false);
+        $this->persistAndFlush($token);
     }
 }

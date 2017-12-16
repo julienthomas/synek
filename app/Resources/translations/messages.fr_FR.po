@@ -57,6 +57,9 @@ msgstr "Toutes les bières"
 msgid "All breweries"
 msgstr "Toutes les brasseries"
 
+msgid "An email will be send to your address in a few moment."
+msgstr "Un email va être envoyé à votre adresse dans quelques instants."
+
 msgid "Available beers"
 msgstr "Bières disponibles"
 
@@ -175,6 +178,19 @@ msgstr "Lieu de remplissage"
 msgid "Filter beers by brewery"
 msgstr "Filtrer les bières par brasserie"
 
+msgid ""
+"Following your request, you can reset your password by clicking on the "
+"following link:"
+msgstr ""
+"Suite à votre demande, vous pouvez réinitialiser votre mot de passe en "
+"cliquant sur le lien suivant:"
+
+msgid "Forgotten password"
+msgstr "Mot de passe oublié"
+
+msgid "Hello."
+msgstr "Bonjour."
+
 msgid "Import beer types"
 msgstr "Importer des types de bières"
 
@@ -247,6 +263,9 @@ msgstr "Liste des partenaires"
 msgid "Password"
 msgstr "Mot de passe"
 
+msgid "Password reset"
+msgstr "Réinitialisation du mot de passe"
+
 msgid "Phone number"
 msgstr "Numéro de téléphone"
 
@@ -255,6 +274,18 @@ msgstr "Photos"
 
 msgid "Please sign in"
 msgstr "Veuillez vous connecter"
+
+msgid "Repeat Password"
+msgstr "Répéter le mot de passe"
+
+msgid "Reset password"
+msgstr "Réinitialisez votre mot de passe"
+
+msgid "Reset your password"
+msgstr "Réinitialisez votre mot de passe"
+
+msgid "SYNEK partners"
+msgstr "Partenaires SYNEK"
 
 msgid "Schedules"
 msgstr "Horaires"
@@ -292,6 +323,9 @@ msgstr "Rechercher un type"
 msgid "See"
 msgstr "Voir"
 
+msgid "See you soon!"
+msgstr "A bientôt!"
+
 msgid "Send"
 msgstr "Envoyer"
 
@@ -322,11 +356,29 @@ msgstr "Boutique Synek"
 msgid "Take away"
 msgstr "Horaires de retrait"
 
+msgid "The login must be filled."
+msgstr "L'identifiant doit être renseigné."
+
+msgid "The password fields must match."
+msgstr "Les mots de passe ne correspondent pas."
+
+msgid "The password must be filled."
+msgstr "Le mot de passe doit être renseigné."
+
 msgid "There are multiple locations possibilities for this address:"
 msgstr "Il y a plusieurs localisations pour cette adresse:"
 
 msgid "This file is invalid"
 msgstr "Ce fichier n'est pas valide"
+
+msgid "This link is not valid."
+msgstr "Ce lien n'est pas valide."
+
+msgid "This link will expire in the next 24 hours."
+msgstr "Ce lien expirera dans les prochaines 24h."
+
+msgid "This login doesn't match any account."
+msgstr "Cet identifiant ne correspond à aucun compte."
 
 msgid "Type"
 msgstr "Type"
@@ -351,6 +403,9 @@ msgstr "Bienvenue %s"
 
 msgid "You can upload up to 3 images."
 msgstr "Vous pouvez ajouter jusqu'à 3 photos."
+
+msgid "Your password has been changed."
+msgstr "Votre mot de passe à été modifié."
 
 msgid "Zip code"
 msgstr "Code postal"

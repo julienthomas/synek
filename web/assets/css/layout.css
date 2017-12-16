@@ -37,7 +37,11 @@ div.banner div.container img {
   background-color: #EFF1F2;
 }
 #wrapper #page-wrapper .flash-messages {
+  z-index: 1000;
   padding-top: 20px;
+  position: absolute;
+  left: 280px;
+  right: 30px;
 }
 #wrapper #page-wrapper .flash-messages .flash-message:last-child {
   margin-bottom: 0;
